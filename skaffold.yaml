@@ -17,3 +17,11 @@ build:
         manual:
           - src: 'src/**/*.ts'
             dest: .
+    - image: raju/tickets
+      context: tickets
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: 'src/**/*.ts'
+            dest: .
