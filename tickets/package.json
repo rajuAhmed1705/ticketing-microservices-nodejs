@@ -18,7 +18,7 @@
     "license": "ISC",
     "description": "",
     "dependencies": {
-        "@shurjomukhi/ms-common": "^1.0.8",
+        "@shurjomukhi/ms-common": "^1.0.9",
         "@types/cookie-session": "^2.0.42",
         "@types/express": "^4.17.10",
         "@types/jsonwebtoken": "^8.5.0",
