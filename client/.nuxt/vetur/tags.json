@@ -1,0 +1,44 @@
+{
+  "DateDisplay": {
+    "description": "Auto imported from /components/DateDisplay.vue"
+  },
+  "LazyDateDisplay": {
+    "description": "Auto imported from /components/DateDisplay.vue"
+  },
+  "Logo": {
+    "description": "Auto imported from /components/Logo.vue"
+  },
+  "LazyLogo": {
+    "description": "Auto imported from /components/Logo.vue"
+  },
+  "Snackbar": {
+    "description": "Auto imported from /components/Snackbar.vue"
+  },
+  "LazySnackbar": {
+    "description": "Auto imported from /components/Snackbar.vue"
+  },
+  "VuetifyLogo": {
+    "description": "Auto imported from /components/VuetifyLogo.vue"
+  },
+  "LazyVuetifyLogo": {
+    "description": "Auto imported from /components/VuetifyLogo.vue"
+  },
+  "Footer": {
+    "description": "Auto imported from /components/ui/Footer.vue"
+  },
+  "LazyFooter": {
+    "description": "Auto imported from /components/ui/Footer.vue"
+  },
+  "Navbar": {
+    "description": "Auto imported from /components/ui/Navbar.vue"
+  },
+  "LazyNavbar": {
+    "description": "Auto imported from /components/ui/Navbar.vue"
+  },
+  "Sidebar": {
+    "description": "Auto imported from /components/ui/Sidebar.vue"
+  },
+  "LazySidebar": {
+    "description": "Auto imported from /components/ui/Sidebar.vue"
+  }
+}
