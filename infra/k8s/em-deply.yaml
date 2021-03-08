@@ -1,0 +1,39 @@
+# prettier-ignore
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: em-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: em
+  template:
+    metadata:
+      labels:
+        app: em
+    spec:
+      containers:
+        - name: em
+          image: raju/em:0.0.1
+          env:
+            - name: MONGO_URL
+              value: "mongodb://em-mongo-srv:27017/em"
+            - name: JWT_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: JWT_KEY
+---
+apiVersion: v1
+kind: Service
+metadata:
+    name: em-srv
+spec:
+    selector:
+        app: em
+    ports:
+        - name: em
+          protocol: TCP
+          port: 3000
+          targetPort: 3000

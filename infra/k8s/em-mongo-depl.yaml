@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+    name: em-mongo-depl
+spec:
+    selector:
+        matchLabels:
+            app: em-mongo
+    serviceName: em-mongo-srv
+    replicas: 1
+    template:
+        metadata:
+            labels:
+                app: em-mongo
+        spec:
+            containers:
+                - name: em-mongo
+                  image: mongo
+---
+#prettier-ignore
+apiVersion: v1
+kind: Service
+metadata:
+  name: em-mongo-srv
+spec:
+  selector:
+    app: em-mongo
+  ports:
+  - name: db
+    protocol: TCP
+    port: 27017
+    targetPort: 27017
