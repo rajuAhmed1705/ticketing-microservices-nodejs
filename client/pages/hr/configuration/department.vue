@@ -1,6 +1,10 @@
 <template>
   <div>
-    <v-data-table :headers="headers" :items="allDepartments" class="elevation-1">
+    <v-data-table
+      :headers="headers"
+      :items="allDepartments"
+      class="elevation-1"
+    >
       <template v-slot:top>
         <v-toolbar flat>
           <v-toolbar-title class="d-flex align-center">
@@ -10,7 +14,9 @@
           <v-spacer></v-spacer>
           <v-dialog v-model="dialog" max-width="500px">
             <template v-slot:activator="{ on, attrs }">
-              <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on">New Department</v-btn>
+              <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on"
+                >New Department</v-btn
+              >
             </template>
             <v-card>
               <v-card-title>
@@ -21,10 +27,23 @@
                 <v-container>
                   <v-row>
                     <v-col cols="12" sm="6" md="6">
-                      <v-text-field v-model="department.title" label="Department Name"></v-text-field>
+                      <v-text-field
+                        v-model="department.title"
+                        label="Department Name"
+                      ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="6">
-                      <v-text-field v-model="department.remark" label="Remark"></v-text-field>
+                      <v-text-field
+                        v-model="department.code"
+                        label="Code"
+                        type="number"
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="12" sm="12" md="12">
+                      <v-text-field
+                        v-model="department.remark"
+                        label="Remark"
+                      ></v-text-field>
                     </v-col>
                     <!--  -->
                   </v-row>
@@ -34,17 +53,28 @@
               <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn color="blue darken-1" text @click="close">Cancel</v-btn>
-                <v-btn color="blue darken-1" text @click="saveDepartmentData()">Save</v-btn>
+                <v-btn color="blue darken-1" text @click="saveDepartmentData()"
+                  >Save</v-btn
+                >
               </v-card-actions>
             </v-card>
           </v-dialog>
           <v-dialog v-model="dialogDelete" max-width="500px">
             <v-card>
-              <v-card-title class="headline">Are you sure you want to delete this item?</v-card-title>
+              <v-card-title class="headline"
+                >Are you sure you want to delete this item?</v-card-title
+              >
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="blue darken-1" text @click="closeDelete">Cancel</v-btn>
-                <v-btn color="blue darken-1" text @click="deleteDepartment(department.id)">OK</v-btn>
+                <v-btn color="blue darken-1" text @click="closeDelete"
+                  >Cancel</v-btn
+                >
+                <v-btn
+                  color="blue darken-1"
+                  text
+                  @click="deleteDepartment(department.id)"
+                  >OK</v-btn
+                >
                 <v-spacer></v-spacer>
               </v-card-actions>
             </v-card>
@@ -63,7 +93,7 @@
   </div>
 </template>
 <script>
-import { mapActions, mapGetters } from "vuex";
+import { mapActions, mapGetters } from "vuex"
 
 export default {
   data: () => ({
@@ -71,14 +101,17 @@ export default {
     dialogDelete: false,
     department: {
       title: "",
+      code: "",
       remark: "",
     },
     defaultdepartment: {
       title: "",
+      code: "",
       remark: "",
     },
     headers: [
       { text: "Department Name", value: "title" },
+      { text: "Code", value: "code" },
       { text: "Remark", value: "remark" },
 
       { text: "Actions", value: "actions", sortable: false },
@@ -89,30 +122,28 @@ export default {
 
   watch: {
     dialog(val) {
-      val || this.close();
+      val || this.close()
     },
     dialogDelete(val) {
-      val || this.closeDelete();
+      val || this.closeDelete()
     },
   },
 
   async created() {
-    this.initialize();
-    await this.fetchDepartmnt();
+    this.initialize()
+    await this.fetchDepartmnt()
   },
 
   computed: {
     formTitle() {
-      return this.editedIndex === -1
-        ? "New Department"
-        : "Edit Department Info";
+      return this.editedIndex === -1 ? "New Department" : "Edit Department Info"
     },
     ...mapGetters({
       allDepartments: "department/departments",
     }),
   },
   beforeMounted() {
-    this.$store.dispatch("loadDepartment");
+    this.$store.dispatch("loadDepartment")
     //  this.departmentTest()
   },
 
@@ -125,63 +156,59 @@ export default {
     }),
     deleteDepartment(id) {
       // console.log(id);
-      this.removeDepartment(id);
+      this.removeDepartment(id)
       //  this.department = Object.assign({}, department)
-      this.closeDelete();
+      this.closeDelete()
       //  this.dialogDelete = true
     },
     saveDepartmentData() {
       if (this.editedIndex > -1) {
         // Object.assign(this.allDepartments[this.editedIndex], this.department)
         // console.log("hello")
-        this.updateDepartment(this.department);
+        this.updateDepartment(this.department)
       } else {
-        this.addDepartment(this.department);
+        this.addDepartment(this.department)
         this.$notifier.showMessage({
           content: "Hello, snackbar",
           color: "info",
-        });
-        this.department = Object.assign({}, this.defaultdepartment);
+        })
+        this.department = Object.assign({}, this.defaultdepartment)
       }
-      this.close();
+      this.close()
     },
 
     initialize() {
-      this.$store.getters["department/departments"];
+      this.$store.getters["department/departments"]
     },
 
     editItem(item) {
-      this.editedIndex = this.allDepartments.indexOf(item);
-      this.department = Object.assign({}, item);
-      this.dialog = true;
+      this.editedIndex = this.allDepartments.indexOf(item)
+      this.department = Object.assign({}, item)
+      this.dialog = true
     },
 
     deleteItem(item) {
-      this.editedIndex = this.allDepartments.indexOf(item);
-      this.department = Object.assign({}, item);
-      this.dialogDelete = true;
+      this.editedIndex = this.allDepartments.indexOf(item)
+      this.department = Object.assign({}, item)
+      this.dialogDelete = true
     },
 
-  
-
     close() {
-      this.dialog = false;
+      this.dialog = false
       this.$nextTick(() => {
-        this.department = Object.assign({}, this.defaultdepartment);
-        this.editedIndex = -1;
-      });
+        this.department = Object.assign({}, this.defaultdepartment)
+        this.editedIndex = -1
+      })
     },
 
     closeDelete() {
-      this.dialogDelete = false;
+      this.dialogDelete = false
       this.$nextTick(() => {
-        this.department = Object.assign({}, this.defaultdepartment);
-        this.editedIndex = -1;
-      });
+        this.department = Object.assign({}, this.defaultdepartment)
+        this.editedIndex = -1
+      })
     },
-
-    
   },
-};
+}
 </script>
 <style></style>
