@@ -1,18 +1,18 @@
 export const state = () => ({
   designations: [],
-});
+})
 
 export const getters = {
-  designations: (state) => state.designations,
-};
+  designations: state => state.designations,
+}
 
 export const actions = {
   async loadDesignation({ commit }) {
-    let res = await this.$axios.get("/employee-management/designation");
+    let res = await this.$axios.get("/employee-management/designation")
 
     // console.log(res);
     if (res.status == 200) {
-      commit("SET_DESIGNATION", res.data);
+      commit("SET_DESIGNATION", res.data)
     }
   },
   async addDesignation({ commit }, designation) {
@@ -20,52 +20,50 @@ export const actions = {
     let res = await this.$axios.post(
       "/employee-management/designation",
       designation
-    );
+    )
 
     if (res.status == 201) {
-      commit("ADD_DESIGNATION", designation);
+      commit("ADD_DESIGNATION", res.data)
     }
   },
   async removeDesignation({ commit }, id) {
-    let res = await this.$axios.delete(
-      `/employee-management/designation/${id}`
-    );
+    let res = await this.$axios.delete(`/employee-management/designation/${id}`)
     // console.log(res);
     if (res.status == 200) {
-      commit("REMOVE_DESIGNATION", id);
+      commit("REMOVE_DESIGNATION", id)
     }
   },
   async updateDesignaton({ commit }, designation) {
     let res = await this.$axios.put(
       `/employee-management/designation/${designation.id}`,
       designation
-    );
+    )
     // console.log(res);
     if (res.status == 200) {
-      commit("UPDATE_DESIGNATION", designation);
+      commit("UPDATE_DESIGNATION", res.data)
     }
   },
-};
+}
 
 export const mutations = {
   SET_DESIGNATION(state, payload) {
-    state.designations = payload;
+    state.designations = payload
   },
   ADD_DESIGNATION(state, payload) {
-    state.designations.push(payload);
+    state.designations.push(payload)
   },
 
   REMOVE_DESIGNATION(state, payload) {
-    state.designations = state.designations.filter((designation) => {
-      designation.id !== payload;
-    });
+    state.designations = state.designations.filter(
+      designation => designation.id !== payload
+    )
   },
   UPDATE_DESIGNATION(state, payload) {
     const designation = state.designations.find(
-      (designation) => designation.id === payload.id
-    );
+      designation => designation.id === payload.id
+    )
     // console.log(department.id);
-    const index = state.designations.indexOf(designation);
-    state.designations.splice(index, 1, payload);
+    const index = state.designations.indexOf(designation)
+    state.designations.splice(index, 1, payload)
   },
-};
+}

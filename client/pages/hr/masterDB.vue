@@ -148,7 +148,7 @@
                                   outlined
                                 ></v-text-field>
                               </v-col>
-                              
+
                               <v-col cols="12" sm="6" md="6">
                                 <v-menu
                                   v-model="employeeBirthDay"
@@ -191,7 +191,7 @@
                                   outlined
                                 ></v-select>
                               </v-col>
-                                 <v-col cols="12" sm="6" md="6">
+                              <v-col cols="12" sm="6" md="6">
                                 <v-text-field
                                   v-model="employee.personalDetails.nid"
                                   label="NID"
@@ -527,23 +527,21 @@
                           </v-card-text>
                         </v-tab-item>
 
-                       <v-tab-item key="bank">
+                        <v-tab-item key="bank">
                           <v-card-text
                             v-for="(bank, k) in employee.bankDetails"
                             :key="k"
                           >
                             <v-card-actions>
                               <v-row class="justify-start align-start">
-                                <v-col cols="6" sm="3" md="3" >
+                                <v-col cols="6" sm="3" md="3">
                                   <v-card-subtitle
                                     v-text="`Bank Details ${k + 1}`"
                                     class="font-weight-bold mb-0 pb-0 pl-0"
                                   >
-
-                               </v-card-subtitle>
-               
+                                  </v-card-subtitle>
                                 </v-col>
-                                <v-col cols="6" sm="6" md="3" >
+                                <v-col cols="6" sm="6" md="3">
                                   <v-checkbox></v-checkbox>
                                 </v-col>
                                 <v-col
@@ -631,9 +629,7 @@
                             <v-spacer></v-spacer>
                             <v-btn
                               color="blue darken-1"
-                              @click="
-                                addBankField(employee.bankDetails)
-                              "
+                              @click="addBankField(employee.bankDetails)"
                               v-show="employee.bankDetails.length < 10"
                             >
                               Add More
@@ -713,7 +709,6 @@
                                 ></v-text-field>
                               </v-col>
                               <v-col cols="12" sm="6" md="6">
-                               
                                 <v-menu
                                   v-model="passingYear[k]"
                                   :close-on-content-click="false"
@@ -1085,13 +1080,13 @@
   </div>
 </template>
 <script>
-import { mapActions } from "vuex";
+import { mapActions } from "vuex"
 export default {
-  data () {
-      return {
-        checkbox: true,
-      }
-    },
+  data() {
+    return {
+      checkbox: true,
+    }
+  },
   data: () => ({
     checkbox1: true,
     employeeBirthDay: false,
@@ -1110,12 +1105,12 @@ export default {
         spouseName: "",
         dateOfBirth: "",
         numberOfDependents: "",
-        nid:"",
-        passport:"",
-        gender:"",
-        religion:"",
-        nationality:"",
-        bloodGroup:""
+        nid: "",
+        passport: "",
+        gender: "",
+        religion: "",
+        nationality: "",
+        bloodGroup: "",
       },
       employeeInformation: {
         employeeId: "",
@@ -1127,17 +1122,19 @@ export default {
         project: "",
         dateOfJoin: "",
         reportingTo: "",
-        jobLocation: ""
+        jobLocation: "",
       },
-      bankDetails: [{
-        accountName: "",
-        accountNumber: "",
-        bankName: "",
-        branchName: "",
-        address: "",
-        accountType: "",
-        purposeOfUse: ""
-      }],
+      bankDetails: [
+        {
+          accountName: "",
+          accountNumber: "",
+          bankName: "",
+          branchName: "",
+          address: "",
+          accountType: "",
+          purposeOfUse: "",
+        },
+      ],
       educationDetails: [
         {
           professionalQualification: "",
@@ -1145,8 +1142,8 @@ export default {
           faculty: "",
           institution: "",
           passingYear: "",
-          cgpa: ""
-        }
+          cgpa: "",
+        },
       ],
       contacts: {
         personalNumber: "",
@@ -1157,15 +1154,15 @@ export default {
           village: "",
           postOffice: "",
           upozilla: "",
-          district: ""
+          district: "",
         },
         permanentAddress: {
           houseNumber: "",
           village: "",
           postOffice: "",
           upozilla: "",
-          district: ""
-        }
+          district: "",
+        },
       },
       workExperiences: [
         {
@@ -1174,24 +1171,24 @@ export default {
           department: "",
           duration: "",
           supervisorName: "",
-          supervisorContact: ""
-        }
+          supervisorContact: "",
+        },
       ],
       trainingDetails: [
         {
           certificationName: "",
           duration: "",
           learning: "",
-          institution: ""
-        }
+          institution: "",
+        },
       ],
       skills: [
         {
           functionalCompetency: "",
           language: "",
           computerSkill: "",
-          softCompetency: ""
-        }
+          softCompetency: "",
+        },
       ],
 
       NID: "",
@@ -1200,7 +1197,7 @@ export default {
       gender: "",
       religion: "",
       nationality: "",
-      bloodGroup: ""
+      bloodGroup: "",
     },
     defaultEmployee: {
       personalDetails: {
@@ -1213,7 +1210,7 @@ export default {
         matitalStatus: "",
         spouseName: "",
         dateOfBirth: "",
-        numberOfDependents: ""
+        numberOfDependents: "",
       },
       employeeInformation: {
         employeeId: "",
@@ -1225,17 +1222,19 @@ export default {
         project: "",
         dateOfJoin: "",
         reportingTo: "",
-        jobLocation: ""
+        jobLocation: "",
       },
-      bankDetails:[ {
-        accountName: "",
-        accountNumber: "",
-        bankName: "",
-        branchName: "",
-        address: "",
-        accountType: "",
-        purposeOfUse: ""
-      }],
+      bankDetails: [
+        {
+          accountName: "",
+          accountNumber: "",
+          bankName: "",
+          branchName: "",
+          address: "",
+          accountType: "",
+          purposeOfUse: "",
+        },
+      ],
       educationDetails: [
         {
           professionalQualification: "",
@@ -1243,8 +1242,8 @@ export default {
           faculty: "",
           institution: "",
           passingYear: "",
-          cgpa: ""
-        }
+          cgpa: "",
+        },
       ],
       contacts: {
         personalNumber: "",
@@ -1255,15 +1254,15 @@ export default {
           village: "",
           postOffice: "",
           upozilla: "",
-          district: ""
+          district: "",
         },
         permanentAddress: {
           houseNumber: "",
           village: "",
           postOffice: "",
           upozilla: "",
-          district: ""
-        }
+          district: "",
+        },
       },
       workExperiences: [
         {
@@ -1272,24 +1271,24 @@ export default {
           department: "",
           duration: "",
           supervisorName: "",
-          supervisorContact: ""
-        }
+          supervisorContact: "",
+        },
       ],
       trainingDetails: [
         {
           certificationName: "",
           duration: "",
           learning: "",
-          institution: ""
-        }
+          institution: "",
+        },
       ],
       skills: [
         {
           functionalCompetency: "",
           language: "",
           computerSkill: "",
-          softCompetency: ""
-        }
+          softCompetency: "",
+        },
       ],
 
       NID: "",
@@ -1298,13 +1297,13 @@ export default {
       gender: "",
       religion: "",
       nationality: "",
-      bloodGroup: ""
+      bloodGroup: "",
     },
     maritalItems: ["single", "married", "devorced"],
     depedentNumber: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
     rules: {
       stringRule: [v => !!v || "This field is required"],
-      emailRules: [v => /.+@.+/.test(v) || "E-mail must be valid"]
+      emailRules: [v => /.+@.+/.test(v) || "E-mail must be valid"],
       // numberRules: [v => /[0-9]/ || "Field must be a number"]
     },
 
@@ -1314,120 +1313,120 @@ export default {
       {
         text: "EmpID",
         align: "start",
-        value: "employeeInformation.employeeId"
+        value: "employeeInformation.employeeId",
       },
       {
         text: "Name",
         sortable: false,
-        value: "personalDetails.fullName"
+        value: "personalDetails.fullName",
       },
       {
         text: "Department",
-        value: "employeeInformation.department"
+        value: "employeeInformation.department",
       },
       {
         text: "Designation",
-        value: "employeeInformation.designation"
+        value: "employeeInformation.designation",
       },
       {
         text: "Unit",
-        value: "employeeInformation.unit"
+        value: "employeeInformation.unit",
       },
       {
         text: "Team",
-        value: "employeeInformation.team"
+        value: "employeeInformation.team",
       },
       {
         text: "Type",
-        value: "employeeInformation.employmentType"
+        value: "employeeInformation.employmentType",
       },
       {
         text: "Project",
-        value: "employeeInformation.project"
+        value: "employeeInformation.project",
       },
       {
         text: "DOJ",
-        value: "employeeInformation.dateOfJoin"
+        value: "employeeInformation.dateOfJoin",
       },
       {
         text: "Reporting",
-        value: "employeeInformation.reportingTo"
+        value: "employeeInformation.reportingTo",
       },
       {
         text: "Job Location",
-        value: "employeeInformation.jobLocation"
+        value: "employeeInformation.jobLocation",
       },
-      { text: "Actions", value: "actions", sortable: false }
+      { text: "Actions", value: "actions", sortable: false },
     ],
     desserts: [],
-    editedIndex: -1
+    editedIndex: -1,
   }),
 
   computed: {
     formTitle() {
-      return this.editedIndex === -1 ? "New Employee" : "Edit Employee Info";
-    }
+      return this.editedIndex === -1 ? "New Employee" : "Edit Employee Info"
+    },
   },
 
   watch: {
     dialog(val) {
-      val || this.close();
+      val || this.close()
     },
     dialogDelete(val) {
-      val || this.closeDelete();
-    }
+      val || this.closeDelete()
+    },
   },
 
   created() {
-    this.initialize();
+    this.initialize()
   },
 
   methods: {
     ...mapActions(["addEmployee", "removeEmployee"]),
     saveEmployeeData() {
-      this.addEmployee(this.employee);
-      this.$notifier.showMessage({ content: "Hello, snackbar", color: "info" });
-      this.employee = Object.assign({}, this.defaultEmployee);
-      this.close();
+      this.addEmployee(this.employee)
+      this.$notifier.showMessage({ content: "Hello, snackbar", color: "info" })
+      this.employee = Object.assign({}, this.defaultEmployee)
+      this.close()
     },
     deleteEmployeeData(id) {
-      this.removeEmployee(id);
+      this.removeEmployee(id)
     },
     addEducationField(education) {
       return (
         this.employee.educationDetails.push({ education }) &&
         this.passingYear.push(false)
-      );
+      )
     },
     removeEducationField(index) {
       return (
         this.employee.educationDetails.splice(index, 1) &&
         this.passingYear.splice(index, 1)
-      );
+      )
     },
     addBankField(bank) {
-      return this.employee.bankDetails.push({ bank });
+      return this.employee.bankDetails.push({ bank })
     },
     removeBankField(index) {
-      return this.employee.bankDetails.splice(index, 1);
+      return this.employee.bankDetails.splice(index, 1)
     },
     addWorkField(work) {
-      return this.employee.workExperiences.push({ work });
+      return this.employee.workExperiences.push({ work })
     },
     removeWorkField(index) {
-      return this.employee.workExperiences.splice(index, 1);
+      return this.employee.workExperiences.splice(index, 1)
     },
     addTrainingField(training) {
-      return this.employee.trainingDetails.push({ training });
+      return this.employee.trainingDetails.push({ training })
     },
     removeTrainingField(index) {
-      return this.employee.trainingDetails.splice(index, 1);
+      return this.employee.trainingDetails.splice(index, 1)
     },
     addSkillField(skill) {
-      return this.employee.skills.push({ skill });
+      return this.employee.skills.push({ skill })
     },
     removeSkillField(index) {
-      return this.employee.skills.splice(index, 1);
+      return this.employee.skills.splice(index, 1)
     },
 
     // handleClick() {
@@ -1435,51 +1434,51 @@ export default {
     // },
 
     initialize() {
-      this.desserts = this.$store.getters.employees;
+      this.desserts = this.$store.getters.employees
     },
 
     editItem(item) {
-      this.editedIndex = this.desserts.indexOf(item);
-      this.editedItem = Object.assign({}, item);
-      this.dialog = true;
+      this.editedIndex = this.desserts.indexOf(item)
+      this.editedItem = Object.assign({}, item)
+      this.dialog = true
     },
 
     deleteItem(item) {
-      this.editedIndex = this.desserts.indexOf(item);
-      this.editedItem = Object.assign({}, item);
-      this.dialogDelete = true;
+      this.editedIndex = this.desserts.indexOf(item)
+      this.editedItem = Object.assign({}, item)
+      this.dialogDelete = true
     },
 
     deleteItemConfirm() {
-      this.desserts.splice(this.editedIndex, 1);
-      this.closeDelete();
+      this.desserts.splice(this.editedIndex, 1)
+      this.closeDelete()
     },
 
     close() {
-      this.dialog = false;
+      this.dialog = false
       this.$nextTick(() => {
-        this.editedItem = Object.assign({}, this.defaultItem);
-        this.editedIndex = -1;
-      });
+        this.editedItem = Object.assign({}, this.defaultItem)
+        this.editedIndex = -1
+      })
     },
 
     closeDelete() {
-      this.dialogDelete = false;
+      this.dialogDelete = false
       this.$nextTick(() => {
-        this.editedItem = Object.assign({}, this.defaultItem);
-        this.editedIndex = -1;
-      });
+        this.editedItem = Object.assign({}, this.defaultItem)
+        this.editedIndex = -1
+      })
     },
 
     save() {
       if (this.editedIndex > -1) {
-        Object.assign(this.desserts[this.editedIndex], this.editedItem);
+        Object.assign(this.desserts[this.editedIndex], this.editedItem)
       } else {
-        this.desserts.push(this.editedItem);
+        this.desserts.push(this.editedItem)
       }
-      this.close();
-    }
-  }
-};
+      this.close()
+    },
+  },
+}
 </script>
 <style></style>
