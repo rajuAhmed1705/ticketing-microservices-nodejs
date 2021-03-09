@@ -2,7 +2,7 @@ export const state = () => ({
     bankDetails: [
     {
         name:'City Bank',
-        branch:'Gulshan',
+        branch:'Dhaka',
         country: 'Bangladesh'
       }
     
