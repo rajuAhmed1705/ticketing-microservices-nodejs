@@ -23,7 +23,7 @@ export const actions = {
     );
 
     if (res.status == 201) {
-      commit("ADD_DESIGNATION", designation);
+      commit("ADD_DESIGNATION", res.data);
     }
   },
   async removeDesignation({ commit }, id) {

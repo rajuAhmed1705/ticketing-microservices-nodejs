@@ -9,6 +9,7 @@ export const getters = {
 export const actions = {
   async loadTurnover({ commit }) {
     let res = await this.$axios.get("/employee-management/turnover");
+    console.log(res)
     if (res.status == 200) {
       commit("SET_TURNOVER", res.data);
     }
@@ -19,7 +20,7 @@ export const actions = {
       turnovertype
     );
     if (res.status == 201) {
-      commit("ADD_TURNOVER", turnovertype);
+      commit("ADD_TURNOVER", res.data);
     }
   },
   async removeTurnOver({ commit }, id) {

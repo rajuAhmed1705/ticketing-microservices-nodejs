@@ -30,7 +30,7 @@
               v-bind="attrs"
               v-on="on"
             >
-              New Employee Designation 
+              New Designation 
             </v-btn>
           </template>
           <v-card>
@@ -38,6 +38,7 @@
               <span class="headline">Employee Designation</span>
             </v-card-title>
 
+            <v-form v-model="valid">
             <v-card-text>
               <v-container>
                 <v-row>
@@ -49,6 +50,7 @@
                     <v-text-field
                       v-model="designation.title"
                       label="Designation Name"
+                      :rules="[required('title')]"
                     ></v-text-field>
                   </v-col>
                   <v-col
@@ -59,6 +61,10 @@
                     <v-text-field
                       v-model="designation.level"
                       label="Designation Level"
+                      :rules="[required('level')]"
+                      type="number"
+                      min="1" 
+                      step="1"
                     ></v-text-field>
                   </v-col>
                   <v-col
@@ -74,6 +80,7 @@
                 </v-row>
               </v-container>
             </v-card-text>
+            </v-form>
 
             <v-card-actions>
               <v-spacer></v-spacer>
@@ -111,12 +118,14 @@
       <v-icon
         small
         class="mr-2"
+        color="warning"
         @click="editItem(item)"
       >
         mdi-pencil
       </v-icon>
       <v-icon
         small
+        color="red"
         @click="deleteItem(item)"
       >
         mdi-delete
@@ -140,6 +149,7 @@ import { mapActions,mapGetters } from "vuex";
     data: () => ({
       dialog: false,
       dialogDelete: false,
+      valid: false,
       headers: [
         {
           text: 'Title',
@@ -162,6 +172,9 @@ import { mapActions,mapGetters } from "vuex";
         title:'',
         level:'',
         remark:''
+      },
+      required(propertyType){
+       return v => !!v || `${propertyType} is required` 
       },
     }),
 
@@ -198,7 +211,7 @@ import { mapActions,mapGetters } from "vuex";
         } 
        else{
           this.addDesignation(this.designation);
-          this.$notifier.showMessage({ content: "Hello, snackbar", color: "info" });
+          this.$notifier.showMessage({ content: "Congrats!Successfully added one value!", color: "success" });
           this.designation = Object.assign({}, this.defaultdesignation);
             }
        this.close();

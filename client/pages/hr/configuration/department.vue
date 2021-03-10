@@ -23,6 +23,7 @@
                 <span class="headline">Department Details</span>
               </v-card-title>
 
+              <v-form v-model="valid">
               <v-card-text>
                 <v-container>
                   <v-row>
@@ -30,6 +31,8 @@
                       <v-text-field
                         v-model="department.title"
                         label="Department Name"
+                        :rules="[required('title')]"
+                        
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="6">
@@ -37,6 +40,9 @@
                         v-model="department.code"
                         label="Code"
                         type="number"
+                        min="1" 
+                        step="1"
+                        :rules="[required('code')]"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="12" md="12">
@@ -49,11 +55,11 @@
                   </v-row>
                 </v-container>
               </v-card-text>
-
+              </v-form>
               <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn color="blue darken-1" text @click="close">Cancel</v-btn>
-                <v-btn color="blue darken-1" text @click="saveDepartmentData()"
+                <v-btn color="blue darken-1" text @click="saveDepartmentData()" :disabled="!valid"
                   >Save</v-btn
                 >
               </v-card-actions>
@@ -83,8 +89,8 @@
       </template>
       <!-- prettier-ignore -->
       <template v-slot:[`item.actions`]="{ item }">
-        <v-icon small class="mr-2" @click=" editItem (item) ">mdi-pencil</v-icon>
-        <v-icon small @click="deleteItem (item)">mdi-delete</v-icon>
+        <v-icon small color="warning" class="mr-2" @click=" editItem (item) ">mdi-pencil</v-icon>
+        <v-icon small color="red" class="" @click="deleteItem (item)">mdi-delete</v-icon>
       </template>
       <template v-slot:no-data>
         <v-btn color="primary" @click="initialize">Reset</v-btn>
@@ -95,10 +101,15 @@
 <script>
 import { mapActions, mapGetters } from "vuex"
 
+// import { required, minLength, between } from 'vuelidate/lib/validators'
+
 export default {
+  
   data: () => ({
     dialog: false,
     dialogDelete: false,
+    valid: false,
+    
     department: {
       title: "",
       code: "",
@@ -116,6 +127,11 @@ export default {
 
       { text: "Actions", value: "actions", sortable: false },
     ],
+    
+    required(propertyType){
+       return v => !!v || `${propertyType} is required` 
+
+    },
 
     editedIndex: -1,
   }),
@@ -169,8 +185,8 @@ export default {
       } else {
         this.addDepartment(this.department)
         this.$notifier.showMessage({
-          content: "Hello, snackbar",
-          color: "info",
+          content: "Congrats!Successfully added one value!",
+          color: "success",
         })
         this.department = Object.assign({}, this.defaultdepartment)
       }
