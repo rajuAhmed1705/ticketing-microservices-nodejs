@@ -10,8 +10,19 @@
         <v-spacer></v-spacer>
         <v-dialog v-model="dialog" max-width="500px">
           <template v-slot:activator="{ on, attrs }">
+<<<<<<< HEAD
             <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on">
               New Employee Designation
+=======
+            <v-btn
+              color="primary"
+              dark
+              class="mb-2"
+              v-bind="attrs"
+              v-on="on"
+            >
+              New Designation 
+>>>>>>> 088af27ecee617c4574dfad306e37a651f853073
             </v-btn>
           </template>
           <v-card>
@@ -19,6 +30,7 @@
               <span class="headline">Employee Designation</span>
             </v-card-title>
 
+            <v-form v-model="valid">
             <v-card-text>
               <v-container>
                 <v-row>
@@ -26,12 +38,17 @@
                     <v-text-field
                       v-model="designation.title"
                       label="Designation Name"
+                      :rules="[required('title')]"
                     ></v-text-field>
                   </v-col>
                   <v-col cols="12" sm="12" md="12">
                     <v-text-field
                       v-model="designation.level"
                       label="Designation Level"
+                      :rules="[required('level')]"
+                      type="number"
+                      min="1" 
+                      step="1"
                     ></v-text-field>
                   </v-col>
                   <v-col cols="12" sm="12" md="12">
@@ -43,6 +60,7 @@
                 </v-row>
               </v-container>
             </v-card-text>
+            </v-form>
 
             <v-card-actions>
               <v-spacer></v-spacer>
@@ -78,10 +96,26 @@
       </v-toolbar>
     </template>
     <template v-slot:[`item.actions`]="{ item }">
+<<<<<<< HEAD
       <v-icon small class="mr-2" @click="editItem(item)">
         mdi-pencil
       </v-icon>
       <v-icon small @click="deleteItem(item)">
+=======
+      <v-icon
+        small
+        class="mr-2"
+        color="warning"
+        @click="editItem(item)"
+      >
+        mdi-pencil
+      </v-icon>
+      <v-icon
+        small
+        color="red"
+        @click="deleteItem(item)"
+      >
+>>>>>>> 088af27ecee617c4574dfad306e37a651f853073
         mdi-delete
       </v-icon>
     </template>
@@ -96,6 +130,7 @@
 <script>
 import { mapActions, mapGetters } from "vuex"
 
+<<<<<<< HEAD
 export default {
   data: () => ({
     dialog: false,
@@ -109,6 +144,40 @@ export default {
       },
       { text: "Level", value: "level" },
       { text: "Remark", value: "remark" },
+=======
+  export default {
+    data: () => ({
+      dialog: false,
+      dialogDelete: false,
+      valid: false,
+      headers: [
+        {
+          text: 'Title',
+          align: 'start',
+          sortable: false,
+          value: 'title',
+        },
+        { text: 'Level', value: 'level' },
+        { text: 'Remark', value: 'remark' },
+        
+        { text: 'Actions', value: 'actions', sortable: false },
+      ],
+      editedIndex: -1,
+      designation: {
+        title:'',
+        level:'',
+        remark:''
+      },
+      defaultdesignation: {
+        title:'',
+        level:'',
+        remark:''
+      },
+      required(propertyType){
+       return v => !!v || `${propertyType} is required` 
+      },
+    }),
+>>>>>>> 088af27ecee617c4574dfad306e37a651f853073
 
       { text: "Actions", value: "actions", sortable: false },
     ],
@@ -134,6 +203,7 @@ export default {
     },
   },
 
+<<<<<<< HEAD
   async created() {
     this.initialize()
     await this.fetchDesignation()
@@ -141,6 +211,30 @@ export default {
   computed: {
     formTitle() {
       return this.editedIndex === -1 ? "New Designation" : "Edit Designation"
+=======
+    methods: {
+       ...mapActions({fetchDesignation:"designation/loadDesignation",
+                      addDesignation:"designation/addDesignation",
+                      removeDesignation: "designation/removeDesignation",
+                      updateDesignaton:"designation/updateDesignaton"}),
+     saveDesignation() {
+       if (this.editedIndex > -1) {
+          this.updateDesignaton(this.designation)
+        } 
+       else{
+          this.addDesignation(this.designation);
+          this.$notifier.showMessage({ content: "Congrats!Successfully added one value!", color: "success" });
+          this.designation = Object.assign({}, this.defaultdesignation);
+            }
+       this.close();
+       },
+     deleteDesignation(id) {
+       this.removeDesignation(id);
+       this.closeDelete()
+     },
+     initialize() {
+        this.$store.getters['designation/designations'];
+>>>>>>> 088af27ecee617c4574dfad306e37a651f853073
     },
     ...mapGetters({
       allDeignations: "designation/designations",

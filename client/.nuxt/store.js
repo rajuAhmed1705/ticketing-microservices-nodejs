@@ -8,7 +8,7 @@ const VUEX_PROPERTIES = ['state', 'getters', 'actions', 'mutations']
 let store = {};
 
 (function updateModules () {
-  store = normalizeRoot(require('../store/index.js'), 'store/index.js')
+  store = normalizeRoot(require('..\\store\\index.js'), 'store/index.js')
 
   // If store is an exported method = classic mode (deprecated)
 
@@ -19,39 +19,39 @@ let store = {};
   // Enforce store modules
   store.modules = store.modules || {}
 
-  resolveStoreModules(require('../store/language.js'), 'language.js')
-  resolveStoreModules(require('../store/bank.js'), 'bank.js')
-  resolveStoreModules(require('../store/designation.js'), 'designation.js')
-  resolveStoreModules(require('../store/edulevel.js'), 'edulevel.js')
-  resolveStoreModules(require('../store/employeeStatus.js'), 'employeeStatus.js')
-  resolveStoreModules(require('../store/employeeType.js'), 'employeeType.js')
-  resolveStoreModules(require('../store/department.js'), 'department.js')
-  resolveStoreModules(require('../store/projectName.js'), 'projectName.js')
-  resolveStoreModules(require('../store/religion.js'), 'religion.js')
-  resolveStoreModules(require('../store/rule.js'), 'rule.js')
-  resolveStoreModules(require('../store/skill.js'), 'skill.js')
-  resolveStoreModules(require('../store/snackbar.js'), 'snackbar.js')
-  resolveStoreModules(require('../store/typeofturnover.js'), 'typeofturnover.js')
+  resolveStoreModules(require('..\\store\\bank.js'), 'bank.js')
+  resolveStoreModules(require('..\\store\\department.js'), 'department.js')
+  resolveStoreModules(require('..\\store\\designation.js'), 'designation.js')
+  resolveStoreModules(require('..\\store\\edulevel.js'), 'edulevel.js')
+  resolveStoreModules(require('..\\store\\employeeStatus.js'), 'employeeStatus.js')
+  resolveStoreModules(require('..\\store\\employeeType.js'), 'employeeType.js')
+  resolveStoreModules(require('..\\store\\language.js'), 'language.js')
+  resolveStoreModules(require('..\\store\\projectName.js'), 'projectName.js')
+  resolveStoreModules(require('..\\store\\religion.js'), 'religion.js')
+  resolveStoreModules(require('..\\store\\rule.js'), 'rule.js')
+  resolveStoreModules(require('..\\store\\skill.js'), 'skill.js')
+  resolveStoreModules(require('..\\store\\snackbar.js'), 'snackbar.js')
+  resolveStoreModules(require('..\\store\\typeofturnover.js'), 'typeofturnover.js')
 
   // If the environment supports hot reloading...
 
   if (process.client && module.hot) {
     // Whenever any Vuex module is updated...
     module.hot.accept([
-      '../store/language.js',
-      '../store/bank.js',
-      '../store/designation.js',
-      '../store/edulevel.js',
-      '../store/employeeStatus.js',
-      '../store/employeeType.js',
-      '../store/index.js',
-      '../store/department.js',
-      '../store/projectName.js',
-      '../store/religion.js',
-      '../store/rule.js',
-      '../store/skill.js',
-      '../store/snackbar.js',
-      '../store/typeofturnover.js',
+      '..\\store\\bank.js',
+      '..\\store\\department.js',
+      '..\\store\\designation.js',
+      '..\\store\\edulevel.js',
+      '..\\store\\employeeStatus.js',
+      '..\\store\\employeeType.js',
+      '..\\store\\index.js',
+      '..\\store\\language.js',
+      '..\\store\\projectName.js',
+      '..\\store\\religion.js',
+      '..\\store\\rule.js',
+      '..\\store\\skill.js',
+      '..\\store\\snackbar.js',
+      '..\\store\\typeofturnover.js',
     ], () => {
       // Update `root.modules` with the latest definitions.
       updateModules()

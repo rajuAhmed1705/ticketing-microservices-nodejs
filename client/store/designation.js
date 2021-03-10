@@ -23,7 +23,11 @@ export const actions = {
     )
 
     if (res.status == 201) {
+<<<<<<< HEAD
       commit("ADD_DESIGNATION", res.data)
+=======
+      commit("ADD_DESIGNATION", res.data);
+>>>>>>> 088af27ecee617c4574dfad306e37a651f853073
     }
   },
   async removeDesignation({ commit }, id) {

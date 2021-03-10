@@ -4,24 +4,24 @@ import { normalizeURL, decode } from '@nuxt/ufo'
 import { interopDefault } from './utils'
 import scrollBehavior from './router.scrollBehavior.js'
 
-const _86f285da = () => interopDefault(import('../pages/inspire.vue' /* webpackChunkName: "pages/inspire" */))
-const _2d194ca1 = () => interopDefault(import('../pages/custom/education.vue' /* webpackChunkName: "pages/custom/education" */))
-const _531f25fe = () => interopDefault(import('../pages/hr/masterDB.vue' /* webpackChunkName: "pages/hr/masterDB" */))
-const _5905b37e = () => interopDefault(import('../pages/hr/settings.vue' /* webpackChunkName: "pages/hr/settings" */))
-const _b856655a = () => interopDefault(import('../pages/hr/configuration/bank.vue' /* webpackChunkName: "pages/hr/configuration/bank" */))
-const _197317ae = () => interopDefault(import('../pages/hr/configuration/department.vue' /* webpackChunkName: "pages/hr/configuration/department" */))
-const _746c2fb0 = () => interopDefault(import('../pages/hr/configuration/designation.vue' /* webpackChunkName: "pages/hr/configuration/designation" */))
-const _d66be8f0 = () => interopDefault(import('../pages/hr/configuration/educationalLevel.vue' /* webpackChunkName: "pages/hr/configuration/educationalLevel" */))
-const _93dc8ad2 = () => interopDefault(import('../pages/hr/configuration/employeeStatus.vue' /* webpackChunkName: "pages/hr/configuration/employeeStatus" */))
-const _45d0751f = () => interopDefault(import('../pages/hr/configuration/employeeType.vue' /* webpackChunkName: "pages/hr/configuration/employeeType" */))
-const _43da14ef = () => interopDefault(import('../pages/hr/configuration/language.vue' /* webpackChunkName: "pages/hr/configuration/language" */))
-const _a340fb46 = () => interopDefault(import('../pages/hr/configuration/projectname.vue' /* webpackChunkName: "pages/hr/configuration/projectname" */))
-const _0c93ba48 = () => interopDefault(import('../pages/hr/configuration/religion.vue' /* webpackChunkName: "pages/hr/configuration/religion" */))
-const _4025fe13 = () => interopDefault(import('../pages/hr/configuration/rule.vue' /* webpackChunkName: "pages/hr/configuration/rule" */))
-const _8acaac6c = () => interopDefault(import('../pages/hr/configuration/skill.vue' /* webpackChunkName: "pages/hr/configuration/skill" */))
-const _fca7440e = () => interopDefault(import('../pages/hr/configuration/typeOfTurnover.vue' /* webpackChunkName: "pages/hr/configuration/typeOfTurnover" */))
-const _31bd43b4 = () => interopDefault(import('../pages/hr/profile/_id.vue' /* webpackChunkName: "pages/hr/profile/_id" */))
-const _4cc86b4b = () => interopDefault(import('../pages/index.vue' /* webpackChunkName: "pages/index" */))
+const _0f084ea0 = () => interopDefault(import('..\\pages\\inspire.vue' /* webpackChunkName: "pages/inspire" */))
+const _6a0f1846 = () => interopDefault(import('..\\pages\\custom\\education.vue' /* webpackChunkName: "pages/custom/education" */))
+const _42c56a94 = () => interopDefault(import('..\\pages\\hr\\masterDB.vue' /* webpackChunkName: "pages/hr/masterDB" */))
+const _79b92a52 = () => interopDefault(import('..\\pages\\hr\\settings.vue' /* webpackChunkName: "pages/hr/settings" */))
+const _a58a3ea4 = () => interopDefault(import('..\\pages\\hr\\configuration\\bank.vue' /* webpackChunkName: "pages/hr/configuration/bank" */))
+const _872d5178 = () => interopDefault(import('..\\pages\\hr\\configuration\\department.vue' /* webpackChunkName: "pages/hr/configuration/department" */))
+const _60b4a016 = () => interopDefault(import('..\\pages\\hr\\configuration\\designation.vue' /* webpackChunkName: "pages/hr/configuration/designation" */))
+const _373eee63 = () => interopDefault(import('..\\pages\\hr\\configuration\\educationalLevel.vue' /* webpackChunkName: "pages/hr/configuration/educationalLevel" */))
+const _c2f0cf9c = () => interopDefault(import('..\\pages\\hr\\configuration\\employeeStatus.vue' /* webpackChunkName: "pages/hr/configuration/employeeStatus" */))
+const _51c6fd7a = () => interopDefault(import('..\\pages\\hr\\configuration\\employeeType.vue' /* webpackChunkName: "pages/hr/configuration/employeeType" */))
+const _3b0102ca = () => interopDefault(import('..\\pages\\hr\\configuration\\language.vue' /* webpackChunkName: "pages/hr/configuration/language" */))
+const _099902a2 = () => interopDefault(import('..\\pages\\hr\\configuration\\projectname.vue' /* webpackChunkName: "pages/hr/configuration/projectname" */))
+const _03baa823 = () => interopDefault(import('..\\pages\\hr\\configuration\\religion.vue' /* webpackChunkName: "pages/hr/configuration/religion" */))
+const _498c116e = () => interopDefault(import('..\\pages\\hr\\configuration\\rule.vue' /* webpackChunkName: "pages/hr/configuration/rule" */))
+const _4411fc62 = () => interopDefault(import('..\\pages\\hr\\configuration\\skill.vue' /* webpackChunkName: "pages/hr/configuration/skill" */))
+const _6a223b94 = () => interopDefault(import('..\\pages\\hr\\configuration\\typeOfTurnover.vue' /* webpackChunkName: "pages/hr/configuration/typeOfTurnover" */))
+const _42f697e5 = () => interopDefault(import('..\\pages\\hr\\profile\\_id.vue' /* webpackChunkName: "pages/hr/profile/_id" */))
+const _4daafc18 = () => interopDefault(import('..\\pages\\index.vue' /* webpackChunkName: "pages/index" */))
 
 // TODO: remove in Nuxt 3
 const emptyFn = () => {}
@@ -41,75 +41,75 @@ export const routerOptions = {
 
   routes: [{
     path: "/inspire",
-    component: _86f285da,
+    component: _0f084ea0,
     name: "inspire"
   }, {
     path: "/custom/education",
-    component: _2d194ca1,
+    component: _6a0f1846,
     name: "custom-education"
   }, {
     path: "/hr/masterDB",
-    component: _531f25fe,
+    component: _42c56a94,
     name: "hr-masterDB"
   }, {
     path: "/hr/settings",
-    component: _5905b37e,
+    component: _79b92a52,
     name: "hr-settings"
   }, {
     path: "/hr/configuration/bank",
-    component: _b856655a,
+    component: _a58a3ea4,
     name: "hr-configuration-bank"
   }, {
     path: "/hr/configuration/department",
-    component: _197317ae,
+    component: _872d5178,
     name: "hr-configuration-department"
   }, {
     path: "/hr/configuration/designation",
-    component: _746c2fb0,
+    component: _60b4a016,
     name: "hr-configuration-designation"
   }, {
     path: "/hr/configuration/educationalLevel",
-    component: _d66be8f0,
+    component: _373eee63,
     name: "hr-configuration-educationalLevel"
   }, {
     path: "/hr/configuration/employeeStatus",
-    component: _93dc8ad2,
+    component: _c2f0cf9c,
     name: "hr-configuration-employeeStatus"
   }, {
     path: "/hr/configuration/employeeType",
-    component: _45d0751f,
+    component: _51c6fd7a,
     name: "hr-configuration-employeeType"
   }, {
     path: "/hr/configuration/language",
-    component: _43da14ef,
+    component: _3b0102ca,
     name: "hr-configuration-language"
   }, {
     path: "/hr/configuration/projectname",
-    component: _a340fb46,
+    component: _099902a2,
     name: "hr-configuration-projectname"
   }, {
     path: "/hr/configuration/religion",
-    component: _0c93ba48,
+    component: _03baa823,
     name: "hr-configuration-religion"
   }, {
     path: "/hr/configuration/rule",
-    component: _4025fe13,
+    component: _498c116e,
     name: "hr-configuration-rule"
   }, {
     path: "/hr/configuration/skill",
-    component: _8acaac6c,
+    component: _4411fc62,
     name: "hr-configuration-skill"
   }, {
     path: "/hr/configuration/typeOfTurnover",
-    component: _fca7440e,
+    component: _6a223b94,
     name: "hr-configuration-typeOfTurnover"
   }, {
     path: "/hr/profile/:id?",
-    component: _31bd43b4,
+    component: _42f697e5,
     name: "hr-profile-id"
   }, {
     path: "/",
-    component: _4cc86b4b,
+    component: _4daafc18,
     name: "index"
   }],
 
