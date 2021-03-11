@@ -19,7 +19,7 @@ export const actions = {
     let res = await this.$axios.post("/employee-management/project", project);
     // console.log(res.data);
     if (res.status == 201) {
-      commit("ADD_PROJECT", project);
+      commit("ADD_PROJECT", res.data);
     }
   },
   async removeProject({ commit }, id) {

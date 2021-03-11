@@ -16,7 +16,7 @@ export const actions = {
   async addReligion({ commit }, religion) {
     let res = await this.$axios.post("/employee-management/religion",religion)
     if(res.status == 201){
-    commit("ADD_RELIGION", religion);
+    commit("ADD_RELIGION", res.data);
     }
   },
   async removeReligion({ commit }, id) {

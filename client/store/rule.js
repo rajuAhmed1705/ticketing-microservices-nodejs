@@ -20,7 +20,7 @@ export const actions = {
       rule
     );
     if (res.status == 201) {
-      commit("ADD_RULE", rule);
+      commit("ADD_RULE", res.data);
     }
   },
   async removeRule({ commit }, id) {

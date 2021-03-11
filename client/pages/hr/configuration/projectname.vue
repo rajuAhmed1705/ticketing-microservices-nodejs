@@ -17,11 +17,12 @@
                 <span class="headline">Project Details</span>
               </v-card-title>
 
+              <v-form v-model="valid">
               <v-card-text>
                 <v-container>
                   <v-row>
                     <v-col cols="12" sm="6" md="6">
-                      <v-text-field v-model="project.name" label="Project name"></v-text-field>
+                      <v-text-field v-model="project.name" label="Project name" :rules="[required('name')]"></v-text-field>
                     </v-col>
                     <!--  -->
                   </v-row>
@@ -91,6 +92,7 @@
                   </v-row>
                 </v-container>
               </v-card-text>
+              </v-form>
 
               <v-card-actions>
                 <v-spacer></v-spacer>
@@ -112,9 +114,9 @@
           </v-dialog>
         </v-toolbar>
       </template>
-      <template v-slot:item.actions="{ item }">
-        <v-icon small class="mr-2" @click="editItem(item)">mdi-pencil</v-icon>
-        <v-icon small @click="deleteItem (item)">mdi-delete</v-icon>
+      <template v-slot:[`item.actions`]="{ item }">
+        <v-icon small class="mr-2" color="warning" @click="editItem(item)">mdi-pencil</v-icon>
+        <v-icon small color="red" @click="deleteItem (item)">mdi-delete</v-icon>
       </template>
       <template v-slot:no-data>
         <v-btn color="primary" @click="initialize">Reset</v-btn>
@@ -158,6 +160,9 @@ export default {
       { text: "Actions", value: "actions", sortable: false },
     ],
     editedIndex: -1,
+    required(propertyType){
+       return v => v && v.length>0 || `${propertyType} is required` 
+      },
   }),
 
   watch: {
@@ -204,8 +209,8 @@ export default {
       } else {
         this.addProject(this.project);
         this.$notifier.showMessage({
-          content: "Hello, snackbar",
-          color: "info",
+          content: "Congrats!Successfully added one value!",
+          color: "success",
         });
         this.project = Object.assign({}, this.defaultProject);
       }
@@ -213,6 +218,10 @@ export default {
     },
     deleteProject(id) {
       this.removeProject(id);
+      this.$notifier.showMessage({
+          content: "Congrats!Successfully deleted one value!",
+          color: "red",
+        });
       this.closeDelete();
     },
     initialize() {

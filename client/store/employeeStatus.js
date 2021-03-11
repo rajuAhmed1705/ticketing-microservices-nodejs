@@ -18,7 +18,7 @@ export const state = () => ({
       let res = await this.$axios.post("/employee-management/employee-status",employeeStatus)
       console.log(res.data)
       if(res.status == 201){
-      commit("ADD_EMP_STS", employeeStatus);
+      commit("ADD_EMP_STS", res.data);
       }
     },
     async removeEmpSts({ commit }, id) {

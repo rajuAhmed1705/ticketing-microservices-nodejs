@@ -30,7 +30,7 @@
               v-bind="attrs"
               v-on="on"
             >
-              New Designation 
+              New 
             </v-btn>
           </template>
           <v-card>
@@ -94,6 +94,7 @@
               <v-btn
                 color="blue darken-1"
                 text
+                :disabled="!valid"
                 @click="saveDesignation()"
               >
                 Save
@@ -218,6 +219,7 @@ import { mapActions,mapGetters } from "vuex";
        },
      deleteDesignation(id) {
        this.removeDesignation(id);
+       this.$notifier.showMessage({ content: "Congrats!Successfully deleted one value!", color: "red" });
        this.closeDelete()
      },
      initialize() {
@@ -236,10 +238,7 @@ import { mapActions,mapGetters } from "vuex";
         this.dialogDelete = true
       },
 
-      // deleteItemConfirm () {
-      //   this.allDeignations.splice(this.editedIndex, 1)
-      //   this.closeDelete()
-      // },
+      
 
       close () {
         this.dialog = false
@@ -256,15 +255,6 @@ import { mapActions,mapGetters } from "vuex";
           this.editedIndex = -1
         })
       },
-
-      // save () {
-      //   if (this.editedIndex > -1) {
-      //     Object.assign(this.desserts[this.editedIndex], this.designation)
-      //   } else {
-      //     this.desserts.push(this.designation)
-      //   }
-      //   this.close()
-      // },
     },
   }
 </script>

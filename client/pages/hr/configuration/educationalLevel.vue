@@ -30,7 +30,7 @@
               v-bind="attrs"
               v-on="on"
             >
-              New Educational Level
+              New 
             </v-btn>
           </template>
           <v-card>
