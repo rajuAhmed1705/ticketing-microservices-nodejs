@@ -3,108 +3,126 @@
     "name": "inspire",
     "path": "/inspire",
     "component": "C:\\\\Users\\\\HP\\\\Google Drive\\\\ShurjoMukhi\\\\shurjoERP\\\\shurjoerp\\\\client\\\\pages\\\\inspire.vue",
-    "chunkName": "pages/inspire"
+    "chunkName": "pages/inspire",
+    "_name": "_0f084ea0"
   },
   {
     "name": "custom-education",
     "path": "/custom/education",
     "component": "C:\\\\Users\\\\HP\\\\Google Drive\\\\ShurjoMukhi\\\\shurjoERP\\\\shurjoerp\\\\client\\\\pages\\\\custom\\\\education.vue",
-    "chunkName": "pages/custom/education"
+    "chunkName": "pages/custom/education",
+    "_name": "_6a0f1846"
   },
   {
     "name": "hr-masterDB",
     "path": "/hr/masterDB",
     "component": "C:\\\\Users\\\\HP\\\\Google Drive\\\\ShurjoMukhi\\\\shurjoERP\\\\shurjoerp\\\\client\\\\pages\\\\hr\\\\masterDB.vue",
-    "chunkName": "pages/hr/masterDB"
+    "chunkName": "pages/hr/masterDB",
+    "_name": "_42c56a94"
   },
   {
     "name": "hr-settings",
     "path": "/hr/settings",
     "component": "C:\\\\Users\\\\HP\\\\Google Drive\\\\ShurjoMukhi\\\\shurjoERP\\\\shurjoerp\\\\client\\\\pages\\\\hr\\\\settings.vue",
-    "chunkName": "pages/hr/settings"
+    "chunkName": "pages/hr/settings",
+    "_name": "_79b92a52"
   },
   {
     "name": "hr-configuration-bank",
     "path": "/hr/configuration/bank",
     "component": "C:\\\\Users\\\\HP\\\\Google Drive\\\\ShurjoMukhi\\\\shurjoERP\\\\shurjoerp\\\\client\\\\pages\\\\hr\\\\configuration\\\\bank.vue",
-    "chunkName": "pages/hr/configuration/bank"
+    "chunkName": "pages/hr/configuration/bank",
+    "_name": "_a58a3ea4"
   },
   {
     "name": "hr-configuration-department",
     "path": "/hr/configuration/department",
     "component": "C:\\\\Users\\\\HP\\\\Google Drive\\\\ShurjoMukhi\\\\shurjoERP\\\\shurjoerp\\\\client\\\\pages\\\\hr\\\\configuration\\\\department.vue",
-    "chunkName": "pages/hr/configuration/department"
+    "chunkName": "pages/hr/configuration/department",
+    "_name": "_872d5178"
   },
   {
     "name": "hr-configuration-designation",
     "path": "/hr/configuration/designation",
     "component": "C:\\\\Users\\\\HP\\\\Google Drive\\\\ShurjoMukhi\\\\shurjoERP\\\\shurjoerp\\\\client\\\\pages\\\\hr\\\\configuration\\\\designation.vue",
-    "chunkName": "pages/hr/configuration/designation"
+    "chunkName": "pages/hr/configuration/designation",
+    "_name": "_60b4a016"
   },
   {
     "name": "hr-configuration-educationalLevel",
     "path": "/hr/configuration/educationalLevel",
     "component": "C:\\\\Users\\\\HP\\\\Google Drive\\\\ShurjoMukhi\\\\shurjoERP\\\\shurjoerp\\\\client\\\\pages\\\\hr\\\\configuration\\\\educationalLevel.vue",
-    "chunkName": "pages/hr/configuration/educationalLevel"
+    "chunkName": "pages/hr/configuration/educationalLevel",
+    "_name": "_373eee63"
   },
   {
     "name": "hr-configuration-employeeStatus",
     "path": "/hr/configuration/employeeStatus",
     "component": "C:\\\\Users\\\\HP\\\\Google Drive\\\\ShurjoMukhi\\\\shurjoERP\\\\shurjoerp\\\\client\\\\pages\\\\hr\\\\configuration\\\\employeeStatus.vue",
-    "chunkName": "pages/hr/configuration/employeeStatus"
+    "chunkName": "pages/hr/configuration/employeeStatus",
+    "_name": "_c2f0cf9c"
   },
   {
     "name": "hr-configuration-employeeType",
     "path": "/hr/configuration/employeeType",
     "component": "C:\\\\Users\\\\HP\\\\Google Drive\\\\ShurjoMukhi\\\\shurjoERP\\\\shurjoerp\\\\client\\\\pages\\\\hr\\\\configuration\\\\employeeType.vue",
-    "chunkName": "pages/hr/configuration/employeeType"
+    "chunkName": "pages/hr/configuration/employeeType",
+    "_name": "_51c6fd7a"
   },
   {
     "name": "hr-configuration-language",
     "path": "/hr/configuration/language",
     "component": "C:\\\\Users\\\\HP\\\\Google Drive\\\\ShurjoMukhi\\\\shurjoERP\\\\shurjoerp\\\\client\\\\pages\\\\hr\\\\configuration\\\\language.vue",
-    "chunkName": "pages/hr/configuration/language"
+    "chunkName": "pages/hr/configuration/language",
+    "_name": "_3b0102ca"
   },
   {
     "name": "hr-configuration-projectname",
     "path": "/hr/configuration/projectname",
     "component": "C:\\\\Users\\\\HP\\\\Google Drive\\\\ShurjoMukhi\\\\shurjoERP\\\\shurjoerp\\\\client\\\\pages\\\\hr\\\\configuration\\\\projectname.vue",
-    "chunkName": "pages/hr/configuration/projectname"
+    "chunkName": "pages/hr/configuration/projectname",
+    "_name": "_099902a2"
   },
   {
     "name": "hr-configuration-religion",
     "path": "/hr/configuration/religion",
     "component": "C:\\\\Users\\\\HP\\\\Google Drive\\\\ShurjoMukhi\\\\shurjoERP\\\\shurjoerp\\\\client\\\\pages\\\\hr\\\\configuration\\\\religion.vue",
-    "chunkName": "pages/hr/configuration/religion"
+    "chunkName": "pages/hr/configuration/religion",
+    "_name": "_03baa823"
   },
   {
     "name": "hr-configuration-rule",
     "path": "/hr/configuration/rule",
     "component": "C:\\\\Users\\\\HP\\\\Google Drive\\\\ShurjoMukhi\\\\shurjoERP\\\\shurjoerp\\\\client\\\\pages\\\\hr\\\\configuration\\\\rule.vue",
-    "chunkName": "pages/hr/configuration/rule"
+    "chunkName": "pages/hr/configuration/rule",
+    "_name": "_498c116e"
   },
   {
     "name": "hr-configuration-skill",
     "path": "/hr/configuration/skill",
     "component": "C:\\\\Users\\\\HP\\\\Google Drive\\\\ShurjoMukhi\\\\shurjoERP\\\\shurjoerp\\\\client\\\\pages\\\\hr\\\\configuration\\\\skill.vue",
-    "chunkName": "pages/hr/configuration/skill"
+    "chunkName": "pages/hr/configuration/skill",
+    "_name": "_4411fc62"
   },
   {
     "name": "hr-configuration-typeOfTurnover",
     "path": "/hr/configuration/typeOfTurnover",
     "component": "C:\\\\Users\\\\HP\\\\Google Drive\\\\ShurjoMukhi\\\\shurjoERP\\\\shurjoerp\\\\client\\\\pages\\\\hr\\\\configuration\\\\typeOfTurnover.vue",
-    "chunkName": "pages/hr/configuration/typeOfTurnover"
+    "chunkName": "pages/hr/configuration/typeOfTurnover",
+    "_name": "_6a223b94"
   },
   {
     "name": "hr-profile-id",
     "path": "/hr/profile/:id?",
     "component": "C:\\\\Users\\\\HP\\\\Google Drive\\\\ShurjoMukhi\\\\shurjoERP\\\\shurjoerp\\\\client\\\\pages\\\\hr\\\\profile\\\\_id.vue",
-    "chunkName": "pages/hr/profile/_id"
+    "chunkName": "pages/hr/profile/_id",
+    "_name": "_42f697e5"
   },
   {
     "name": "index",
     "path": "/",
     "component": "C:\\\\Users\\\\HP\\\\Google Drive\\\\ShurjoMukhi\\\\shurjoERP\\\\shurjoerp\\\\client\\\\pages\\\\index.vue",
-    "chunkName": "pages/index"
+    "chunkName": "pages/index",
+    "_name": "_4daafc18"
   }
 ]
