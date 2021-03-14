@@ -50,9 +50,9 @@ export const mutations = {
     state.employeetypes.push(payload)
   },
   REMOVE_EMPTYPE(state, payload) {
-    state.employeetypes = state.employeetypes.filter(employeetype => {
+    state.employeetypes = state.employeetypes.filter(employeetype => 
       employeetype.id !== payload
-    })
+    )
   },
   UPDATE_EMPTYPE(state, payload) {
     const employeetype = state.employeetypes.find(

@@ -26,7 +26,6 @@ export const actions = {
   async removeDepartment({ commit }, id) {
     let res = await this.$axios.delete(`/employee-management/department/${id}`)
     if (res.status == 200) {
-      console.log("Department removed")
       commit("REMOVE_DEPARTMENT", id)
     }
   },
@@ -35,7 +34,7 @@ export const actions = {
       `/employee-management/department/${department.id}`,
       department
     )
-    console.log(res)
+    // console.log(res)
     if (res.status == 200) {
       commit("UPDATE_DEPARTMENT", department)
     }
@@ -47,12 +46,12 @@ export const mutations = {
     state.departments = payload
   },
   ADD_DEPARTMENT(state, payload) {
-    console.log(payload)
+    // console.log(payload)
     state.departments.push(payload)
   },
 
   REMOVE_DEPARTMENT(state, payload) {
-    console.log(payload)
+    // console.log(payload)
     state.departments = state.departments.filter(
       department => department.id !== payload
     )

@@ -38,7 +38,7 @@
               <span class="headline">Employee Status</span>
             </v-card-title>
             
-            <v-form v-model="valid">
+            <v-form v-model="valid" ref="form">
             <v-card-text>
               <v-container>
                 <v-row>
@@ -178,6 +178,7 @@ import { mapActions,mapGetters } from "vuex";
        if (this.editedIndex > -1) {
         this.updateEmpSts(this.employeeStatus);
       } else {
+       this.$refs.form.resetValidation() 
        this.addEmpSts(this.employeeStatus);
        this.$notifier.showMessage({ content: "Congrats!Successfully added one value!", color: "success" });
        this.employeeStatus = Object.assign({}, this.defaultemployeeStatus);
@@ -206,6 +207,7 @@ import { mapActions,mapGetters } from "vuex";
       },
 
       close () {
+        this.$refs.form.resetValidation() 
         this.dialog = false
         this.$nextTick(() => {
           this.employeeStatus = Object.assign({}, this.defaultemployeeStatus)

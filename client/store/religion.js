@@ -41,9 +41,9 @@ export const mutations = {
     state.religions.push(payload);
   },
   REMOVE_RELIGION(state, payload) {
-    state.religions = state.religions.filter((religion) => {
-      religion.id !== payload;
-    });
+    state.religions = state.religions.filter(religion => 
+      religion.id !== payload
+    );
   },
   UPDATE_RELIGION(state, payload) {
     const religion = state.religions.find(

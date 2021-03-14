@@ -9,13 +9,14 @@
         <v-spacer></v-spacer>
         <v-dialog v-model="dialog" max-width="500px">
           <template v-slot:activator="{ on, attrs }">
-            <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on">New Religion Type</v-btn>
+            <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on">New</v-btn>
           </template>
           <v-card>
             <v-card-title>
               <span class="headline">Religion Type</span>
             </v-card-title>
-
+            
+            <v-fom v-model="valid">
             <v-card-text>
               <v-container>
                 <v-row>
@@ -25,10 +26,11 @@
                 </v-row>
               </v-container>
             </v-card-text>
+            </v-fom>
 
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="blue darken-1" text @click="close">Cancel</v-btn>
+              <v-btn color="blue darken-1" text @click.prevent="close">Cancel</v-btn>
               <v-btn color="blue darken-1" text @click=" saveReligionData()">Save</v-btn>
             </v-card-actions>
           </v-card>

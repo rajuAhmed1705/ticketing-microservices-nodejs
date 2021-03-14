@@ -43,10 +43,9 @@ export const state = () => ({
       state.employeestatus.push(payload);
     },
     REMOVE_EMP_STS(state, payload) {
-      state.employeestatus = state.employeestatus.filter(empstatus => {
-        empstatus.id !== payload;
-        
-      });
+      state.employeestatus = state.employeestatus.filter(empstatus => 
+        empstatus.id !== payload
+        );
     },
     UPDATE_EMP_STS(state, payload) {
       const empstatus = state.employeestatus.find(

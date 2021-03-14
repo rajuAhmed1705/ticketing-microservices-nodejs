@@ -50,9 +50,9 @@ export const mutations = {
     state.projects.push(payload);
   },
   REMOVE_PROJECT(state, payload) {
-    state.projects = state.projects.filter((project) => {
-      project.id !== payload;
-    });
+    state.projects = state.projects.filter(project => 
+      project.id !== payload
+    );
   },
   UPDATE_PROJECT(state, payload) {
     const project = state.projects.find((project) => project.id === payload.id);

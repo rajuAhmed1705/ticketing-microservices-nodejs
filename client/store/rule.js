@@ -46,12 +46,12 @@ export const mutations = {
     state.rules.push(payload);
   },
   REMOVE_RULE(state, payload) {
-    state.rules = state.rules.filter((rule) => {
-      rule.id !== payload;
-    });
+    state.rules = state.rules.filter(rule => 
+      rule.id !== payload
+    );
   },
   UPDATE_RULE(state, payload) {
-    const rule = state.rules.find((rule) => rule.id == payload.id);
+    const rule = state.rules.find(rule => rule.id == payload.id);
 
     const index = state.rules.indexOf(rule);
     state.rules.splice(index, 1, payload);

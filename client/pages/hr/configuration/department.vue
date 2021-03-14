@@ -23,7 +23,7 @@
                 <span class="headline">Department Details</span>
               </v-card-title>
 
-              <v-form v-model="valid">
+              <v-form v-model="valid" ref="form">
               <v-card-text>
                 <v-container>
                   <v-row>
@@ -56,6 +56,7 @@
                 </v-container>
               </v-card-text>
               </v-form>
+
               <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn color="blue darken-1" text @click="close">Cancel</v-btn>
@@ -182,10 +183,9 @@ export default {
     },
     saveDepartmentData() {
       if (this.editedIndex > -1) {
-        // Object.assign(this.allDepartments[this.editedIndex], this.department)
-        // console.log("hello")
         this.updateDepartment(this.department)
       } else {
+        this.$refs.form.resetValidation() 
         this.addDepartment(this.department)
         this.$notifier.showMessage({
           content: "Congrats!Successfully added one value!",
@@ -213,6 +213,7 @@ export default {
     },
 
     close() {
+      this.$refs.form.resetValidation() 
       this.dialog = false
       this.$nextTick(() => {
         this.department = Object.assign({}, this.defaultdepartment)

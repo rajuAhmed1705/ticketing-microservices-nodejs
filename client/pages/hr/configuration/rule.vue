@@ -17,7 +17,7 @@
                 <span class="headline">Rule Details</span>
               </v-card-title>
               
-              <v-form v-model="valid">
+              <v-form v-model="valid" ref="form">
               <v-card-text>
                 <v-container>
                   <v-row>
@@ -122,6 +122,7 @@ export default {
       if (this.editedIndex > -1) {
         this.updateRule(this.rule);
       } else {
+        this.$refs.form.resetValidation()
         this.addRule(this.rule);
         this.$notifier.showMessage({
           content: "Congrats!Successfully added one value!",

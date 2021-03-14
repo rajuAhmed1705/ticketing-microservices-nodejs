@@ -46,11 +46,11 @@ export const mutations = {
     state.turnovertypes = payload;
   },
   ADD_TURNOVER(state, payload) {
-    console.log(payload)
+    // console.log(payload)
     state.turnovertypes.push(payload);
   },
   REMOVE_TURNOVER(state, payload) {
-    console.log(payload)
+    //console.log(payload)
     state.turnovertypes = state.turnovertypes.filter(turnover => 
       turnover.id !== payload
     );

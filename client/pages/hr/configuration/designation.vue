@@ -38,7 +38,7 @@
               <span class="headline">Employee Designation</span>
             </v-card-title>
 
-            <v-form v-model="valid">
+            <v-form v-model="valid" ref="form">
             <v-card-text>
               <v-container>
                 <v-row>
@@ -175,7 +175,7 @@ import { mapActions,mapGetters } from "vuex";
         remark:''
       },
       required(propertyType){
-       return v => !!v || `${propertyType} is required` 
+       return v => v && v.length>0 || `${propertyType} is required` 
       },
     }),
 
@@ -211,6 +211,7 @@ import { mapActions,mapGetters } from "vuex";
           this.updateDesignaton(this.designation)
         } 
        else{
+         this.$refs.form.resetValidation() 
           this.addDesignation(this.designation);
           this.$notifier.showMessage({ content: "Congrats!Successfully added one value!", color: "success" });
           this.designation = Object.assign({}, this.defaultdesignation);
@@ -241,6 +242,7 @@ import { mapActions,mapGetters } from "vuex";
       
 
       close () {
+        this.$refs.form.resetValidation() 
         this.dialog = false
         this.$nextTick(() => {
           this.designation = Object.assign({}, this.defaultdesignation)

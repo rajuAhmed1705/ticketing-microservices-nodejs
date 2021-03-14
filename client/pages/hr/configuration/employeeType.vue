@@ -38,11 +38,11 @@
               <span class="headline">Employee Type</span>
             </v-card-title>
 
-            <v-form v-model="valid">
+            <v-form v-model="valid" ref="form">
             <v-card-text>
               <v-container>
                 <v-row>
-                  <v-form v-model="valid">
+                  
                   <v-col
                     cols="12"
                     sm="12"
@@ -54,7 +54,7 @@
                       :rules="[required('name')]"
                     ></v-text-field>
                   </v-col>
-                  </v-form>
+                  
                   <v-col cols="12" sm="6" md="6">
                       <v-text-field
                        v-model="employeetype.remark"
@@ -159,7 +159,7 @@ import { mapActions,mapGetters } from "vuex";
         remark:''
       },
       required(propertyType){
-       return v => !!v || `${propertyType} is required` 
+       return v => v && v.length>0 || `${propertyType} is required` 
       },
       // typeOfEmployee: ["Permanent", "Full-Time", "Contructual","Probationary","Apprentice"]
     }),
@@ -196,7 +196,10 @@ import { mapActions,mapGetters } from "vuex";
      saveEmpTypeData() {
         if (this.editedIndex > -1) {
         this.updateEmpType(this.employeetype);
+        
+        
       } else {
+       this.$refs.form.resetValidation() 
        this.addEmpType(this.employeetype);
        this.$notifier.showMessage({ content: "Congrats!Successfully added one value!", color: "success" });
        this.employeetype = Object.assign({}, this.defaultemployeetype);
@@ -212,7 +215,7 @@ import { mapActions,mapGetters } from "vuex";
        this.$store.getters['employeeType/employeetypes'];
       //  console.log(this.desserts);
     },
-
+     
       editItem (item) {
         this.editedIndex = this.allEmpTypes.indexOf(item)
         this.employeetype = Object.assign({}, item)
@@ -227,7 +230,9 @@ import { mapActions,mapGetters } from "vuex";
 
 
       close () {
+        this.$refs.form.resetValidation() 
         this.dialog = false
+        this.$refs.form.reset() 
         this.$nextTick(() => {
           this.employeetype = Object.assign({}, this.defaultemployeetype)
           this.editedIndex = -1
@@ -236,6 +241,7 @@ import { mapActions,mapGetters } from "vuex";
 
       closeDelete () {
         this.dialogDelete = false
+        
         this.$nextTick(() => {
           this.employeetype = Object.assign({}, this.defaultemployeetype)
           this.editedIndex = -1
