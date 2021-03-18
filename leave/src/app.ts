@@ -4,6 +4,7 @@ import { json, urlencoded } from "body-parser";
 import cors from "cors";
 import cookieSession from "cookie-session";
 import { errorHandler, NotFoundError } from "@shurjomukhi/common";
+import { categoryRouter } from "./routes/category";
 
 const app = express();
 app.use(json());
@@ -20,6 +21,8 @@ app.use(
     secure: process.env.NODE_ENV !== "test",
   })
 );
+
+app.use(categoryRouter);
 
 app.all("*", async (req, res) => {
   throw new NotFoundError();
