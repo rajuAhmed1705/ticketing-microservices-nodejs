@@ -135,8 +135,8 @@ export default {
     deleteRuleData(id) {
       this.removeRule(id);
       this.$notifier.showMessage({
-          content: "Congrats!Successfully added one value!",
-          color: "success",
+          content: "Congrats!Successfully deleted one value!",
+          color: "red",
         });
       this.closeDelete();
     },

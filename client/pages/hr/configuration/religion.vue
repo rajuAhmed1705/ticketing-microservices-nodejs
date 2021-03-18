@@ -16,7 +16,7 @@
               <span class="headline">Religion Type</span>
             </v-card-title>
             
-            <v-fom v-model="valid">
+            <v-fom v-model="valid" ref="form">
             <v-card-text>
               <v-container>
                 <v-row>
@@ -121,6 +121,7 @@ export default {
       if (this.editedIndex > -1) {
         this.updateReligion(this.religion);
       } else {
+        this.$refs.form.resetValidation()
         this.addReligion(this.religion);
         this.$notifier.showMessage({
           content: "Hello, snackbar",
@@ -151,12 +152,13 @@ export default {
       this.dialogDelete = true;
     },
 
-    deleteItemConfirm() {
-      this.allReligions.splice(this.editedIndex, 1);
-      this.closeDelete();
-    },
+    // deleteItemConfirm() {
+    //   this.allReligions.splice(this.editedIndex, 1);
+    //   this.closeDelete();
+    // },
 
     close() {
+      this.$refs.form.resetValidation()
       this.dialog = false;
       this.$nextTick(() => {
         this.religion = Object.assign({}, this.defaultreligion);
@@ -172,14 +174,14 @@ export default {
       });
     },
 
-    save() {
-      if (this.editedIndex > -1) {
-        Object.assign(this.desserts[this.editedIndex], this.religion);
-      } else {
-        this.desserts.push(this.religion);
-      }
-      this.close();
-    },
+    // save() {
+    //   if (this.editedIndex > -1) {
+    //     Object.assign(this.desserts[this.editedIndex], this.religion);
+    //   } else {
+    //     this.desserts.push(this.religion);
+    //   }
+    //   this.close();
+    // },
   },
 };
 </script>

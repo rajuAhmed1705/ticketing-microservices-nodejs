@@ -1,23 +1,5 @@
 export const state = () => ({
-  employees: [
-    {
-      personalDetails: {
-        fullName: "Raju"
-      },
-      employeeInformation: {
-        employeeId: "123",
-        department: "IT",
-        designation: "software engineer",
-        unit: "shurjoERP",
-        team: "ERP",
-        employmentType: "fulltime",
-        project: "shurjoERP",
-        dateOfJoin: "2021-2-1",
-        reportingTo: "Rock",
-        jobLocation: "Dhaka"
-      }
-    }
-  ]
+  employees: []
 });
 
 export const getters = {
@@ -25,6 +7,12 @@ export const getters = {
 };
 
 export const actions = {
+  async loadEmployee({commit}){
+    let res = await this.$axios.get("/employee-management/employees")
+    if(res.status == 200){
+      commit("SET_EMPLOYEE",res.data)
+    }
+  },
   async addEmployee({ commit }, employee) {
     commit("ADD_EMPLOYEE", employee);
   },
@@ -37,6 +25,9 @@ export const actions = {
 };
 
 export const mutations = {
+  SET_EMPLOYEE(state,payload){
+    state.employees = payload
+  },
   ADD_EMPLOYEE(state, payload) {
     state.employees.push(payload);
   },

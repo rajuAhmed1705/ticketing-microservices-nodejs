@@ -1,7 +1,7 @@
 <template>
   <div>
     <template>
-      <v-data-table :headers="headers" :items="desserts" class="elevation-1">
+      <v-data-table :headers="headers" :items="allEmployees" class="elevation-1">
         <template v-slot:top>
           <v-toolbar flat>
             <v-toolbar-title class="d-flex align-center">
@@ -47,11 +47,11 @@
                         <v-tab key="personal">
                           Personal Details
                         </v-tab>
-                        <v-tab key="contacts">
-                          Contacts
-                        </v-tab>
                         <v-tab key="employee">
                           Employee Information
+                        </v-tab>
+                        <v-tab key="contacts">
+                          Contacts
                         </v-tab>
                         <v-tab key="bank">
                           Bank Details
@@ -1085,13 +1085,13 @@
   </div>
 </template>
 <script>
-import { mapActions } from "vuex";
+import { mapActions,mapGetters } from "vuex";
 export default {
-  data () {
-      return {
-        checkbox: true,
-      }
-    },
+  // data () {
+  //     return {
+  //       checkbox: true,
+  //     }
+  //   },
   data: () => ({
     checkbox1: true,
     employeeBirthDay: false,
@@ -1359,15 +1359,8 @@ export default {
       },
       { text: "Actions", value: "actions", sortable: false }
     ],
-    desserts: [],
     editedIndex: -1
   }),
-
-  computed: {
-    formTitle() {
-      return this.editedIndex === -1 ? "New Employee" : "Edit Employee Info";
-    }
-  },
 
   watch: {
     dialog(val) {
@@ -1378,21 +1371,34 @@ export default {
     }
   },
 
-  created() {
+  async created() {
     this.initialize();
+    await this.fetchEmployee()
   },
 
+  computed: {
+    formTitle() {
+      return this.editedIndex === -1 ? "New Employee" : "Edit Employee Info";
+    },
+    ...mapGetters({
+      allEmployees:"index/employees"
+    })
+  },
+  // beforeMounted() {
+  //   this.$store.dispatch("loadEmployee");
+  // },
+
   methods: {
-    ...mapActions(["addEmployee", "removeEmployee"]),
-    saveEmployeeData() {
-      this.addEmployee(this.employee);
-      this.$notifier.showMessage({ content: "Hello, snackbar", color: "info" });
-      this.employee = Object.assign({}, this.defaultEmployee);
-      this.close();
-    },
-    deleteEmployeeData(id) {
-      this.removeEmployee(id);
-    },
+    ...mapActions({fetchEmployee:"index/loadEmployee"}),
+    // saveEmployeeData() {
+    //   this.addEmployee(this.employee);
+    //   this.$notifier.showMessage({ content: "Hello, snackbar", color: "info" });
+    //   this.employee = Object.assign({}, this.defaultEmployee);
+    //   this.close();
+    // },
+    // deleteEmployeeData(id) {
+    //   this.removeEmployee(id);
+    // },
     addEducationField(education) {
       return (
         this.employee.educationDetails.push({ education }) &&
@@ -1435,17 +1441,17 @@ export default {
     // },
 
     initialize() {
-      this.desserts = this.$store.getters.employees;
+       this.$store.getters['index/employees']
     },
 
     editItem(item) {
-      this.editedIndex = this.desserts.indexOf(item);
+      this.editedIndex = this.allEmployees.indexOf(item);
       this.editedItem = Object.assign({}, item);
       this.dialog = true;
     },
 
     deleteItem(item) {
-      this.editedIndex = this.desserts.indexOf(item);
+      this.editedIndex = this.allEmployees.indexOf(item);
       this.editedItem = Object.assign({}, item);
       this.dialogDelete = true;
     },

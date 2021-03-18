@@ -2,7 +2,7 @@
 <div>
   <v-data-table
     :headers="headers"
-    :items="desserts"
+    :items="allBanks"
     
     class="elevation-1"
   >
@@ -32,7 +32,7 @@
               v-on="on"
               
             >
-              New Bank Details
+              New 
             </v-btn>
           </template>
           <v-card>
@@ -50,7 +50,7 @@
                     md="6"
                   >
                     <v-text-field
-                      v-model="bankDetail.name"
+                      v-model="bankDetail.bankName"
                       label="Bank Name"
                     ></v-text-field>
                   </v-col>
@@ -60,8 +60,8 @@
                     md="6"
                   >
                     <v-text-field
-                      v-model="bankDetail.branch"
-                      label="Branch"
+                      v-model="bankDetail.accountName"
+                      label="Account Name"
                     ></v-text-field>
                   </v-col>
                   <v-col
@@ -70,8 +70,8 @@
                     md="6"
                   >
                     <v-text-field
-                      v-model="bankDetail.country"
-                      label="Country"
+                      v-model="bankDetail.accountNumber"
+                      label="Account Number"
                     ></v-text-field>
                   </v-col>
                   <!--  -->
@@ -89,7 +89,7 @@
               >
                 Cancel
               </v-btn>
-              <v-btn color="blue darken-1" text @click="save">
+              <v-btn color="blue darken-1" text @click="saveBankData()">
                     Save
                   </v-btn>
             </v-card-actions>
@@ -109,12 +109,13 @@
       </v-toolbar>
     </template>
     <template v-slot:[`item.actions`]="{ item }">
-          <v-icon small class="mr-2" @click="editItem(item)">
+          <v-icon small color="warning" class="mr-2" @click="editItem(item)">
             mdi-pencil
           </v-icon>
           <v-icon
             small
-            @click="deleteItem(item)"
+            color="red"
+            @click="deleteBankData(bankDetail.id)"
           >
             mdi-delete
           </v-icon>
@@ -131,41 +132,33 @@
   </div>
 </template>
 <script>
-import { mapActions } from "vuex";
+import { mapActions,mapGetters } from "vuex";
 
   export default {
     data: () => ({
       dialog: false,
       dialogDelete: false,
       bankDetail:{
-        name:'',
-        branch:'',
-        country:''
+        bankName:'',
+        accountName:'',
+        accountNumber:''
       },
       defaultBankDetail:{
-        name:'',
-        branch:'',
-        country:''
+        bankName:'',
+        accountName:'',
+        accountNumber:''
       },
       headers: [
         
-        { text: 'Bank Name', value: 'name' },
-        { text: 'Branch', value: 'branch' },
-        { text: 'Country', value: 'country' },
+        { text: 'Bank Name', value: 'bankName' },
+        { text: 'Account Name', value: 'accountName' },
+        { text: 'Account Number', value: 'accountNumber' },
         
         
         { text: 'Actions', value: 'actions', sortable: false },
       ],
-      
-      desserts: [],
       editedIndex: -1
       }),
-
-    computed: {
-      formTitle () {
-        return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
-      },
-    },
 
     watch: {
       dialog (val) {
@@ -176,38 +169,61 @@ import { mapActions } from "vuex";
       },
     },
 
-    created() {
+    async created() {
       this.initialize();
+      await this.fetchBank()
     },
 
-
+    computed: {
+      formTitle () {
+        return this.editedIndex === -1 ? 'New Bank' : 'Edit Bank'
+      },
+      ...mapGetters({
+        allBanks:"bank/bankDetails"
+      })
+    },
+    beforeMounted(){
+      this.$store.dispatch("loadBank")
+    },
      methods: {
-       ...mapActions({addBank:"bank/addBank",removeBank: "bank/removeBank"}),
+       ...mapActions({fetchBank:"bank/loadBank",
+                      addBank:"bank/addBank",
+                      removeBank:"bank/removeBank",
+                      updateBank:"bank/updateBank"}),
      saveBankData() {
+       if (this.editedIndex > -1) {
+        this.updateBank(this.bankDetail)
+      } else {
        this.addBank(this.bankDetail);
-       this.$notifier.showMessage({ content: "Hello, snackbar", color: "info" });
+       this.$notifier.showMessage({ content: "Congrats!Successfully added one value!",
+          color: "success", });
        this.bankDetail = Object.assign({}, this.defaultBankDetail);
+      }
        this.close();
      },
      deleteBankData(id) {
        this.removeBank(id);
+       this.$notifier.showMessage({
+          content: "Congrats!Successfully deleted one value!",
+          color: "red",
+        })
+      this.closeDelete()
      },
      updateBankData(){},
      initialize() {
-       this.desserts = this.$store.getters['bank/bankDetails'];
-      //  console.log(this.desserts);
+        this.$store.getters['bank/bankDetails'];
     },
 
 
 
       editItem (item) {
-        this.editedIndex = this.desserts.indexOf(item)
+        this.editedIndex = this.allBanks.indexOf(item)
         this.bankDetail = Object.assign({}, item)
         this.dialog = true
       },
 
       deleteItem (item) {
-        this.editedIndex = this.desserts.indexOf(item)
+        this.editedIndex = this.allBanks.indexOf(item)
         this.bankDetail = Object.assign({}, item)
         this.dialogDelete = true
       },
@@ -235,9 +251,9 @@ import { mapActions } from "vuex";
 
       save () {
         if (this.editedIndex > -1) {
-          Object.assign(this.desserts[this.editedIndex], this.bankDetail)
+          Object.assign(this.allBanks[this.editedIndex], this.bankDetail)
         } else {
-          this.desserts.push(this.bankDetail)
+          this.allBanks.push(this.bankDetail)
         }
         this.close();
       

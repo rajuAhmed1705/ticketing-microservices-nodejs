@@ -10,14 +10,14 @@
           <v-spacer></v-spacer>
           <v-dialog v-model="dialog" max-width="500px">
             <template v-slot:activator="{ on, attrs }">
-              <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on">New Project</v-btn>
+              <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on">New</v-btn>
             </template>
             <v-card>
               <v-card-title>
                 <span class="headline">Project Details</span>
               </v-card-title>
 
-              <v-form v-model="valid">
+              <v-form v-model="valid" ref="form">
               <v-card-text>
                 <v-container>
                   <v-row>
@@ -131,7 +131,7 @@ export default {
   data: () => ({
     startingDate: false,
     endDate: false,
-
+    valid:false,
     dialog: false,
     dialogDelete: false,
     project: {
@@ -183,8 +183,8 @@ export default {
       return this.editedIndex === -1 ? "New Project" : "Edit Project Info";
     },
     fromDateDisp() {
-      console.log("hello");
-      return this.fromDateVal ? this.formatDate(this.fromDateVal) : "";
+      console.log("hello1");
+      return moment(this.project.startingDate).format('MMMM Do YYYY')
       // format/do something with date
     },
     ...mapGetters({
@@ -196,6 +196,16 @@ export default {
   },
 
   methods: {
+    // fromDateDisp() {
+    //   console.log("hi")
+    //   return this.project.startingDate;
+    //   // format/do something with date
+    // },
+    // fromDateDisp() {
+    //   console.log("hi")
+    //   return this.project.endDate;
+    //   // format/do something with date
+    // },
     ...mapActions({
       fetchProject: "projectName/loadProject",
       addProject: "projectName/addProject",
@@ -206,7 +216,12 @@ export default {
       if (this.editedIndex > -1) {
         // console.log("hello")
         this.updateProject(this.project);
+        this.$notifier.showMessage({
+          content: "Congrats!Successfully updated one value!",
+          color: "warning",
+        });
       } else {
+        this.$refs.form.resetValidation() 
         this.addProject(this.project);
         this.$notifier.showMessage({
           content: "Congrats!Successfully added one value!",
@@ -247,6 +262,7 @@ export default {
     },
 
     close() {
+      this.$refs.form.resetValidation() 
       this.dialog = false;
       this.$nextTick(() => {
         this.project = Object.assign({}, this.defaultProject);
