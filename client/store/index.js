@@ -9,9 +9,9 @@ export const getters = {
 export const actions = {
   async loadEmployee({commit}){
     let res = await this.$axios.get("/employee-management/employees")
-    if(res.status == 200){
-      commit("SET_EMPLOYEE",res.data)
-    }
+    console.log(res.data)
+    console.log(res.data.religion)
+    commit("SET_EMPLOYEE",res.data)
   },
   async addEmployee({ commit }, employee) {
     commit("ADD_EMPLOYEE", employee);

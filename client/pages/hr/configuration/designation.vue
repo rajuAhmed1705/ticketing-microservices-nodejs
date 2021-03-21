@@ -200,7 +200,9 @@ import { mapActions,mapGetters } from "vuex";
          allDeignations:"designation/designations"
        })
     },
-
+    beforeMounted() {
+    this.$store.dispatch("loadDesignation");
+  },
     methods: {
        ...mapActions({fetchDesignation:"designation/loadDesignation",
                       addDesignation:"designation/addDesignation",

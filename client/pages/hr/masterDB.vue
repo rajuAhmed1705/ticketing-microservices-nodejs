@@ -543,9 +543,7 @@
                                </v-card-subtitle>
                
                                 </v-col>
-                                <v-col cols="6" sm="6" md="3" >
-                                  <v-checkbox></v-checkbox>
-                                </v-col>
+                                
                                 <v-col
                                   cols="12"
                                   sm="6"
@@ -1087,13 +1085,7 @@
 <script>
 import { mapActions,mapGetters } from "vuex";
 export default {
-  // data () {
-  //     return {
-  //       checkbox: true,
-  //     }
-  //   },
   data: () => ({
-    checkbox1: true,
     employeeBirthDay: false,
     dateOfJoining: false,
     passingYear: [false],
@@ -1339,7 +1331,7 @@ export default {
       },
       {
         text: "Type",
-        value: "employeeInformation.employmentType"
+        value: "employeeInformation.employmentType.name"
       },
       {
         text: "Project",
@@ -1381,15 +1373,15 @@ export default {
       return this.editedIndex === -1 ? "New Employee" : "Edit Employee Info";
     },
     ...mapGetters({
-      allEmployees:"index/employees"
+      allEmployees:"employees"
     })
   },
-  // beforeMounted() {
-  //   this.$store.dispatch("loadEmployee");
-  // },
+  beforeMounted() {
+    this.$store.dispatch("loadEmployee");
+  },
 
   methods: {
-    ...mapActions({fetchEmployee:"index/loadEmployee"}),
+    ...mapActions({fetchEmployee:"loadEmployee"}),
     // saveEmployeeData() {
     //   this.addEmployee(this.employee);
     //   this.$notifier.showMessage({ content: "Hello, snackbar", color: "info" });
@@ -1436,12 +1428,9 @@ export default {
       return this.employee.skills.splice(index, 1);
     },
 
-    // handleClick() {
-    //   alert();
-    // },
-
     initialize() {
-       this.$store.getters['index/employees']
+      // console.log("Emplaoyee")
+       this.$store.getters["employees"]
     },
 
     editItem(item) {
