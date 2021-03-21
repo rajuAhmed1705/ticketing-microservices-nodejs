@@ -112,73 +112,73 @@ router.post(
         }
 
         /* checks if the objectId exists in the table */
-        await objectIdCheck([
-            {
-                name: "religion",
-                objectId: religion,
-                model: Religion,
-            },
-            {
-                name: "department",
-                objectId: department,
-                model: Department,
-            },
-            {
-                name: "designation",
-                objectId: designation,
-                model: Designation,
-            },
-            {
-                name: "team",
-                objectId: team,
-                model: Team,
-            },
-            {
-                name: "employment type",
-                objectId: employmentType,
-                model: EmploymentType,
-            },
-            {
-                name: "project",
-                objectId: project,
-                model: Project,
-            },
-            {
-                name: "employee",
-                objectId: reportingTo,
-                model: Employee,
-            },
-            {
-                name: "job location",
-                objectId: jobLocation,
-                model: JobLocation,
-            },
-            {
-                name: "turnover",
-                objectId: turnover,
-                model: Turnover,
-            },
-            {
-                name: "salary grade",
-                objectId: salaryGrade,
-                model: SalaryGrade,
-            },
-            {
-                name: "separation",
-                objectId: separation,
-                model: Separation,
-            },
-            {
-                name: "employee status",
-                objectId: employeeStatus,
-                model: EmployeeStatus,
-            },
-            {
-                name: "confirmation rule",
-                objectId: confirmationRule,
-                model: ConfirmationRule,
-            },
-        ]);
+        // await objectIdCheck([
+        //     {
+        //         name: "religion",
+        //         objectId: religion,
+        //         model: Religion,
+        //     },
+        //     {
+        //         name: "department",
+        //         objectId: department,
+        //         model: Department,
+        //     },
+        //     {
+        //         name: "designation",
+        //         objectId: designation,
+        //         model: Designation,
+        //     },
+        //     {
+        //         name: "team",
+        //         objectId: team,
+        //         model: Team,
+        //     },
+        //     {
+        //         name: "employment type",
+        //         objectId: employmentType,
+        //         model: EmploymentType,
+        //     },
+        //     {
+        //         name: "project",
+        //         objectId: project,
+        //         model: Project,
+        //     },
+        //     {
+        //         name: "employee",
+        //         objectId: reportingTo,
+        //         model: Employee,
+        //     },
+        //     {
+        //         name: "job location",
+        //         objectId: jobLocation,
+        //         model: JobLocation,
+        //     },
+        //     {
+        //         name: "turnover",
+        //         objectId: turnover,
+        //         model: Turnover,
+        //     },
+        //     {
+        //         name: "salary grade",
+        //         objectId: salaryGrade,
+        //         model: SalaryGrade,
+        //     },
+        //     {
+        //         name: "separation",
+        //         objectId: separation,
+        //         model: Separation,
+        //     },
+        //     {
+        //         name: "employee status",
+        //         objectId: employeeStatus,
+        //         model: EmployeeStatus,
+        //     },
+        //     {
+        //         name: "confirmation rule",
+        //         objectId: confirmationRule,
+        //         model: ConfirmationRule,
+        //     },
+        // ]);
 
         const employee = Employee.build({
             personalDetails: {
@@ -333,6 +333,12 @@ router.put(
 router.delete(
     "/api/employee-management/employee/:id",
     async (req: Request, res: Response) => {
+        const employee = await Employee.findById(req.params.id)
+        if(!employee){
+            throw new NotFoundError("employee not found");
+        }
+
+        await Employee.findByIdAndDelete(req.params.id)
         res.status(200).send({});
     }
 );

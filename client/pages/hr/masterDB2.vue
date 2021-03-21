@@ -50,7 +50,7 @@
                         <v-tab key="employee">
                           Employee Information
                         </v-tab>
-                        <v-tab key="contacts">
+                        <!-- <v-tab key="contacts">
                           Contacts
                         </v-tab>
                         <v-tab key="bank">
@@ -67,7 +67,7 @@
                         </v-tab>
                         <v-tab key="skills">
                           Skills
-                        </v-tab>
+                        </v-tab> -->
                       </v-tabs>
                       <v-tabs-items v-model="tab">
                         <v-tab-item key="personal">
@@ -234,9 +234,9 @@
                                   label="Religion"
                                   dense
                                   outlined
-                                ></v-text-field>
-                              </v-col>
-                              <v-col cols="12" sm="6" md="6">
+                                ></v-text-field> 
+                              </v-col> 
+                               <v-col cols="12" sm="6" md="6">
                                 <v-text-field
                                   v-model="employee.personalDetails.nationality"
                                   label="Nationality"
@@ -270,7 +270,7 @@
                                   outlined
                                 ></v-text-field>
                               </v-col>
-                              <v-col cols="12" sm="6" md="6">
+                               <v-col cols="12" sm="6" md="6">
                                 <v-menu
                                   v-model="dateOfJoining"
                                   :close-on-content-click="false"
@@ -374,11 +374,11 @@
                                   dense
                                   outlined
                                 ></v-text-field>
-                              </v-col>
+                              </v-col> 
                             </v-row>
                           </v-card-text>
                         </v-tab-item>
-                        <v-tab-item key="contacts">
+                        <!-- <v-tab-item key="contacts">
                           <v-card-text>
                             <v-row>
                               <v-col cols="12" sm="6" md="6">
@@ -1034,7 +1034,7 @@
                               Add More
                             </v-btn>
                           </v-card-actions>
-                        </v-tab-item>
+                        </v-tab-item> -->
                       </v-tabs-items>
                     </v-card>
                   </v-container>
@@ -1061,7 +1061,7 @@
                   <v-btn color="blue darken-1" text @click="closeDelete"
                     >Cancel</v-btn
                   >
-                  <v-btn color="blue darken-1" text @click="deleteItemConfirm"
+                  <v-btn color="blue darken-1" text @click="deleteEmployeeData(employee.id)"
                     >OK</v-btn
                   >
                   <v-spacer></v-spacer>
@@ -1071,12 +1071,13 @@
           </v-toolbar>
         </template>
         <template v-slot:[`item.actions`]="{ item }">
-          <v-icon small class="mr-2" @click="editItem(item)">
+          <v-icon small color="warning" class="mr-2" @click="editItem(item)">
             mdi-pencil
           </v-icon>
           <v-icon
             small
-            @click="deleteEmployeeData(item.employeeInformation.employeeId)"
+            color="red"
+            @click="deleteItem (item)"
           >
             mdi-delete
           </v-icon>
@@ -1138,177 +1139,177 @@ export default {
         reportingTo: "",
         jobLocation: ""
       },
-      bankDetails: [{
-        accountName: "",
-        accountNumber: "",
-        bankName: "",
-        branchName: "",
-        address: "",
-        accountType: "",
-        purposeOfUse: ""
-      }],
-      educationDetails: [
-        {
-          professionalQualification: "",
-          degree: "",
-          faculty: "",
-          institution: "",
-          passingYear: "",
-          cgpa: ""
-        }
-      ],
-      contacts: {
-        personalNumber: "",
-        emergencyContact: "",
-        email: "",
-        presentAddress: {
-          houseNumber: "",
-          village: "",
-          postOffice: "",
-          upozilla: "",
-          district: ""
-        },
-        permanentAddress: {
-          houseNumber: "",
-          village: "",
-          postOffice: "",
-          upozilla: "",
-          district: ""
-        }
-      },
-      workExperiences: [
-        {
-          companyName: "",
-          designation: "",
-          department: "",
-          duration: "",
-          supervisorName: "",
-          supervisorContact: ""
-        }
-      ],
-      trainingDetails: [
-        {
-          certificationName: "",
-          duration: "",
-          learning: "",
-          institution: ""
-        }
-      ],
-      skills: [
-        {
-          functionalCompetency: "",
-          language: "",
-          computerSkill: "",
-          softCompetency: ""
-        }
-      ],
+    //   bankDetails: [{
+    //     accountName: "",
+    //     accountNumber: "",
+    //     bankName: "",
+    //     branchName: "",
+    //     address: "",
+    //     accountType: "",
+    //     purposeOfUse: ""
+    //   }],
+    //   educationDetails: [
+    //     {
+    //       professionalQualification: "",
+    //       degree: "",
+    //       faculty: "",
+    //       institution: "",
+    //       passingYear: "",
+    //       cgpa: ""
+    //     }
+    //   ],
+    //   contacts: {
+    //     personalNumber: "",
+    //     emergencyContact: "",
+    //     email: "",
+    //     presentAddress: {
+    //       houseNumber: "",
+    //       village: "",
+    //       postOffice: "",
+    //       upozilla: "",
+    //       district: ""
+    //     },
+    //     permanentAddress: {
+    //       houseNumber: "",
+    //       village: "",
+    //       postOffice: "",
+    //       upozilla: "",
+    //       district: ""
+    //     }
+    //   },
+    //   workExperiences: [
+    //     {
+    //       companyName: "",
+    //       designation: "",
+    //       department: "",
+    //       duration: "",
+    //       supervisorName: "",
+    //       supervisorContact: ""
+    //     }
+    //   ],
+    //   trainingDetails: [
+    //     {
+    //       certificationName: "",
+    //       duration: "",
+    //       learning: "",
+    //       institution: ""
+    //     }
+    //   ],
+    //   skills: [
+    //     {
+    //       functionalCompetency: "",
+    //       language: "",
+    //       computerSkill: "",
+    //       softCompetency: ""
+    //     }
+    //   ],
 
-      NID: "",
-      Passport: "",
-      birthCertificate: "",
-      gender: "",
-      religion: "",
-      nationality: "",
-      bloodGroup: ""
+    //   NID: "",
+    //   Passport: "",
+    //   birthCertificate: "",
+    //   gender: "",
+    //   religion: "",
+    //   nationality: "",
+    //   bloodGroup: ""
     },
     defaultEmployee: {
       personalDetails: {
         fullName: "",
         preferredNickName: "",
         personalEmail:"",
-        fathersName: "",
-        fathersProfession: "",
-        mothersName: "",
-        mothersProfession: "",
-        matitalStatus: "",
-        spouseName: "",
-        dateOfBirth: "",
-        numberOfDependents: ""
+        // fathersName: "",
+        // fathersProfession: "",
+        // mothersName: "",
+        // mothersProfession: "",
+        // matitalStatus: "",
+        // spouseName: "",
+        // dateOfBirth: "",
+        // numberOfDependents: ""
       },
       employeeInformation: {
         employeeId: "",
-        department: "",
-        designation: "",
-        unit: "",
-        team: "",
-        employmentType: "",
-        project: "",
-        dateOfJoin: "",
-        reportingTo: "",
-        jobLocation: ""
+        // department: "",
+        // designation: "",
+        // unit: "",
+        // team: "",
+        // employmentType: "",
+        // project: "",
+        // dateOfJoin: "",
+        // reportingTo: "",
+        // jobLocation: ""
       },
-      bankDetails:[ {
-        accountName: "",
-        accountNumber: "",
-        bankName: "",
-        branchName: "",
-        address: "",
-        accountType: "",
-        purposeOfUse: ""
-      }],
-      educationDetails: [
-        {
-          professionalQualification: "",
-          degree: "",
-          faculty: "",
-          institution: "",
-          passingYear: "",
-          cgpa: ""
-        }
-      ],
-      contacts: {
-        personalNumber: "",
-        emergencyContact: "",
-        email: "",
-        presentAddress: {
-          houseNumber: "",
-          village: "",
-          postOffice: "",
-          upozilla: "",
-          district: ""
-        },
-        permanentAddress: {
-          houseNumber: "",
-          village: "",
-          postOffice: "",
-          upozilla: "",
-          district: ""
-        }
-      },
-      workExperiences: [
-        {
-          companyName: "",
-          designation: "",
-          department: "",
-          duration: "",
-          supervisorName: "",
-          supervisorContact: ""
-        }
-      ],
-      trainingDetails: [
-        {
-          certificationName: "",
-          duration: "",
-          learning: "",
-          institution: ""
-        }
-      ],
-      skills: [
-        {
-          functionalCompetency: "",
-          language: "",
-          computerSkill: "",
-          softCompetency: ""
-        }
-      ],
+    //   bankDetails:[ {
+    //     accountName: "",
+    //     accountNumber: "",
+    //     bankName: "",
+    //     branchName: "",
+    //     address: "",
+    //     accountType: "",
+    //     purposeOfUse: ""
+    //   }],
+    //   educationDetails: [
+    //     {
+    //       professionalQualification: "",
+    //       degree: "",
+    //       faculty: "",
+    //       institution: "",
+    //       passingYear: "",
+    //       cgpa: ""
+    //     }
+    //   ],
+    //   contacts: {
+    //     personalNumber: "",
+    //     emergencyContact: "",
+    //     email: "",
+    //     presentAddress: {
+    //       houseNumber: "",
+    //       village: "",
+    //       postOffice: "",
+    //       upozilla: "",
+    //       district: ""
+    //     },
+    //     permanentAddress: {
+    //       houseNumber: "",
+    //       village: "",
+    //       postOffice: "",
+    //       upozilla: "",
+    //       district: ""
+    //     }
+    //   },
+    //   workExperiences: [
+    //     {
+    //       companyName: "",
+    //       designation: "",
+    //       department: "",
+    //       duration: "",
+    //       supervisorName: "",
+    //       supervisorContact: ""
+    //     }
+    //   ],
+    //   trainingDetails: [
+    //     {
+    //       certificationName: "",
+    //       duration: "",
+    //       learning: "",
+    //       institution: ""
+    //     }
+    //   ],
+    //   skills: [
+    //     {
+    //       functionalCompetency: "",
+    //       language: "",
+    //       computerSkill: "",
+    //       softCompetency: ""
+    //     }
+    //   ],
 
-      NID: "",
-      Passport: "",
-      birthCertificate: "",
-      gender: "",
-      religion: "",
-      nationality: "",
-      bloodGroup: ""
+    //   NID: "",
+    //   Passport: "",
+    //   birthCertificate: "",
+    //   gender: "",
+    //   religion: "",
+    //   nationality: "",
+    //   bloodGroup: ""
     },
     maritalItems: ["single", "married", "devorced"],
     depedentNumber: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
@@ -1403,17 +1404,25 @@ export default {
 
   methods: {
     ...mapActions({fetchEmployee:"loadEmployee",
-                   addEmployee:"addEmployee"}),
+                   addEmployee:"addEmployee",
+                   removeEmployee:"removeEmployee",
+                   updateEmployee:"updateEmployee"}),
     saveEmployeeData() {
       console.log("employee from masterDB",this.employee);
+      if (this.editedIndex > -1) {
+        this.updateEmployee(this.employee)
+      } else {
       this.addEmployee(this.employee);
       // this.$notifier.showMessage({ content: "Congrats!Successfully added one value!", color: "success" });
       this.employee = Object.assign({}, this.defaultEmployee);
+      }
       this.close();
     },
-    // deleteEmployeeData(id) {
-    //   this.removeEmployee(id);
-    // },
+    deleteEmployeeData(id) {
+      console.log("deleted employee:",this.employee)
+      this.removeEmployee(id);
+       this.closeDelete()
+    },
     addEducationField(education) {
       return (
         this.employee.educationDetails.push({ education }) &&
@@ -1458,25 +1467,25 @@ export default {
 
     editItem(item) {
       this.editedIndex = this.allEmployees.indexOf(item);
-      this.editedItem = Object.assign({}, item);
+      this.employee = Object.assign({}, item);
       this.dialog = true;
     },
 
     deleteItem(item) {
       this.editedIndex = this.allEmployees.indexOf(item);
-      this.editedItem = Object.assign({}, item);
+      this.employee = Object.assign({}, item);
       this.dialogDelete = true;
     },
 
-    deleteItemConfirm() {
-      this.desserts.splice(this.editedIndex, 1);
-      this.closeDelete();
-    },
+    // deleteItemConfirm() {
+    //   this.desserts.splice(this.editedIndex, 1);
+    //   this.closeDelete();
+    // },
 
     close() {
       this.dialog = false;
       this.$nextTick(() => {
-        this.editedItem = Object.assign({}, this.defaultItem);
+        this.employee = Object.assign({}, this.defaultEmployee);
         this.editedIndex = -1;
       });
     },
@@ -1484,19 +1493,19 @@ export default {
     closeDelete() {
       this.dialogDelete = false;
       this.$nextTick(() => {
-        this.editedItem = Object.assign({}, this.defaultItem);
+        this.employee = Object.assign({}, this.defaultEmployee);
         this.editedIndex = -1;
       });
     },
 
-    save() {
-      if (this.editedIndex > -1) {
-        Object.assign(this.desserts[this.editedIndex], this.editedItem);
-      } else {
-        this.desserts.push(this.editedItem);
-      }
-      this.close();
-    }
+    // save() {
+    //   if (this.editedIndex > -1) {
+    //     Object.assign(this.desserts[this.editedIndex], this.editedItem);
+    //   } else {
+    //     this.desserts.push(this.editedItem);
+    //   }
+    //   this.close();
+    // }
   }
 };
 </script>

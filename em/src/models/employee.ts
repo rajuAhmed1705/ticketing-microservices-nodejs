@@ -234,6 +234,7 @@ const employeeSchema = new mongoose.Schema(
             ],
             dateOfJoin: {
                 type: Date,
+                default: null
             },
             reportingTo: {
                 type: mongoose.Schema.Types.ObjectId,

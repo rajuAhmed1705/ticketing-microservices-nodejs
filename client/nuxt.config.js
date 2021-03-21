@@ -37,10 +37,11 @@ export default {
     buildModules: [
         // https://go.nuxtjs.dev/vuetify
         "@nuxtjs/vuetify",
+        '@nuxtjs/moment',
     ],
 
     // Modules: https://go.nuxtjs.dev/config-modules
-    modules: ["@nuxtjs/axios", "@nuxtjs/proxy"],
+    modules: ["@nuxtjs/axios", "@nuxtjs/proxy",'nuxt-moment'],
 
     axios: {
         baseURL: "http://localhost:8000/api/",

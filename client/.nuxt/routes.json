@@ -18,6 +18,12 @@
     "chunkName": "pages/hr/masterDB"
   },
   {
+    "name": "hr-masterDB2",
+    "path": "/hr/masterDB2",
+    "component": "C:\\\\Users\\\\HP\\\\Google Drive\\\\ShurjoMukhi\\\\shurjoERP\\\\shurjoerp\\\\client\\\\pages\\\\hr\\\\masterDB2.vue",
+    "chunkName": "pages/hr/masterDB2"
+  },
+  {
     "name": "hr-settings",
     "path": "/hr/settings",
     "component": "C:\\\\Users\\\\HP\\\\Google Drive\\\\ShurjoMukhi\\\\shurjoERP\\\\shurjoerp\\\\client\\\\pages\\\\hr\\\\settings.vue",

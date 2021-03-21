@@ -7,6 +7,7 @@ import scrollBehavior from './router.scrollBehavior.js'
 const _0f084ea0 = () => interopDefault(import('..\\pages\\inspire.vue' /* webpackChunkName: "pages/inspire" */))
 const _6a0f1846 = () => interopDefault(import('..\\pages\\custom\\education.vue' /* webpackChunkName: "pages/custom/education" */))
 const _42c56a94 = () => interopDefault(import('..\\pages\\hr\\masterDB.vue' /* webpackChunkName: "pages/hr/masterDB" */))
+const _15ff914e = () => interopDefault(import('..\\pages\\hr\\masterDB2.vue' /* webpackChunkName: "pages/hr/masterDB2" */))
 const _79b92a52 = () => interopDefault(import('..\\pages\\hr\\settings.vue' /* webpackChunkName: "pages/hr/settings" */))
 const _a58a3ea4 = () => interopDefault(import('..\\pages\\hr\\configuration\\bank.vue' /* webpackChunkName: "pages/hr/configuration/bank" */))
 const _872d5178 = () => interopDefault(import('..\\pages\\hr\\configuration\\department.vue' /* webpackChunkName: "pages/hr/configuration/department" */))
@@ -51,6 +52,10 @@ export const routerOptions = {
     path: "/hr/masterDB",
     component: _42c56a94,
     name: "hr-masterDB"
+  }, {
+    path: "/hr/masterDB2",
+    component: _15ff914e,
+    name: "hr-masterDB2"
   }, {
     path: "/hr/settings",
     component: _79b92a52,
