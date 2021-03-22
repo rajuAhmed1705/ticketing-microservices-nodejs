@@ -1,12 +1,12 @@
 import mongoose from "mongoose";
 
 interface RequestTypeAttrs {
-  type: string;
+  requestName: string;
   remarks: string;
 }
 
 export interface RequestTypeDoc extends mongoose.Document {
-  type: string;
+  requestName: string;
   remarks: string;
 }
 
@@ -16,7 +16,7 @@ interface RequestTypeModel extends mongoose.Model<RequestTypeDoc> {
 
 const requestTypeSchema = new mongoose.Schema(
   {
-    name: {
+    requestName: {
       type: String,
       required: true,
       trim: true,

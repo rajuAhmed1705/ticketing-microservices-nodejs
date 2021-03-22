@@ -5,6 +5,8 @@ import cors from "cors";
 import cookieSession from "cookie-session";
 import { errorHandler, NotFoundError } from "@shurjomukhi/common";
 import { categoryRouter } from "./routes/category";
+import { requestTypeRouter } from "./routes/request-type";
+import { leaveRequestRouter } from "./routes/leave-request";
 
 const app = express();
 app.use(json());
@@ -23,6 +25,8 @@ app.use(
 );
 
 app.use(categoryRouter);
+app.use(requestTypeRouter);
+app.use(leaveRequestRouter);
 
 app.all("*", async (req, res) => {
   throw new NotFoundError();

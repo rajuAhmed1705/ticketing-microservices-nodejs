@@ -17,7 +17,7 @@ interface EmployeeAttrs {
     department: DepartmentDoc;
     designation: DesignationDoc;
     employmentType: employmentTypeDoc;
-    reportingTo: EmployeeDoc;
+    reportingTo?: EmployeeDoc;
     employeeStatus: EmployeeStatusDoc;
   };
 }
@@ -33,7 +33,7 @@ export interface EmployeeDoc extends mongoose.Document {
     department: DepartmentDoc;
     designation: DesignationDoc;
     employmentType: employmentTypeDoc;
-    reportingTo: EmployeeDoc;
+    reportingTo?: EmployeeDoc;
     employeeStatus: EmployeeStatusDoc;
   };
 }
