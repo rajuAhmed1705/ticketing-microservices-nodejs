@@ -7,8 +7,8 @@ interface LeaveRequestAttrs {
   employee: EmployeeDoc;
   requestType: RequestTypeDoc;
   category: CategoryDoc;
-  fromDate: Date;
-  toDate: Date;
+  startTime: Date;
+  endTime: Date;
   status: number;
   requestTo: EmployeeDoc;
 }
@@ -17,8 +17,8 @@ export interface LeaveRequestDoc extends mongoose.Document {
   employee: EmployeeDoc;
   requestType: RequestTypeDoc;
   category: CategoryDoc;
-  fromDate: Date;
-  toDate: Date;
+  startTime: Date;
+  endTime: Date;
   status: number;
   requestTo: EmployeeDoc;
 }
@@ -44,11 +44,11 @@ const leaveRequestSchema = new mongoose.Schema(
       ref: "Category",
       required: true,
     },
-    fromDate: {
+    startTime: {
       type: Date,
       required: true,
     },
-    toDate: {
+    endTime: {
       type: Date,
       default: null,
     },

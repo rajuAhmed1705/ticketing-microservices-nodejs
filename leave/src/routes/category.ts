@@ -1,23 +1,31 @@
 import {
   BadRequestError,
   NotFoundError,
+  objectIdCheck,
   validateRequest,
 } from "@shurjomukhi/common";
 import express, { Request, Response } from "express";
 import { body } from "express-validator";
 import { Category } from "../models/category";
+import { EmploymentType } from "../models/employment-type";
 
 const router = express.Router();
 
 const validation = [
   body("name").exists().withMessage("name field is required"),
   body("shortForm").exists().withMessage("shortForm is required"),
+  body("eligibleEmploymentType")
+    .isArray()
+    .withMessage("field must be of type array"),
 ];
 
 router.get("/api/leave/category", async (req: Request, res: Response) => {
-  const categories = await Category.find();
-
-  res.status(200).send(categories);
+  try {
+    const categories = await Category.find();
+    res.status(200).send(categories);
+  } catch (error) {
+    console.log(error);
+  }
 });
 
 router.get("/api/leave/category/:id", async (req: Request, res: Response) => {
@@ -61,6 +69,16 @@ router.post(
       throw new BadRequestError("category or short form already exists");
     }
 
+    for await (const id of eligibleEmploymentType) {
+      await objectIdCheck([
+        {
+          name: "Employment Type",
+          model: EmploymentType,
+          objectId: id,
+        },
+      ]);
+    }
+
     const category = Category.build({
       name,
       shortForm,
@@ -97,7 +115,27 @@ router.put(
       throw new NotFoundError("category not found");
     }
 
-    const { name, shortForm } = req.body;
+    const { name, shortForm, eligibleEmploymentType } = req.body;
+
+    const existingCategory = await Category.findOne({
+      $or: [{ name }, { shortForm }],
+      _id: {
+        $ne: req.params.id,
+      },
+    });
+    if (existingCategory) {
+      throw new BadRequestError("category or short form already exists");
+    }
+
+    for await (const id of eligibleEmploymentType) {
+      await objectIdCheck([
+        {
+          name: "Employment Type",
+          model: EmploymentType,
+          objectId: id,
+        },
+      ]);
+    }
 
     category.set({
       ...req.body,

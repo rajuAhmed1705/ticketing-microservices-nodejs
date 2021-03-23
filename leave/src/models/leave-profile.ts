@@ -5,13 +5,13 @@ import mongoose from "mongoose";
 interface LeaveProfileAttrs {
   employee: EmployeeDoc;
   category: CategoryDoc;
-  remaingLeave: number;
+  remainingLeave: number;
 }
 
 export interface LeaveProfileDoc extends mongoose.Document {
   employee: EmployeeDoc;
   category: CategoryDoc;
-  remaingLeave: number;
+  remainingLeave: number;
 }
 
 interface LeaveProfileModel extends mongoose.Model<LeaveProfileDoc> {
@@ -32,6 +32,7 @@ const leaveProfileSchema = new mongoose.Schema(
     },
     remainingLeave: {
       type: Number,
+      default: null,
       min: 0,
     },
   },

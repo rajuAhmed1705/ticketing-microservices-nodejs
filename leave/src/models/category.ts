@@ -1,5 +1,6 @@
 import { employmentTypeDoc } from "./employment-type";
 import mongoose from "mongoose";
+import autopopulate from "mongoose-autopopulate";
 
 interface CategoryAttrs {
   name: string;
@@ -78,6 +79,7 @@ const categorySchema = new mongoose.Schema(
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: "EmploymentType",
+        autopopulate: true,
       },
     ],
     carryForward: {
@@ -86,7 +88,7 @@ const categorySchema = new mongoose.Schema(
     },
     minService: {
       type: Number,
-      default: 0,
+      default: null,
     },
     preapproval: {
       type: Boolean,
@@ -120,10 +122,13 @@ const categorySchema = new mongoose.Schema(
       transform(doc, ret) {
         (ret.id = ret._id), delete ret._id;
       },
+      virtuals: true,
     },
     timestamps: true,
   }
 );
+
+categorySchema.plugin(autopopulate);
 
 categorySchema.statics.build = (attrs: CategoryAttrs) => {
   return new Category(attrs);

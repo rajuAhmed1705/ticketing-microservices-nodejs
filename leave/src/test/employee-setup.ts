@@ -2,8 +2,8 @@ import { Department } from "../models/department";
 import { Designation } from "../models/designation";
 import { Employee } from "../models/employee";
 import { EmployeeStatus } from "../models/employee-status";
-import { EmploymentType } from "../models/employment-type";
 import { Religion } from "../models/religion";
+import { employmentTypeSetup } from "./employment-type-setup";
 
 export const employeeSetup = async () => {
   //new religion
@@ -29,10 +29,11 @@ export const employeeSetup = async () => {
   await designation.save();
 
   //new employee type
-  const employmentType = EmploymentType.build({
-    name: "permanent",
-  });
-  await employmentType.save();
+  const employmentType = await employmentTypeSetup();
+  // const employmentType = EmploymentType.build({
+  //   name: "permanent",
+  // });
+  // await employmentType.save();
 
   //new employee status
   const employeeStatus = EmployeeStatus.build({

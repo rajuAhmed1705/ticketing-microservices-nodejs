@@ -5,6 +5,7 @@ import { EmployeeStatusDoc } from "./employee-status";
 import { employmentTypeDoc } from "./employment-type";
 import { ReligionDoc } from "./religion";
 import autopopulate from "mongoose-autopopulate";
+import { createLeaveProfile } from "../middleware/DB/leave-profile-create";
 
 interface EmployeeAttrs {
   personalDetails: {
@@ -114,6 +115,10 @@ const employeeSchema = new mongoose.Schema(
 );
 
 employeeSchema.plugin(autopopulate);
+
+employeeSchema.post("save", async function (doc) {
+  await createLeaveProfile(doc);
+});
 
 employeeSchema.statics.build = (attrs: EmployeeAttrs) => {
   return new Employee(attrs);
