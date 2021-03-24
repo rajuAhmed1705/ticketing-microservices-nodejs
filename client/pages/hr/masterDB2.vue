@@ -1544,7 +1544,6 @@ export default {
       this.editedIndex = this.allEmployees.indexOf(item);
       this.employee = Object.assign({}, item);
       this.dialog = true;
-      // this.updateEmployee(item)
     },
 
     deleteItem(item) {
