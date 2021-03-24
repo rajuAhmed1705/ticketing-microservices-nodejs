@@ -21,8 +21,12 @@
               v-bind="attrs"
               v-on="on"
             >
+<<<<<<< HEAD
               New Designation 
 >>>>>>> 088af27ecee617c4574dfad306e37a651f853073
+=======
+              New 
+>>>>>>> client1.0.1
             </v-btn>
           </template>
           <v-card>
@@ -30,7 +34,7 @@
               <span class="headline">Employee Designation</span>
             </v-card-title>
 
-            <v-form v-model="valid">
+            <v-form v-model="valid" ref="form">
             <v-card-text>
               <v-container>
                 <v-row>
@@ -67,7 +71,16 @@
               <v-btn color="blue darken-1" text @click="close">
                 Cancel
               </v-btn>
+<<<<<<< HEAD
               <v-btn color="blue darken-1" text @click="saveDesignation()">
+=======
+              <v-btn
+                color="blue darken-1"
+                text
+                :disabled="!valid"
+                @click="saveDesignation()"
+              >
+>>>>>>> client1.0.1
                 Save
               </v-btn>
             </v-card-actions>
@@ -174,7 +187,7 @@ export default {
         remark:''
       },
       required(propertyType){
-       return v => !!v || `${propertyType} is required` 
+       return v => v && v.length>0 || `${propertyType} is required` 
       },
     }),
 >>>>>>> 088af27ecee617c4574dfad306e37a651f853073
@@ -201,6 +214,7 @@ export default {
     dialogDelete(val) {
       val || this.closeDelete()
     },
+<<<<<<< HEAD
   },
 
 <<<<<<< HEAD
@@ -212,6 +226,11 @@ export default {
     formTitle() {
       return this.editedIndex === -1 ? "New Designation" : "Edit Designation"
 =======
+=======
+    beforeMounted() {
+    this.$store.dispatch("loadDesignation");
+  },
+>>>>>>> client1.0.1
     methods: {
        ...mapActions({fetchDesignation:"designation/loadDesignation",
                       addDesignation:"designation/addDesignation",
@@ -222,10 +241,10 @@ export default {
           this.updateDesignaton(this.designation)
         } 
        else{
+         this.$refs.form.resetValidation() 
           this.addDesignation(this.designation);
-          this.$notifier.showMessage({ content: "Congrats!Successfully added one value!", color: "success" });
           this.designation = Object.assign({}, this.defaultdesignation);
-            }
+        }
        this.close();
        },
      deleteDesignation(id) {
@@ -275,6 +294,7 @@ export default {
       this.dialog = true
     },
 
+<<<<<<< HEAD
     deleteItem(item) {
       this.editedIndex = this.allDeignations.indexOf(item)
       this.designation = Object.assign({}, item)
@@ -300,6 +320,24 @@ export default {
         this.designation = Object.assign({}, this.defaultdesignation)
         this.editedIndex = -1
       })
+=======
+      close () {
+        this.$refs.form.resetValidation() 
+        this.dialog = false
+        this.$nextTick(() => {
+          this.designation = Object.assign({}, this.defaultdesignation)
+          this.editedIndex = -1
+        })
+      },
+
+      closeDelete () {
+        this.dialogDelete = false
+        this.$nextTick(() => {
+          this.designation = Object.assign({}, this.defaultdesignation)
+          this.editedIndex = -1
+        })
+      },
+>>>>>>> client1.0.1
     },
 
     // save () {

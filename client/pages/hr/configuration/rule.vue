@@ -10,28 +10,30 @@
           <v-spacer></v-spacer>
           <v-dialog v-model="dialog" max-width="500px">
             <template v-slot:activator="{ on, attrs }">
-              <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on">New Rule</v-btn>
+              <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on">New</v-btn>
             </template>
             <v-card>
               <v-card-title>
                 <span class="headline">Rule Details</span>
               </v-card-title>
-
+              
+              <v-form v-model="valid" ref="form">
               <v-card-text>
                 <v-container>
                   <v-row>
                     <v-col cols="12" sm="6" md="6">
-                      <v-text-field v-model="rule.ruleName" label="Rule Name"></v-text-field>
+                      <v-text-field v-model="rule.ruleName" label="Rule Name" :rules="[required('ruleName')]" @keyup="formatSurname"></v-text-field>
                     </v-col>
                     <!--  -->
                   </v-row>
                 </v-container>
               </v-card-text>
+              </v-form>
 
               <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn color="blue darken-1" text @click="close">Cancel</v-btn>
-                <v-btn color="blue darken-1" text @click="saveRuleData()">Save</v-btn>
+                <v-btn color="blue darken-1" text @click="saveRuleData()" :disabled="!valid">Save</v-btn>
               </v-card-actions>
             </v-card>
           </v-dialog>
@@ -49,8 +51,8 @@
         </v-toolbar>
       </template>
       <template v-slot:[`item.actions`]="{ item }">
-        <v-icon small class="mr-2" @click="editItem(item)">mdi-pencil</v-icon>
-        <v-icon small @click="deleteItem(item)">mdi-delete</v-icon>
+        <v-icon small color="warning" class="mr-2" @click="editItem(item)">mdi-pencil</v-icon>
+        <v-icon small color="red" @click="deleteItem(item)">mdi-delete</v-icon>
       </template>
       <template v-slot:no-data>
         <v-btn color="primary" @click="initialize">Reset</v-btn>
@@ -65,6 +67,7 @@ export default {
   data: () => ({
     dialog: false,
     dialogDelete: false,
+    valid: false,
     rule: {
       ruleName: "",
     },
@@ -77,6 +80,9 @@ export default {
       { text: "Actions", value: "actions", sortable: false },
     ],
     editedIndex: -1,
+    required(propertyType){
+       return v => v && v.length>0 || `${propertyType} is required` 
+      },
   }),
 
   watch: {
@@ -106,6 +112,12 @@ export default {
     this.$store.dispatch("loadRule");
   },
   methods: {
+    formatSurname() {
+    if (this.ruleName) {
+      this.ruleName = this.ruleName.toString()
+      this.ruleName = this.ruleName.charAt(0).toUpperCase() + this.ruleName.slice(1)
+    }
+  },
     ...mapActions({
       fetchRule: "rule/loadRule",
       addRule: "rule/addRule",
@@ -116,11 +128,8 @@ export default {
       if (this.editedIndex > -1) {
         this.updateRule(this.rule);
       } else {
+        this.$refs.form.resetValidation()
         this.addRule(this.rule);
-        this.$notifier.showMessage({
-          content: "Hello, snackbar",
-          color: "info",
-        });
         this.rule = Object.assign({}, this.defaultrule);
       }
       this.close();
@@ -153,6 +162,7 @@ export default {
     },
 
     close() {
+      this.$refs.form.resetValidation() 
       this.dialog = false;
       this.$nextTick(() => {
         this.rule = Object.assign({}, this.defaultrule);

@@ -9,27 +9,29 @@
         <v-spacer></v-spacer>
         <v-dialog v-model="dialog" max-width="500px">
           <template v-slot:activator="{ on, attrs }">
-            <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on">New Turnover Type</v-btn>
+            <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on">New</v-btn>
           </template>
           <v-card>
             <v-card-title>
               <span class="headline">TurnOver Type</span>
             </v-card-title>
-
+ 
+            <v-form v-model="valid" ref="form">
             <v-card-text>
               <v-container>
                 <v-row>
                   <v-col cols="12" sm="12" md="12">
-                    <v-text-field v-model="turnovertype.name" label="TurnOver Type"></v-text-field>
+                    <v-text-field v-model="turnovertype.name" label="TurnOver Type" :rules="[required('name')]"></v-text-field>
                   </v-col>
                 </v-row>
               </v-container>
             </v-card-text>
+            </v-form>
 
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn color="blue darken-1" text @click="close">Cancel</v-btn>
-              <v-btn color="blue darken-1" text @click="saveTurnOverData()">Save</v-btn>
+              <v-btn color="blue darken-1" text @click="saveTurnOverData()" :disabled="!valid">Save</v-btn>
             </v-card-actions>
           </v-card>
         </v-dialog>
@@ -46,9 +48,9 @@
         </v-dialog>
       </v-toolbar>
     </template>
-    <template v-slot:item.actions="{ item }">
-      <v-icon small class="mr-2" @click="editItem(item)">mdi-pencil</v-icon>
-      <v-icon small @click="deleteItem(item)">mdi-delete</v-icon>
+    <template v-slot:[`item.actions`]="{ item }">
+      <v-icon small color="warning" class="mr-2" @click="editItem(item)">mdi-pencil</v-icon>
+      <v-icon small color="red" @click="deleteItem(item)">mdi-delete</v-icon>
     </template>
     <template v-slot:no-data>
       <v-btn color="primary" @click="initialize">Reset</v-btn>
@@ -63,6 +65,7 @@ export default {
   data: () => ({
     dialog: false,
     dialogDelete: false,
+    valid: false,
     headers: [
       { text: "TurnOver Type", value: "name" },
 
@@ -77,6 +80,9 @@ export default {
       name: "",
     },
     // typeOfEmployee: ["Permanent", "Full-Time", "Contructual","Probationary","Apprentice"]
+    required(propertyType){
+       return v => v && v.length>0 || `${propertyType} is required` 
+      },
   }),
 
   watch: {
@@ -116,10 +122,11 @@ export default {
         // console.log("hello");
         this.updateTurnOver(this.turnovertype);
       } else {
+        this.$refs.form.resetValidation()
         this.addTurnOver(this.turnovertype);
         this.$notifier.showMessage({
-          content: "Hello, snackbar",
-          color: "info",
+          content: "Congrats!Successfully added one value!",
+          color: "success",
         });
         this.employeetype = Object.assign({}, this.defaultturnovertype);
       }
@@ -127,6 +134,10 @@ export default {
     },
     deleteTurnOverData(id) {
       this.removeTurnOver(id);
+      this.$notifier.showMessage({
+          content: "Congrats!Successfully deleted one value!",
+          color: "red",
+        });
       this.closeDelete();
     },
     initialize() {
@@ -151,6 +162,7 @@ export default {
     },
 
     close() {
+      this.$refs.form.resetValidation()
       this.dialog = false;
       this.$nextTick(() => {
         this.turnovertype = Object.assign({}, this.defaultturnovertype);

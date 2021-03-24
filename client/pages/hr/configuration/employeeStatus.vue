@@ -30,14 +30,15 @@
               v-bind="attrs"
               v-on="on"
             >
-              New Employee Status
+              New
             </v-btn>
           </template>
           <v-card>
             <v-card-title>
               <span class="headline">Employee Status</span>
             </v-card-title>
-
+            
+            <v-form v-model="valid" ref="form">
             <v-card-text>
               <v-container>
                 <v-row>
@@ -49,11 +50,13 @@
                     <v-text-field
                       v-model="employeeStatus.status"
                       label="Employee Status"
+                     :rules="[required('status')]"
                     ></v-text-field>
                   </v-col>
                 </v-row>
               </v-container>
             </v-card-text>
+            </v-form>
 
             <v-card-actions>
               <v-spacer></v-spacer>
@@ -68,6 +71,7 @@
                 color="blue darken-1"
                 text
                 @click="saveEmployeeSts()"
+                :disabled="!valid"
               >
                 Save
               </v-btn>
@@ -91,12 +95,14 @@
       <v-icon
         small
         class="mr-2"
+        color="warning"
         @click="editItem(item)"
       >
         mdi-pencil
       </v-icon>
       <v-icon
         small
+        color="red"
         @click="deleteItem(item)"
       >
         mdi-delete
@@ -120,6 +126,7 @@ import { mapActions,mapGetters } from "vuex";
     data: () => ({
       dialog: false,
       dialogDelete: false,
+      valid: false,
       headers: [
         
         { text: 'Status', value: 'status' },
@@ -132,6 +139,9 @@ import { mapActions,mapGetters } from "vuex";
       },
       defaultemployeeStatus: {
         status:''
+      },
+      required(propertyType){
+       return v => v && v.length>0 || `${propertyType} is required` 
       },
     }),
 
@@ -168,8 +178,8 @@ import { mapActions,mapGetters } from "vuex";
        if (this.editedIndex > -1) {
         this.updateEmpSts(this.employeeStatus);
       } else {
+       this.$refs.form.resetValidation() 
        this.addEmpSts(this.employeeStatus);
-       this.$notifier.showMessage({ content: "Hello, snackbar", color: "info" });
        this.employeeStatus = Object.assign({}, this.defaultemployeeStatus);
       }
        this.close();
@@ -194,12 +204,8 @@ import { mapActions,mapGetters } from "vuex";
         this.dialogDelete = true
       },
 
-      // deleteItemConfirm () {
-      //   this.allStatuses.splice(this.editedIndex, 1)
-      //   this.closeDelete()
-      // },
-
       close () {
+        this.$refs.form.resetValidation() 
         this.dialog = false
         this.$nextTick(() => {
           this.employeeStatus = Object.assign({}, this.defaultemployeeStatus)
@@ -214,15 +220,6 @@ import { mapActions,mapGetters } from "vuex";
           this.editedIndex = -1
         })
       },
-
-      // save () {
-      //   if (this.editedIndex > -1) {
-      //     Object.assign(this.desserts[this.editedIndex], this.employeeStatus)
-      //   } else {
-      //     this.desserts.push(this.employeeStatus)
-      //   }
-      //   this.close()
-      // },
     },
   }
 </script>

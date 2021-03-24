@@ -118,7 +118,7 @@ export default {
           children: [
             {
               name: "Master Database",
-              path: "/hr/masterDB",
+              path: "/hr/masterDB2",
               meta: {
                 icon: "database",
               },

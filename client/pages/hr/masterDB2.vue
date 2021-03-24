@@ -50,24 +50,24 @@
                         <v-tab key="employee">
                           Employee Information
                         </v-tab>
-                        <v-tab key="contacts">
+                        <!-- <v-tab key="contacts">
                           Contacts
-                        </v-tab>
+                        </v-tab> -->
                         <v-tab key="bank">
                           Bank Details
-                        </v-tab>
+                        </v-tab> 
                         <v-tab key="education">
                           Education Details
-                        </v-tab>
+                        </v-tab> 
                         <v-tab key="work">
                           Work Experiences
-                        </v-tab>
+                        </v-tab> 
                         <v-tab key="training">
                           Training Details
                         </v-tab>
                         <v-tab key="skills">
                           Skills
-                        </v-tab>
+                        </v-tab> 
                       </v-tabs>
                       <v-tabs-items v-model="tab">
                         <v-tab-item key="personal">
@@ -77,8 +77,8 @@
                                 <v-text-field
                                   v-model="employee.personalDetails.fullName"
                                   label="Full Name"
-                                  :rules="[required('fullName')]"
-                                
+                                  :rules="rules.stringRule"
+                                  required
                                   dense
                                   outlined
                                 ></v-text-field>
@@ -102,6 +102,18 @@
                                   label="Personal Email"
                                   :rules="rules.emailRules"
                                   required
+                                  dense
+                                  outlined
+                                ></v-text-field>
+                              </v-col>
+                              <v-col cols="12" sm="12" md="12">
+                                <v-text-field
+                                  v-model="
+                                    employee.personalDetails.personalNumber
+                                  "
+                                  label="Personal Number"
+                                  
+                                  type="number"
                                   dense
                                   outlined
                                 ></v-text-field>
@@ -161,7 +173,7 @@
                                   outlined
                                 ></v-text-field>
                               </v-col>
-
+                              
                               <v-col cols="12" sm="6" md="6">
                                 <v-menu
                                   v-model="employeeBirthDay"
@@ -204,7 +216,7 @@
                                   outlined
                                 ></v-select>
                               </v-col>
-                              <v-col cols="12" sm="6" md="6">
+                                 <v-col cols="12" sm="6" md="6">
                                 <v-text-field
                                   v-model="employee.personalDetails.nid"
                                   label="NID"
@@ -234,9 +246,9 @@
                                   label="Religion"
                                   dense
                                   outlined
-                                ></v-text-field>
-                              </v-col>
-                              <v-col cols="12" sm="6" md="6">
+                                ></v-text-field> 
+                              </v-col> 
+                               <v-col cols="12" sm="6" md="6">
                                 <v-text-field
                                   v-model="employee.personalDetails.nationality"
                                   label="Nationality"
@@ -264,13 +276,14 @@
                                     employee.employeeInformation.employeeId
                                   "
                                   label="Employee ID"
-                                  :rules="[required('employeeId')]"
+                                  :rules="rules.stringRule"
+                                  required
                                   
                                   dense
                                   outlined
                                 ></v-text-field>
                               </v-col>
-                              <v-col cols="12" sm="6" md="6">
+                               <!-- <v-col cols="12" sm="6" md="6">
                                 <v-menu
                                   v-model="dateOfJoining"
                                   :close-on-content-click="false"
@@ -310,8 +323,8 @@
                                   dense
                                   outlined
                                 ></v-text-field>
-                              </v-col>
-                              <v-col cols="12" sm="6" md="6">
+                              </v-col> -->
+                              <!-- <v-col cols="12" sm="6" md="6">
                                 <v-text-field
                                   v-model="
                                     employee.employeeInformation.designation
@@ -354,8 +367,8 @@
                                   dense
                                   outlined
                                 ></v-text-field>
-                              </v-col>
-                              <v-col cols="12" sm="6" md="6">
+                              </v-col> -->
+                              <!-- <v-col cols="12" sm="6" md="6">
                                 <v-text-field
                                   v-model="
                                     employee.employeeInformation.reportingTo
@@ -364,8 +377,8 @@
                                   dense
                                   outlined
                                 ></v-text-field>
-                              </v-col>
-                              <v-col cols="12" sm="6" md="6">
+                              </v-col> -->
+                              <!-- <v-col cols="12" sm="6" md="6">
                                 <v-text-field
                                   v-model="
                                     employee.employeeInformation.jobLocation
@@ -374,22 +387,72 @@
                                   dense
                                   outlined
                                 ></v-text-field>
-                              </v-col>
+                              </v-col> 
+                               <v-col cols="12" sm="6" md="6">
+                                <v-text-field
+                                  v-model="
+                                    employee.employeeInformation.turnover
+                                  "
+                                  label="Turnover Type"
+                                  dense
+                                  outlined
+                                ></v-text-field>
+                              </v-col> 
+                               <v-col cols="12" sm="6" md="6">
+                                <v-text-field
+                                  v-model="
+                                    employee.employeeInformation.salaryGrade
+                                  "
+                                  label="Salary Grade"
+                                  dense
+                                  outlined
+                                ></v-text-field>
+                              </v-col> 
+                               <v-col cols="12" sm="6" md="6">
+                                <v-text-field
+                                  v-model="
+                                    employee.employeeInformation.separation
+                                  "
+                                  label="Separation"
+                                  dense
+                                  outlined
+                                ></v-text-field>
+                              </v-col> 
+                               <v-col cols="12" sm="6" md="6">
+                                <v-text-field
+                                  v-model="
+                                    employee.employeeInformation.employeeStatus
+                                  "
+                                  label="Employee Status"
+                                  dense
+                                  outlined
+                                ></v-text-field>
+                              </v-col> 
+                               <v-col cols="12" sm="6" md="6">
+                                <v-text-field
+                                  v-model="
+                                    employee.employeeInformation.confirmationRule
+                                  "
+                                  label="Confirmation Rule"
+                                  dense
+                                  outlined
+                                ></v-text-field>
+                              </v-col>  -->
                             </v-row>
                           </v-card-text>
                         </v-tab-item>
-                        <v-tab-item key="contacts">
+                        <!-- <v-tab-item key="contacts">
                           <v-card-text>
-                            <v-row>
-                              <v-col cols="12" sm="6" md="6">
+                            <v-row> -->
+                              <!-- <v-col cols="12" sm="6" md="6">
                                 <v-text-field
                                   v-model="employee.contacts.personalNumber"
                                   label="Personal Number"
                                   dense
                                   outlined
                                 ></v-text-field>
-                              </v-col>
-                              <v-col cols="12" sm="6" md="6">
+                              </v-col> -->
+                              <!-- <v-col cols="12" sm="6" md="6">
                                 <v-text-field
                                   v-model="employee.contacts.emergencyContact"
                                   label="Emergency Contact"
@@ -541,43 +604,39 @@
                             </v-row>
                           </v-card-text>
                         </v-tab-item>
-                        
+                         -->
 
-                        <v-tab-item key="bank">
+                       <v-tab-item key="bank">
                           <v-card-text
                             v-for="(bank, k) in employee.bankDetails"
                             :key="k"
                           >
                             <v-card-actions>
                               <v-row class="justify-start align-start">
-                                <v-col cols="6" sm="3" md="3">
+                                <v-col cols="6" sm="3" md="3" >
                                   <v-card-subtitle
                                     v-text="`Bank Details ${k + 1}`"
                                     class="font-weight-bold mb-0 pb-0 pl-0"
                                   >
-                                  </v-card-subtitle>
+
+                               </v-card-subtitle>
+               
                                 </v-col>
-<<<<<<< HEAD
-                                <v-col cols="6" sm="6" md="3">
-                                  <v-checkbox></v-checkbox>
-                                </v-col>
-=======
                                 
->>>>>>> client1.0.1
                                 <v-col
                                   cols="12"
                                   sm="6"
                                   md="6"
                                   class="d-flex align-end justify-end"
                                 >
-                                  <v-icon
+                                  <!-- <v-icon
                                     small
                                     @click="removeBankField(k)"
                                     v-show="employee.bankDetails.length > 1"
                                     color="error"
                                   >
                                     mdi-delete
-                                  </v-icon>
+                                  </v-icon> -->
                                 </v-col>
                               </v-row>
                             </v-card-actions>
@@ -647,15 +706,17 @@
                           </v-card-text>
                           <v-card-actions>
                             <v-spacer></v-spacer>
-                            <v-btn
+                            <!-- <v-btn
                               color="blue darken-1"
-                              @click="addBankField(employee.bankDetails)"
+                              @click="
+                                addBankField(employee.bankDetails)
+                              "
                               v-show="employee.bankDetails.length < 10"
                             >
                               Add More
-                            </v-btn>
+                            </v-btn> -->
                           </v-card-actions>
-                        </v-tab-item>
+                        </v-tab-item> 
 
                         <v-tab-item key="education">
                           <v-card-text
@@ -678,7 +739,7 @@
                                   md="6"
                                   class="d-flex align-end justify-end"
                                 >
-                                  <v-icon
+                                  <!-- <v-icon
                                     small
                                     @click="removeEducationField(k)"
                                     v-show="
@@ -687,9 +748,9 @@
                                     color="error"
                                   >
                                     mdi-delete
-                                  </v-icon>
+                                  </v-icon> -->
                                 </v-col>
-                              </v-row>
+                               </v-row>
                             </v-card-actions>
 
                             <v-divider class="mt-0 mb-4"></v-divider>
@@ -729,6 +790,7 @@
                                 ></v-text-field>
                               </v-col>
                               <v-col cols="12" sm="6" md="6">
+                               
                                 <v-menu
                                   v-model="passingYear[k]"
                                   :close-on-content-click="false"
@@ -768,7 +830,7 @@
                           </v-card-text>
                           <v-card-actions>
                             <v-spacer></v-spacer>
-                            <v-btn
+                            <!-- <v-btn
                               color="blue darken-1"
                               @click="
                                 addEducationField(employee.educationDetails)
@@ -776,10 +838,10 @@
                               v-show="employee.educationDetails.length < 10"
                             >
                               Add More
-                            </v-btn>
+                            </v-btn> -->
                           </v-card-actions>
-                        </v-tab-item>
-                        <v-tab-item key="work">
+                        </v-tab-item> 
+                       <v-tab-item key="work">
                           <v-card-text
                             v-for="(workExperience,
                             k) in employee.workExperiences"
@@ -800,14 +862,14 @@
                                   md="6"
                                   class="d-flex align-end justify-end"
                                 >
-                                  <v-icon
+                                  <!-- <v-icon
                                     small
                                     @click="removeWorkField(k)"
                                     v-show="employee.workExperiences.length > 1"
                                     color="error"
                                   >
                                     mdi-delete
-                                  </v-icon>
+                                  </v-icon> -->
                                 </v-col>
                               </v-row>
                             </v-card-actions>
@@ -865,15 +927,15 @@
                           </v-card-text>
                           <v-card-actions>
                             <v-spacer></v-spacer>
-                            <v-btn
+                            <!-- <v-btn
                               color="blue darken-1"
                               @click="addWorkField(employee.workExperiences)"
                               v-show="employee.workExperiences.length < 10"
                             >
                               Add More
-                            </v-btn>
+                            </v-btn> -->
                           </v-card-actions>
-                        </v-tab-item>
+                        </v-tab-item> 
                         <v-tab-item key="trainig">
                           <v-card-text
                             v-for="(training, k) in employee.trainingDetails"
@@ -894,14 +956,14 @@
                                   md="6"
                                   class="d-flex align-end justify-end"
                                 >
-                                  <v-icon
+                                  <!-- <v-icon
                                     small
                                     @click="removeTrainingField(k)"
                                     v-show="employee.trainingDetails.length > 1"
                                     color="error"
                                   >
                                     mdi-delete
-                                  </v-icon>
+                                  </v-icon> -->
                                 </v-col>
                               </v-row>
                             </v-card-actions>
@@ -946,7 +1008,7 @@
                           </v-card-text>
                           <v-card-actions>
                             <v-spacer></v-spacer>
-                            <v-btn
+                            <!-- <v-btn
                               color="blue darken-1"
                               @click="
                                 addTrainingField(employee.trainingDetails)
@@ -954,7 +1016,7 @@
                               v-show="employee.trainingDetails.length < 10"
                             >
                               Add More
-                            </v-btn>
+                            </v-btn> -->
                           </v-card-actions>
                         </v-tab-item>
                         <v-tab-item key="skills">
@@ -970,23 +1032,23 @@
                                     class="font-weight-bold mb-0 pb-0 pl-0"
                                   >
                                   </v-card-subtitle>
-                                </v-col>
+                                </v-col> 
                                 <v-col
                                   cols="12"
                                   sm="6"
                                   md="6"
                                   class="d-flex align-end justify-end"
                                 >
-                                  <v-icon
+                                  <!-- <v-icon
                                     small
                                     @click="removeSkillField(k)"
                                     v-show="employee.skills.length > 1"
                                     color="error"
                                   >
                                     mdi-delete
-                                  </v-icon>
+                                  </v-icon> -->
                                 </v-col>
-                              </v-row>
+                               </v-row>
                             </v-card-actions>
 
                             <v-divider class="mt-0 mb-4"></v-divider>
@@ -1027,15 +1089,15 @@
                           </v-card-text>
                           <v-card-actions>
                             <v-spacer></v-spacer>
-                            <v-btn
+                            <!-- <v-btn
                               color="blue darken-1"
                               @click="addSkillField(employee.skills)"
-                              v-show="employee.skills.length < 10"
+                              v-show="employee.skills.length <10"
                             >
                               Add More
-                            </v-btn>
+                            </v-btn> -->
                           </v-card-actions>
-                        </v-tab-item>
+                        </v-tab-item> 
                       </v-tabs-items>
                     </v-card>
                   </v-container>
@@ -1062,7 +1124,7 @@
                   <v-btn color="blue darken-1" text @click="closeDelete"
                     >Cancel</v-btn
                   >
-                  <v-btn color="blue darken-1" text @click="deleteItemConfirm"
+                  <v-btn color="blue darken-1" text @click="deleteEmployeeData(employee.id)"
                     >OK</v-btn
                   >
                   <v-spacer></v-spacer>
@@ -1072,12 +1134,13 @@
           </v-toolbar>
         </template>
         <template v-slot:[`item.actions`]="{ item }">
-          <v-icon small class="mr-2" @click="editItem(item)">
+          <v-icon small color="warning" class="mr-2" @click="editItem(item)">
             mdi-pencil
           </v-icon>
           <v-icon
             small
-            @click="deleteEmployeeData(item.employeeInformation.employeeId)"
+            color="red"
+            @click="deleteItem (item)"
           >
             mdi-delete
           </v-icon>
@@ -1100,19 +1163,10 @@
   </div>
 </template>
 <script>
-<<<<<<< HEAD
-import { mapActions } from "vuex"
-export default {
-  data() {
-    return {
-      checkbox: true,
-    }
-  },
-=======
 import { mapActions,mapGetters } from "vuex";
 export default {
->>>>>>> client1.0.1
   data: () => ({
+    
     employeeBirthDay: false,
     dateOfJoining: false,
     passingYear: [false],
@@ -1122,6 +1176,7 @@ export default {
         fullName: "",
         preferredNickName: "",
         personalEmail:"",
+        personalNumber:"",
         fathersName: "",
         fathersProfession: "",
         mothersName: "",
@@ -1130,36 +1185,39 @@ export default {
         spouseName: "",
         dateOfBirth: "",
         numberOfDependents: "",
-        nid: "",
-        passport: "",
-        gender: "",
-        religion: "",
-        nationality: "",
-        bloodGroup: "",
+        nid:"",
+        passport:"",
+        gender:"",
+        religion:"",
+        nationality:"",
+        bloodGroup:""
       },
       employeeInformation: {
         employeeId: "",
-        department: "",
-        designation: "",
-        unit: "",
-        team: "",
-        employmentType: "",
-        project: "",
+        // department: "",
+        // designation: "",
+        // unit: "",
+        // team: "",
+        // employmentType: "",
+        // project: "",
         dateOfJoin: "",
-        reportingTo: "",
-        jobLocation: "",
+        // reportingTo: "",
+        // jobLocation: "",
+        // turnover: "",
+        // salaryGrade:"",
+        // separation:"",
+        // employeeStatus:"",
+        // confirmationRule:""
       },
-      bankDetails: [
-        {
-          accountName: "",
-          accountNumber: "",
-          bankName: "",
-          branchName: "",
-          address: "",
-          accountType: "",
-          purposeOfUse: "",
-        },
-      ],
+      bankDetails: [{
+        accountName: "",
+        accountNumber: "",
+        bankName: "",
+        branchName: "",
+        address: "",
+        accountType: "",
+        purposeOfUse: ""
+      }],
       educationDetails: [
         {
           professionalQualification: "",
@@ -1167,28 +1225,28 @@ export default {
           faculty: "",
           institution: "",
           passingYear: "",
-          cgpa: "",
-        },
+          cgpa: ""
+        }
       ],
-      contacts: {
-        personalNumber: "",
-        emergencyContact: "",
-        email: "",
-        presentAddress: {
-          houseNumber: "",
-          village: "",
-          postOffice: "",
-          upozilla: "",
-          district: "",
-        },
-        permanentAddress: {
-          houseNumber: "",
-          village: "",
-          postOffice: "",
-          upozilla: "",
-          district: "",
-        },
-      },
+      // contacts: {
+      //   // personalNumber: "",
+      //   emergencyContact: "",
+      //   email: "",
+      //   presentAddress: {
+      //     houseNumber: "",
+      //     village: "",
+      //     postOffice: "",
+      //     upozilla: "",
+      //     district: ""
+      //   },
+      //   permanentAddress: {
+      //     houseNumber: "",
+      //     village: "",
+      //     postOffice: "",
+      //     upozilla: "",
+      //     district: ""
+      //   }
+      // },
       workExperiences: [
         {
           companyName: "",
@@ -1196,24 +1254,24 @@ export default {
           department: "",
           duration: "",
           supervisorName: "",
-          supervisorContact: "",
-        },
+          supervisorContact: ""
+        }
       ],
       trainingDetails: [
         {
           certificationName: "",
           duration: "",
           learning: "",
-          institution: "",
-        },
+          institution: ""
+        }
       ],
       skills: [
         {
           functionalCompetency: "",
           language: "",
           computerSkill: "",
-          softCompetency: "",
-        },
+          softCompetency: ""
+        }
       ],
 
       NID: "",
@@ -1222,13 +1280,14 @@ export default {
       gender: "",
       religion: "",
       nationality: "",
-      bloodGroup: "",
+      bloodGroup: ""
     },
     defaultEmployee: {
       personalDetails: {
         fullName: "",
         preferredNickName: "",
         personalEmail:"",
+        personalNumber:"",
         fathersName: "",
         fathersProfession: "",
         mothersName: "",
@@ -1236,31 +1295,33 @@ export default {
         matitalStatus: "",
         spouseName: "",
         dateOfBirth: "",
-        numberOfDependents: "",
+        numberOfDependents: ""
       },
       employeeInformation: {
         employeeId: "",
-        department: "",
-        designation: "",
-        unit: "",
-        team: "",
-        employmentType: "",
-        project: "",
+        // department: "",
+        // designation: "",
+        // team: "",
+        // employmentType: "",
+        // project: "",
         dateOfJoin: "",
-        reportingTo: "",
-        jobLocation: "",
+        // reportingTo: "",
+        // jobLocation: "",
+        // turnover: "",
+        // salaryGrade:"",
+        // separation:"",
+        // employeeStatus:"",
+        // confirmationRule:""
       },
-      bankDetails: [
-        {
-          accountName: "",
-          accountNumber: "",
-          bankName: "",
-          branchName: "",
-          address: "",
-          accountType: "",
-          purposeOfUse: "",
-        },
-      ],
+      bankDetails:[ {
+        accountName: "",
+        accountNumber: "",
+        bankName: "",
+        branchName: "",
+        address: "",
+        accountType: "",
+        purposeOfUse: ""
+      }],
       educationDetails: [
         {
           professionalQualification: "",
@@ -1268,28 +1329,28 @@ export default {
           faculty: "",
           institution: "",
           passingYear: "",
-          cgpa: "",
-        },
+          cgpa: ""
+        }
       ],
-      contacts: {
-        personalNumber: "",
-        emergencyContact: "",
-        email: "",
-        presentAddress: {
-          houseNumber: "",
-          village: "",
-          postOffice: "",
-          upozilla: "",
-          district: "",
-        },
-        permanentAddress: {
-          houseNumber: "",
-          village: "",
-          postOffice: "",
-          upozilla: "",
-          district: "",
-        },
-      },
+      // contacts: {
+      //   // personalNumber: "",
+      //   emergencyContact: "",
+      //   email: "",
+      //   presentAddress: {
+      //     houseNumber: "",
+      //     village: "",
+      //     postOffice: "",
+      //     upozilla: "",
+      //     district: ""
+      //   },
+      //   permanentAddress: {
+      //     houseNumber: "",
+      //     village: "",
+      //     postOffice: "",
+      //     upozilla: "",
+      //     district: ""
+      //   }
+      // },
       workExperiences: [
         {
           companyName: "",
@@ -1297,24 +1358,24 @@ export default {
           department: "",
           duration: "",
           supervisorName: "",
-          supervisorContact: "",
-        },
+          supervisorContact: ""
+        }
       ],
       trainingDetails: [
         {
           certificationName: "",
           duration: "",
           learning: "",
-          institution: "",
-        },
+          institution: ""
+        }
       ],
       skills: [
         {
           functionalCompetency: "",
           language: "",
           computerSkill: "",
-          softCompetency: "",
-        },
+          softCompetency: ""
+        }
       ],
 
       NID: "",
@@ -1323,13 +1384,13 @@ export default {
       gender: "",
       religion: "",
       nationality: "",
-      bloodGroup: "",
+      bloodGroup: ""
     },
     maritalItems: ["single", "married", "devorced"],
     depedentNumber: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-    required(propertyType){
-       return v => !!v || `${propertyType} is required` 
-    },
+    // required(propertyType){
+    //   return
+    // },
     rules: {
       stringRule: [v => !!v || "This field is required"],
       emailRules: [v => /.+@.+/.test(v) || "E-mail must be valid"],
@@ -1342,96 +1403,63 @@ export default {
       {
         text: "EmpID",
         align: "start",
-        value: "employeeInformation.employeeId",
+        value: "employeeInformation.employeeId"
       },
       {
         text: "Name",
         sortable: false,
-        value: "personalDetails.fullName",
+        value: "personalDetails.fullName"
       },
       {
         text: "Department",
-        value: "employeeInformation.department",
+        value: "employeeInformation.department"
       },
       {
         text: "Designation",
-        value: "employeeInformation.designation",
+        value: "employeeInformation.designation"
       },
       {
         text: "Unit",
-        value: "employeeInformation.unit",
+        value: "employeeInformation.unit"
       },
       {
         text: "Team",
-        value: "employeeInformation.team",
+        value: "employeeInformation.team"
       },
       {
         text: "Type",
-<<<<<<< HEAD
-        value: "employeeInformation.employmentType",
-      },
-      {
-        text: "Project",
-        value: "employeeInformation.project",
-=======
         value: "employeeInformation.employmentType.name"
       },
       {
         text: "Project",
         value: "employeeInformation.project[0].name"
->>>>>>> client1.0.1
       },
       {
         text: "DOJ",
-        value: "employeeInformation.dateOfJoin",
+        value: "employeeInformation.dateOfJoin"
       },
       {
         text: "Reporting",
-<<<<<<< HEAD
-        value: "employeeInformation.reportingTo",
-      },
-      {
-        text: "Job Location",
-        value: "employeeInformation.jobLocation",
-=======
         value: "employeeInformation.reportingTo.personalDetails.fullName"
       },
       {
         text: "Job Location",
         value: "employeeInformation.jobLocation.name"
->>>>>>> client1.0.1
       },
-      { text: "Actions", value: "actions", sortable: false },
+      { text: "Actions", value: "actions", sortable: false }
     ],
-<<<<<<< HEAD
-    desserts: [],
-    editedIndex: -1,
-  }),
-
-  computed: {
-    formTitle() {
-      return this.editedIndex === -1 ? "New Employee" : "Edit Employee Info"
-    },
-  },
-
-=======
     editedIndex: -1
   }),
 
->>>>>>> client1.0.1
   watch: {
     dialog(val) {
-      val || this.close()
+      val || this.close();
     },
     dialogDelete(val) {
-      val || this.closeDelete()
-    },
+      val || this.closeDelete();
+    }
   },
 
-<<<<<<< HEAD
-  created() {
-    this.initialize()
-=======
   async created() {
     this.initialize();
     await this.fetchEmployee()
@@ -1447,158 +1475,100 @@ export default {
   },
   beforeMounted() {
     this.$store.dispatch("loadEmployee");
->>>>>>> client1.0.1
   },
 
   methods: {
     ...mapActions({fetchEmployee:"loadEmployee",
-                   addEmployee:"addEmployee"}),
+                   addEmployee:"addEmployee",
+                   removeEmployee:"removeEmployee",
+                   updateEmployee:"updateEmployee"}),
     saveEmployeeData() {
-<<<<<<< HEAD
-      this.addEmployee(this.employee)
-      this.$notifier.showMessage({ content: "Hello, snackbar", color: "info" })
-      this.employee = Object.assign({}, this.defaultEmployee)
-      this.close()
-    },
-    deleteEmployeeData(id) {
-      this.removeEmployee(id)
-    },
-=======
-      console.log("employee from masterDB",this.employee);
+      // console.log("employee from masterDB",this.employee);
+      if (this.editedIndex > -1) {
+        this.updateEmployee(this.employee)
+      } else {
       this.addEmployee(this.employee);
       // this.$notifier.showMessage({ content: "Congrats!Successfully added one value!", color: "success" });
       this.employee = Object.assign({}, this.defaultEmployee);
+      }
       this.close();
-
-  },
-
-  computed: {
-    formTitle() {
-      return this.editedIndex === -1 ? "New Employee" : "Edit Employee Info";
     },
-    ...mapGetters({
-      allEmployees:"employees"
-    })
-  },
-  beforeMounted() {
-    this.$store.dispatch("loadEmployee");
-  },
-
-  methods: {
-    ...mapActions({fetchEmployee:"loadEmployee"}),
-    // saveEmployeeData() {
-    //   this.addEmployee(this.employee);
-    //   this.$notifier.showMessage({ content: "Hello, snackbar", color: "info" });
-    //   this.employee = Object.assign({}, this.defaultEmployee);
-    //   this.close();
-    // },
-
-    // deleteEmployeeData(id) {
-    //   this.removeEmployee(id);
-    // },
->>>>>>> client1.0.1
+    deleteEmployeeData(id) {
+      this.removeEmployee(id);
+      // console.log("deleted employee:",this.employee)
+      this.closeDelete()
+    },
     addEducationField(education) {
       return (
         this.employee.educationDetails.push({ education }) &&
         this.passingYear.push(false)
-      )
+      );
     },
     removeEducationField(index) {
       return (
         this.employee.educationDetails.splice(index, 1) &&
         this.passingYear.splice(index, 1)
-      )
+      );
     },
     addBankField(bank) {
-      return this.employee.bankDetails.push({ bank })
+      return this.employee.bankDetails.push({ bank });
     },
     removeBankField(index) {
-      return this.employee.bankDetails.splice(index, 1)
+      return this.employee.bankDetails.splice(index, 1);
     },
     addWorkField(work) {
-      return this.employee.workExperiences.push({ work })
+      return this.employee.workExperiences.push({ work });
     },
     removeWorkField(index) {
-      return this.employee.workExperiences.splice(index, 1)
+      return this.employee.workExperiences.splice(index, 1);
     },
     addTrainingField(training) {
-      return this.employee.trainingDetails.push({ training })
+      return this.employee.trainingDetails.push({ training });
     },
     removeTrainingField(index) {
-      return this.employee.trainingDetails.splice(index, 1)
+      return this.employee.trainingDetails.splice(index, 1);
     },
     addSkillField(skill) {
-      return this.employee.skills.push({ skill })
+      return this.employee.skills.push({ skill });
     },
     removeSkillField(index) {
-      return this.employee.skills.splice(index, 1)
+      return this.employee.skills.splice(index, 1);
     },
 
     initialize() {
-<<<<<<< HEAD
-      this.desserts = this.$store.getters.employees
-    },
-
-    editItem(item) {
-      this.editedIndex = this.desserts.indexOf(item)
-      this.editedItem = Object.assign({}, item)
-      this.dialog = true
-    },
-
-    deleteItem(item) {
-      this.editedIndex = this.desserts.indexOf(item)
-      this.editedItem = Object.assign({}, item)
-      this.dialogDelete = true
-=======
       // console.log("Emplaoyee")
        this.$store.getters["employees"]
     },
 
     editItem(item) {
       this.editedIndex = this.allEmployees.indexOf(item);
-      this.editedItem = Object.assign({}, item);
+      this.employee = Object.assign({}, item);
       this.dialog = true;
     },
 
     deleteItem(item) {
       this.editedIndex = this.allEmployees.indexOf(item);
-      this.editedItem = Object.assign({}, item);
+      this.employee = Object.assign({}, item)
       this.dialogDelete = true;
->>>>>>> client1.0.1
-    },
-
-    deleteItemConfirm() {
-      this.desserts.splice(this.editedIndex, 1)
-      this.closeDelete()
+      // this.removeEmployee(item.id)
     },
 
     close() {
-      this.dialog = false
+      this.dialog = false;
       this.$nextTick(() => {
-        this.editedItem = Object.assign({}, this.defaultItem)
-        this.editedIndex = -1
-      })
+        this.employee = Object.assign({}, this.defaultEmployee);
+        this.editedIndex = -1;
+      });
     },
 
     closeDelete() {
-      this.dialogDelete = false
+      this.dialogDelete = false;
       this.$nextTick(() => {
-        this.editedItem = Object.assign({}, this.defaultItem)
-        this.editedIndex = -1
-      })
+        this.employee = Object.assign({}, this.defaultEmployee);
+        this.editedIndex = -1;
+      });
     },
 
-<<<<<<< HEAD
-    save() {
-      if (this.editedIndex > -1) {
-        Object.assign(this.desserts[this.editedIndex], this.editedItem)
-      } else {
-        this.desserts.push(this.editedItem)
-      }
-      this.close()
-    },
-  },
-=======
     // save() {
     //   if (this.editedIndex > -1) {
     //     Object.assign(this.desserts[this.editedIndex], this.editedItem);
@@ -1608,8 +1578,6 @@ export default {
     //   this.close();
     // }
   }
-  }
->>>>>>> client1.0.1
-}
+};
 </script>
 <style></style>

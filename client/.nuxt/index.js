@@ -15,9 +15,11 @@ import { createStore } from './store.js'
 
 import nuxt_plugin_plugin_1dc35ffa from 'nuxt_plugin_plugin_1dc35ffa' // Source: .\\components\\plugin.js (mode: 'all')
 import nuxt_plugin_plugin_44a7ba5e from 'nuxt_plugin_plugin_44a7ba5e' // Source: .\\vuetify\\plugin.js (mode: 'all')
+import nuxt_plugin_moment_0693949c from 'nuxt_plugin_moment_0693949c' // Source: .\\moment.js (mode: 'all')
 import nuxt_plugin_axios_43391eb4 from 'nuxt_plugin_axios_43391eb4' // Source: .\\axios.js (mode: 'all')
 import nuxt_plugin_bus_5e46274a from 'nuxt_plugin_bus_5e46274a' // Source: ..\\plugins\\bus (mode: 'all')
 import nuxt_plugin_notifier_3e43155b from 'nuxt_plugin_notifier_3e43155b' // Source: ..\\plugins\\notifier.js (mode: 'all')
+import nuxt_plugin_vuelidate_4be431c8 from 'nuxt_plugin_vuelidate_4be431c8' // Source: ..\\plugins\\vuelidate.js (mode: 'all')
 
 // Component: <ClientOnly>
 Vue.component(ClientOnly.name, ClientOnly)
@@ -214,6 +216,10 @@ async function createApp(ssrContext, config = {}) {
     await nuxt_plugin_plugin_44a7ba5e(app.context, inject)
   }
 
+  if (typeof nuxt_plugin_moment_0693949c === 'function') {
+    await nuxt_plugin_moment_0693949c(app.context, inject)
+  }
+
   if (typeof nuxt_plugin_axios_43391eb4 === 'function') {
     await nuxt_plugin_axios_43391eb4(app.context, inject)
   }
@@ -224,6 +230,10 @@ async function createApp(ssrContext, config = {}) {
 
   if (typeof nuxt_plugin_notifier_3e43155b === 'function') {
     await nuxt_plugin_notifier_3e43155b(app.context, inject)
+  }
+
+  if (typeof nuxt_plugin_vuelidate_4be431c8 === 'function') {
+    await nuxt_plugin_vuelidate_4be431c8(app.context, inject)
   }
 
   // Lock enablePreview in context

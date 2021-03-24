@@ -6,27 +6,28 @@ export const getters = {
   turnovertypes: (state) => state.turnovertypes,
 };
 
+
 export const actions = {
   async loadTurnover({ commit }) {
-    let res = await this.$axios.get("/employee-management/turnover");
-    console.log(res)
+    let res = await this.$axios.get("/employee-management/turnover")
     if (res.status == 200) {
-      commit("SET_TURNOVER", res.data);
+      commit("SET_TURNOVER", res.data)
     }
   },
   async addTurnOver({ commit }, turnovertype) {
     let res = await this.$axios.post(
       "/employee-management/turnover",
       turnovertype
-    );
+    )
+
     if (res.status == 201) {
-      commit("ADD_TURNOVER", res.data);
+      commit("ADD_TURNOVER", res.data)
     }
   },
   async removeTurnOver({ commit }, id) {
-    let res = await this.$axios.delete(`/employee-management/turnover/${id}`);
+    let res = await this.$axios.delete(`/employee-management/turnover/${id}`)
     if (res.status == 200) {
-      commit("REMOVE_TURNOVER", id);
+      commit("REMOVE_TURNOVER", id)
     }
   },
   async updateTurnOver({ commit }, turnovertype) {
@@ -34,7 +35,9 @@ export const actions = {
       `/employee-management/turnover/${turnovertype.id}`,
       turnovertype
     );
+    if(res.status == 200){
     commit("UPDATE_TURNOVER", turnovertype);
+    }
   },
 };
 
@@ -43,12 +46,14 @@ export const mutations = {
     state.turnovertypes = payload;
   },
   ADD_TURNOVER(state, payload) {
+    // console.log(payload)
     state.turnovertypes.push(payload);
   },
   REMOVE_TURNOVER(state, payload) {
-    state.turnovertypes = state.turnovertypes.filter((turnover) => {
-      turnover.id !== payload;
-    });
+    //console.log(payload)
+    state.turnovertypes = state.turnovertypes.filter(turnover => 
+      turnover.id !== payload
+    );
   },
   UPDATE_TURNOVER(state, payload) {
     const turnover = state.turnovertypes.find(
@@ -58,3 +63,4 @@ export const mutations = {
     state.turnovertypes.splice(index, 1, payload);
   },
 };
+

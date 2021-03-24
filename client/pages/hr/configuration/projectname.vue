@@ -10,18 +10,19 @@
           <v-spacer></v-spacer>
           <v-dialog v-model="dialog" max-width="500px">
             <template v-slot:activator="{ on, attrs }">
-              <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on">New Project</v-btn>
+              <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on">New</v-btn>
             </template>
             <v-card>
               <v-card-title>
                 <span class="headline">Project Details</span>
               </v-card-title>
 
+              <v-form v-model="valid" ref="form">
               <v-card-text>
                 <v-container>
                   <v-row>
                     <v-col cols="12" sm="6" md="6">
-                      <v-text-field v-model="project.name" label="Project name"></v-text-field>
+                      <v-text-field v-model="project.name" label="Project name" :rules="[required('name')]"></v-text-field>
                     </v-col>
                     <!--  -->
                   </v-row>
@@ -91,6 +92,7 @@
                   </v-row>
                 </v-container>
               </v-card-text>
+              </v-form>
 
               <v-card-actions>
                 <v-spacer></v-spacer>
@@ -112,9 +114,9 @@
           </v-dialog>
         </v-toolbar>
       </template>
-      <template v-slot:item.actions="{ item }">
-        <v-icon small class="mr-2" @click="editItem(item)">mdi-pencil</v-icon>
-        <v-icon small @click="deleteItem (item)">mdi-delete</v-icon>
+      <template v-slot:[`item.actions`]="{ item }">
+        <v-icon small class="mr-2" color="warning" @click="editItem(item)">mdi-pencil</v-icon>
+        <v-icon small color="red" @click="deleteItem (item)">mdi-delete</v-icon>
       </template>
       <template v-slot:no-data>
         <v-btn color="primary" @click="initialize">Reset</v-btn>
@@ -129,7 +131,7 @@ export default {
   data: () => ({
     startingDate: false,
     endDate: false,
-
+    valid:false,
     dialog: false,
     dialogDelete: false,
     project: {
@@ -158,6 +160,9 @@ export default {
       { text: "Actions", value: "actions", sortable: false },
     ],
     editedIndex: -1,
+    required(propertyType){
+       return v => v && v.length>0 || `${propertyType} is required` 
+      },
   }),
 
   watch: {
@@ -178,8 +183,8 @@ export default {
       return this.editedIndex === -1 ? "New Project" : "Edit Project Info";
     },
     fromDateDisp() {
-      console.log("hello");
-      return this.fromDateVal ? this.formatDate(this.fromDateVal) : "";
+      // console.log("hello1");
+      return this.$moment(this.project.startingDate).format('LL')
       // format/do something with date
     },
     ...mapGetters({
@@ -202,11 +207,8 @@ export default {
         // console.log("hello")
         this.updateProject(this.project);
       } else {
+        this.$refs.form.resetValidation() 
         this.addProject(this.project);
-        this.$notifier.showMessage({
-          content: "Hello, snackbar",
-          color: "info",
-        });
         this.project = Object.assign({}, this.defaultProject);
       }
       this.close();
@@ -238,6 +240,7 @@ export default {
     },
 
     close() {
+      this.$refs.form.resetValidation() 
       this.dialog = false;
       this.$nextTick(() => {
         this.project = Object.assign({}, this.defaultProject);

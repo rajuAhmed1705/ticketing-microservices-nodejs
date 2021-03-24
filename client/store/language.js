@@ -32,9 +32,9 @@ export const mutations = {
     state.languages.push(payload);
   },
   REMOVE_LANGUAGE(state, payload) {
-    state.languages = state.languages.filter(langtype => {
-        langtype.id !== payload;
-    });
+    state.languages = state.languages.filter(langtype => 
+        langtype.id !== payload
+    );
   },
   UPDATE_LANGUAGE(state, payload) {
     const languagetype = state.languages.find(

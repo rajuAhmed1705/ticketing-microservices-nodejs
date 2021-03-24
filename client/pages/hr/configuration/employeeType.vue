@@ -30,7 +30,7 @@
               v-bind="attrs"
               v-on="on"
             >
-              New Employee Type
+              New 
             </v-btn>
           </template>
           <v-card>
@@ -38,9 +38,11 @@
               <span class="headline">Employee Type</span>
             </v-card-title>
 
+            <v-form v-model="valid" ref="form">
             <v-card-text>
               <v-container>
                 <v-row>
+                  
                   <v-col
                     cols="12"
                     sm="12"
@@ -49,17 +51,20 @@
                     <v-text-field
                       v-model="employeetype.name"
                       label="Employee Type"
+                      :rules="[required('name')]"
                     ></v-text-field>
                   </v-col>
+                  
                   <v-col cols="12" sm="6" md="6">
                       <v-text-field
                        v-model="employeetype.remark"
                        label="Remark"
                     ></v-text-field>
-                              </v-col>
+                  </v-col>
                 </v-row>
               </v-container>
             </v-card-text>
+            </v-form>
 
             <v-card-actions>
               <v-spacer></v-spacer>
@@ -73,6 +78,7 @@
               <v-btn
                 color="blue darken-1"
                 text
+                :disabled="!valid"
                 @click="saveEmpTypeData()"
               >
                 Save
@@ -97,12 +103,14 @@
       <v-icon
         small
         class="mr-2"
+        color="warning"
         @click="editItem(item)"
       >
         mdi-pencil
       </v-icon>
       <v-icon
         small
+        color="red"
         @click="deleteItem(item)"
       >
         mdi-delete
@@ -125,6 +133,7 @@ import { mapActions,mapGetters } from "vuex";
   export default {
     data: () => ({
       dialog: false,
+      valid: false,
       dialogDelete: false,
       headers: [
         {
@@ -148,6 +157,9 @@ import { mapActions,mapGetters } from "vuex";
       
         name:'',
         remark:''
+      },
+      required(propertyType){
+       return v => v && v.length>0 || `${propertyType} is required` 
       },
       // typeOfEmployee: ["Permanent", "Full-Time", "Contructual","Probationary","Apprentice"]
     }),
@@ -185,20 +197,23 @@ import { mapActions,mapGetters } from "vuex";
         if (this.editedIndex > -1) {
         this.updateEmpType(this.employeetype);
       } else {
+       this.$refs.form.resetValidation() 
        this.addEmpType(this.employeetype);
-       this.$notifier.showMessage({ content: "Hello, snackbar", color: "info" });
+       this.$notifier.showMessage({ content: "Congrats!Successfully added one value!", color: "success" });
        this.employeetype = Object.assign({}, this.defaultemployeetype);
       }
        this.close();
      },
      deleteEmpTypeData(id) {
        this.removeEmpType(id);
+       this.$notifier.showMessage({ content: "Congrats!Successfully deleted one value!", color: "red" });
+       this.closeDelete()
      },
      initialize() {
        this.$store.getters['employeeType/employeetypes'];
       //  console.log(this.desserts);
     },
-
+     
       editItem (item) {
         this.editedIndex = this.allEmpTypes.indexOf(item)
         this.employeetype = Object.assign({}, item)
@@ -213,7 +228,9 @@ import { mapActions,mapGetters } from "vuex";
 
 
       close () {
+        this.$refs.form.resetValidation() 
         this.dialog = false
+        this.$refs.form.reset() 
         this.$nextTick(() => {
           this.employeetype = Object.assign({}, this.defaultemployeetype)
           this.editedIndex = -1
@@ -222,6 +239,7 @@ import { mapActions,mapGetters } from "vuex";
 
       closeDelete () {
         this.dialogDelete = false
+        
         this.$nextTick(() => {
           this.employeetype = Object.assign({}, this.defaultemployeetype)
           this.editedIndex = -1

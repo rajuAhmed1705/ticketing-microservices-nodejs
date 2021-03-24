@@ -1,8 +1,8 @@
 <template>
   <v-data-table
     :headers="headers"
-    :items="desserts"
-    sort-by="calories"
+    :items="allEducationalLevels"
+    
     class="elevation-1"
   >
     <template v-slot:top>
@@ -30,7 +30,7 @@
               v-bind="attrs"
               v-on="on"
             >
-              New Educational Level
+              New 
             </v-btn>
           </template>
           <v-card>
@@ -47,20 +47,16 @@
                     md="12"
                   >
                     <v-text-field
-                      v-model="educationalLevel.level"
-                      label="Educational Level"
+                      v-model="educationalLevel.professionalQualification"
+                      label="Qualification"
                     ></v-text-field>
                   </v-col>
-                  <!-- <v-col cols="12" sm="6" md="6">
-                                <v-select
-                                  v-model="
-                                    employeeStatus.empStatus
-                                  "
-                                  label="Status"
-                                  :items="statusOfEmployee"
-                                  
-                                ></v-select>
-                              </v-col> -->
+                  <v-col>
+                  <v-text-field
+                      v-model="educationalLevel.institution"
+                      label="Institution">
+                  </v-text-field>
+                  </v-col>
                 </v-row>
               </v-container>
             </v-card-text>
@@ -77,7 +73,7 @@
               <v-btn
                 color="blue darken-1"
                 text
-                @click="save"
+                @click="saveEduLevelData()"
               >
                 Save
               </v-btn>
@@ -100,6 +96,7 @@
     <template v-slot:[`item.actions`]="{ item }">
       <v-icon
         small
+        color="warning"
         class="mr-2"
         @click="editItem(item)"
       >
@@ -107,7 +104,8 @@
       </v-icon>
       <v-icon
         small
-        @click="deleteItem(item)"
+        color="red"
+        @click="deleteEduLevel(educationalLevel.id)"
       >
         mdi-delete
       </v-icon>
@@ -124,39 +122,29 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions,mapGetters } from "vuex";
 
   export default {
     data: () => ({
       dialog: false,
       dialogDelete: false,
       headers: [
-        // {
-        //   text: 'Name',
-        //   align: 'start',
-        //   sortable: false,
-        //   value: 'name',
-        // },
-        { text: 'Educational Level', value: 'level' },
+        { text: 'Qualification', value: 'professionalQualification' },
+        { text: 'Institution', value: 'institution' },
         
         { text: 'Actions', value: 'actions', sortable: false },
       ],
-      desserts: [],
       editedIndex: -1,
       educationalLevel: {
-        level:''
+        professionalQualification:'',
+        institution:''
       },
       defaulteducationalLevel: {
-        level:''
+        professionalQualification:'',
+        institution:''
       },
     //   statusOfEmployee: ["Active", "Inactive"]
     }),
-
-    computed: {
-      formTitle () {
-        return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
-      },
-    },
 
     watch: {
       dialog (val) {
@@ -167,34 +155,49 @@ import { mapActions } from "vuex";
       },
     },
 
-    created () {
+    async created () {
       this.initialize()
+      await this.fetchEduLevel()
+    },
+    computed: {
+      formTitle () {
+        return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
+      },
+      ...mapGetters({
+        allEducationalLevels:"edulevel/educationalLevels"
+      })
+    },
+    beforeMounted(){
+      this.$store.dispatch("loadEduLevel")
     },
 
     methods: {
-       ...mapActions({addEduLevel:"educationalLevel/addEduLevel",removeEmpSts: "educationalLevel/removeEduLevel"}),
+       ...mapActions({fetchEduLevel:"edulevel/loadEduLevel",
+                      addEduLevel:"edulevel/addEduLevel",
+                      removeEduLevel: "edulevel/removeEduLevel"}),
+      //  addEduLevel:"educationalLevel/addEduLevel",removeEmpSts: "educationalLevel/removeEduLevel"
      saveEduLevelData() {
        this.addEduLevel(this.educationalLevel);
-       this.$notifier.showMessage({ content: "Hello, snackbar", color: "info" });
        this.educationalLevel = Object.assign({}, this.defaulteducationalLevel);
        this.close();
      },
      deleteEduLevel(id) {
        this.removeEduLevel(id);
+      this.closeDelete()
      },
      initialize() {
-       this.desserts = this.$store.getters['edulevel/educationalLevels'];
-      //  console.log(this.desserts);
+        this.$store.getters['edulevel/educationalLevels'];
+      //  console.log(this.allEducationalLevels);
     },
 
       editItem (item) {
-        this.editedIndex = this.desserts.indexOf(item)
+        this.editedIndex = this.allEducationalLevels.indexOf(item)
         this.educationalLevel = Object.assign({}, item)
         this.dialog = true
       },
 
       deleteItem (item) {
-        this.editedIndex = this.desserts.indexOf(item)
+        this.editedIndex = this.allEducationalLevels.indexOf(item)
         this.educationalLevel = Object.assign({}, item)
         this.dialogDelete = true
       },
@@ -222,7 +225,7 @@ import { mapActions } from "vuex";
 
       save () {
         if (this.editedIndex > -1) {
-          Object.assign(this.desserts[this.editedIndex], this.educationalLevel)
+          Object.assign(this.allEducationalLevels[this.editedIndex], this.educationalLevel)
         } else {
           this.desserts.push(this.educationalLevel)
         }
