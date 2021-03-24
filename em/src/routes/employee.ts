@@ -241,6 +241,9 @@ router.put(
 
     const existingEmployeeId = await Employee.findOne({
       "employeeInformation.employeeId": employeeInformation.employeeId,
+      _id: {
+        $ne: req.params.id,
+      },
     });
     if (existingEmployeeId) {
       throw new BadRequestError("employee Id exists");
@@ -333,6 +336,11 @@ router.put(
 router.delete(
   "/api/employee-management/employee/:id",
   async (req: Request, res: Response) => {
+    const employee = await Employee.findById(req.params.id);
+    if (!employee) {
+      throw new NotFoundError("employee not found");
+    }
+    await Employee.findByIdAndDelete(req.params.id);
     res.status(200).send({});
   }
 );
