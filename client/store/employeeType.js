@@ -13,6 +13,13 @@ export const actions = {
       // console.log(res.data)
       commit("SET_EMPTYPE", res.data)
     }
+    else
+    {
+      this.$notifier.showMessage({
+        content: "Something went wrong!",
+        color: "red",
+      });
+    }
   },
   async addEmpType({ commit }, employeetype) {
     let res = await this.$axios.post(
@@ -21,6 +28,17 @@ export const actions = {
     )
     if (res.status == 201) {
       commit("ADD_EMPTYPE", res.data)
+      this.$notifier.showMessage({
+        content: "Congrats!Successfully added one value!",
+        color: "success",
+      });
+    }
+    else
+    {
+      this.$notifier.showMessage({
+        content: "Something went wrong!",
+        color: "red",
+      });
     }
   },
   async removeEmpType({ commit }, id) {
@@ -29,6 +47,17 @@ export const actions = {
     )
     if (res.status == 200) {
       commit("REMOVE_EMPTYPE", id)
+      this.$notifier.showMessage({
+        content: "Congrats!Successfully deleted one value!",
+        color: "red",
+      });
+    }
+    else
+    {
+      this.$notifier.showMessage({
+        content: "Something went wrong!",
+        color: "red",
+      });
     }
   },
   async updateEmpType({ commit }, employeetype) {
@@ -38,6 +67,17 @@ export const actions = {
     )
     if (res.status == 200) {
       commit("UPDATE_EMPTYPE", employeetype)
+      this.$notifier.showMessage({
+        content: "Congrats!Successfully updated one value!",
+        color: "warning",
+      });
+    }
+    else
+    {
+      this.$notifier.showMessage({
+        content: "Something went wrong!",
+        color: "red",
+      });
     }
   },
 }

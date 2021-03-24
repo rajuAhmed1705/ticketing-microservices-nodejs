@@ -52,22 +52,22 @@
                         </v-tab>
                         <!-- <v-tab key="contacts">
                           Contacts
-                        </v-tab>
+                        </v-tab> -->
                         <v-tab key="bank">
                           Bank Details
-                        </v-tab>
+                        </v-tab> 
                         <v-tab key="education">
                           Education Details
-                        </v-tab>
+                        </v-tab> 
                         <v-tab key="work">
                           Work Experiences
-                        </v-tab>
+                        </v-tab> 
                         <v-tab key="training">
                           Training Details
                         </v-tab>
                         <v-tab key="skills">
                           Skills
-                        </v-tab> -->
+                        </v-tab> 
                       </v-tabs>
                       <v-tabs-items v-model="tab">
                         <v-tab-item key="personal">
@@ -77,8 +77,8 @@
                                 <v-text-field
                                   v-model="employee.personalDetails.fullName"
                                   label="Full Name"
-                                  :rules="[required('fullName')]"
-                                
+                                  :rules="rules.stringRule"
+                                  required
                                   dense
                                   outlined
                                 ></v-text-field>
@@ -102,6 +102,18 @@
                                   label="Personal Email"
                                   :rules="rules.emailRules"
                                   required
+                                  dense
+                                  outlined
+                                ></v-text-field>
+                              </v-col>
+                              <v-col cols="12" sm="12" md="12">
+                                <v-text-field
+                                  v-model="
+                                    employee.personalDetails.personalNumber
+                                  "
+                                  label="Personal Number"
+                                  
+                                  type="number"
                                   dense
                                   outlined
                                 ></v-text-field>
@@ -264,13 +276,14 @@
                                     employee.employeeInformation.employeeId
                                   "
                                   label="Employee ID"
-                                  :rules="[required('employeeId')]"
+                                  :rules="rules.stringRule"
+                                  required
                                   
                                   dense
                                   outlined
                                 ></v-text-field>
                               </v-col>
-                               <v-col cols="12" sm="6" md="6">
+                               <!-- <v-col cols="12" sm="6" md="6">
                                 <v-menu
                                   v-model="dateOfJoining"
                                   :close-on-content-click="false"
@@ -310,8 +323,8 @@
                                   dense
                                   outlined
                                 ></v-text-field>
-                              </v-col>
-                              <v-col cols="12" sm="6" md="6">
+                              </v-col> -->
+                              <!-- <v-col cols="12" sm="6" md="6">
                                 <v-text-field
                                   v-model="
                                     employee.employeeInformation.designation
@@ -354,8 +367,8 @@
                                   dense
                                   outlined
                                 ></v-text-field>
-                              </v-col>
-                              <v-col cols="12" sm="6" md="6">
+                              </v-col> -->
+                              <!-- <v-col cols="12" sm="6" md="6">
                                 <v-text-field
                                   v-model="
                                     employee.employeeInformation.reportingTo
@@ -364,8 +377,8 @@
                                   dense
                                   outlined
                                 ></v-text-field>
-                              </v-col>
-                              <v-col cols="12" sm="6" md="6">
+                              </v-col> -->
+                              <!-- <v-col cols="12" sm="6" md="6">
                                 <v-text-field
                                   v-model="
                                     employee.employeeInformation.jobLocation
@@ -375,21 +388,71 @@
                                   outlined
                                 ></v-text-field>
                               </v-col> 
+                               <v-col cols="12" sm="6" md="6">
+                                <v-text-field
+                                  v-model="
+                                    employee.employeeInformation.turnover
+                                  "
+                                  label="Turnover Type"
+                                  dense
+                                  outlined
+                                ></v-text-field>
+                              </v-col> 
+                               <v-col cols="12" sm="6" md="6">
+                                <v-text-field
+                                  v-model="
+                                    employee.employeeInformation.salaryGrade
+                                  "
+                                  label="Salary Grade"
+                                  dense
+                                  outlined
+                                ></v-text-field>
+                              </v-col> 
+                               <v-col cols="12" sm="6" md="6">
+                                <v-text-field
+                                  v-model="
+                                    employee.employeeInformation.separation
+                                  "
+                                  label="Separation"
+                                  dense
+                                  outlined
+                                ></v-text-field>
+                              </v-col> 
+                               <v-col cols="12" sm="6" md="6">
+                                <v-text-field
+                                  v-model="
+                                    employee.employeeInformation.employeeStatus
+                                  "
+                                  label="Employee Status"
+                                  dense
+                                  outlined
+                                ></v-text-field>
+                              </v-col> 
+                               <v-col cols="12" sm="6" md="6">
+                                <v-text-field
+                                  v-model="
+                                    employee.employeeInformation.confirmationRule
+                                  "
+                                  label="Confirmation Rule"
+                                  dense
+                                  outlined
+                                ></v-text-field>
+                              </v-col>  -->
                             </v-row>
                           </v-card-text>
                         </v-tab-item>
                         <!-- <v-tab-item key="contacts">
                           <v-card-text>
-                            <v-row>
-                              <v-col cols="12" sm="6" md="6">
+                            <v-row> -->
+                              <!-- <v-col cols="12" sm="6" md="6">
                                 <v-text-field
                                   v-model="employee.contacts.personalNumber"
                                   label="Personal Number"
                                   dense
                                   outlined
                                 ></v-text-field>
-                              </v-col>
-                              <v-col cols="12" sm="6" md="6">
+                              </v-col> -->
+                              <!-- <v-col cols="12" sm="6" md="6">
                                 <v-text-field
                                   v-model="employee.contacts.emergencyContact"
                                   label="Emergency Contact"
@@ -541,7 +604,7 @@
                             </v-row>
                           </v-card-text>
                         </v-tab-item>
-                        
+                         -->
 
                        <v-tab-item key="bank">
                           <v-card-text
@@ -566,14 +629,14 @@
                                   md="6"
                                   class="d-flex align-end justify-end"
                                 >
-                                  <v-icon
+                                  <!-- <v-icon
                                     small
                                     @click="removeBankField(k)"
                                     v-show="employee.bankDetails.length > 1"
                                     color="error"
                                   >
                                     mdi-delete
-                                  </v-icon>
+                                  </v-icon> -->
                                 </v-col>
                               </v-row>
                             </v-card-actions>
@@ -643,7 +706,7 @@
                           </v-card-text>
                           <v-card-actions>
                             <v-spacer></v-spacer>
-                            <v-btn
+                            <!-- <v-btn
                               color="blue darken-1"
                               @click="
                                 addBankField(employee.bankDetails)
@@ -651,9 +714,9 @@
                               v-show="employee.bankDetails.length < 10"
                             >
                               Add More
-                            </v-btn>
+                            </v-btn> -->
                           </v-card-actions>
-                        </v-tab-item>
+                        </v-tab-item> 
 
                         <v-tab-item key="education">
                           <v-card-text
@@ -676,7 +739,7 @@
                                   md="6"
                                   class="d-flex align-end justify-end"
                                 >
-                                  <v-icon
+                                  <!-- <v-icon
                                     small
                                     @click="removeEducationField(k)"
                                     v-show="
@@ -685,9 +748,9 @@
                                     color="error"
                                   >
                                     mdi-delete
-                                  </v-icon>
+                                  </v-icon> -->
                                 </v-col>
-                              </v-row>
+                               </v-row>
                             </v-card-actions>
 
                             <v-divider class="mt-0 mb-4"></v-divider>
@@ -767,7 +830,7 @@
                           </v-card-text>
                           <v-card-actions>
                             <v-spacer></v-spacer>
-                            <v-btn
+                            <!-- <v-btn
                               color="blue darken-1"
                               @click="
                                 addEducationField(employee.educationDetails)
@@ -775,10 +838,10 @@
                               v-show="employee.educationDetails.length < 10"
                             >
                               Add More
-                            </v-btn>
+                            </v-btn> -->
                           </v-card-actions>
-                        </v-tab-item>
-                        <v-tab-item key="work">
+                        </v-tab-item> 
+                       <v-tab-item key="work">
                           <v-card-text
                             v-for="(workExperience,
                             k) in employee.workExperiences"
@@ -799,14 +862,14 @@
                                   md="6"
                                   class="d-flex align-end justify-end"
                                 >
-                                  <v-icon
+                                  <!-- <v-icon
                                     small
                                     @click="removeWorkField(k)"
                                     v-show="employee.workExperiences.length > 1"
                                     color="error"
                                   >
                                     mdi-delete
-                                  </v-icon>
+                                  </v-icon> -->
                                 </v-col>
                               </v-row>
                             </v-card-actions>
@@ -864,15 +927,15 @@
                           </v-card-text>
                           <v-card-actions>
                             <v-spacer></v-spacer>
-                            <v-btn
+                            <!-- <v-btn
                               color="blue darken-1"
                               @click="addWorkField(employee.workExperiences)"
                               v-show="employee.workExperiences.length < 10"
                             >
                               Add More
-                            </v-btn>
+                            </v-btn> -->
                           </v-card-actions>
-                        </v-tab-item>
+                        </v-tab-item> 
                         <v-tab-item key="trainig">
                           <v-card-text
                             v-for="(training, k) in employee.trainingDetails"
@@ -893,14 +956,14 @@
                                   md="6"
                                   class="d-flex align-end justify-end"
                                 >
-                                  <v-icon
+                                  <!-- <v-icon
                                     small
                                     @click="removeTrainingField(k)"
                                     v-show="employee.trainingDetails.length > 1"
                                     color="error"
                                   >
                                     mdi-delete
-                                  </v-icon>
+                                  </v-icon> -->
                                 </v-col>
                               </v-row>
                             </v-card-actions>
@@ -945,7 +1008,7 @@
                           </v-card-text>
                           <v-card-actions>
                             <v-spacer></v-spacer>
-                            <v-btn
+                            <!-- <v-btn
                               color="blue darken-1"
                               @click="
                                 addTrainingField(employee.trainingDetails)
@@ -953,7 +1016,7 @@
                               v-show="employee.trainingDetails.length < 10"
                             >
                               Add More
-                            </v-btn>
+                            </v-btn> -->
                           </v-card-actions>
                         </v-tab-item>
                         <v-tab-item key="skills">
@@ -969,23 +1032,23 @@
                                     class="font-weight-bold mb-0 pb-0 pl-0"
                                   >
                                   </v-card-subtitle>
-                                </v-col>
+                                </v-col> 
                                 <v-col
                                   cols="12"
                                   sm="6"
                                   md="6"
                                   class="d-flex align-end justify-end"
                                 >
-                                  <v-icon
+                                  <!-- <v-icon
                                     small
                                     @click="removeSkillField(k)"
                                     v-show="employee.skills.length > 1"
                                     color="error"
                                   >
                                     mdi-delete
-                                  </v-icon>
+                                  </v-icon> -->
                                 </v-col>
-                              </v-row>
+                               </v-row>
                             </v-card-actions>
 
                             <v-divider class="mt-0 mb-4"></v-divider>
@@ -1026,15 +1089,15 @@
                           </v-card-text>
                           <v-card-actions>
                             <v-spacer></v-spacer>
-                            <v-btn
+                            <!-- <v-btn
                               color="blue darken-1"
                               @click="addSkillField(employee.skills)"
-                              v-show="employee.skills.length < 10"
+                              v-show="employee.skills.length <10"
                             >
                               Add More
-                            </v-btn>
+                            </v-btn> -->
                           </v-card-actions>
-                        </v-tab-item> -->
+                        </v-tab-item> 
                       </v-tabs-items>
                     </v-card>
                   </v-container>
@@ -1103,6 +1166,7 @@
 import { mapActions,mapGetters } from "vuex";
 export default {
   data: () => ({
+    
     employeeBirthDay: false,
     dateOfJoining: false,
     passingYear: [false],
@@ -1112,6 +1176,7 @@ export default {
         fullName: "",
         preferredNickName: "",
         personalEmail:"",
+        personalNumber:"",
         fathersName: "",
         fathersProfession: "",
         mothersName: "",
@@ -1129,193 +1194,203 @@ export default {
       },
       employeeInformation: {
         employeeId: "",
-        department: "",
-        designation: "",
-        unit: "",
-        team: "",
-        employmentType: "",
-        project: "",
-        dateOfJoin: "",
-        reportingTo: "",
-        jobLocation: ""
-      },
-    //   bankDetails: [{
-    //     accountName: "",
-    //     accountNumber: "",
-    //     bankName: "",
-    //     branchName: "",
-    //     address: "",
-    //     accountType: "",
-    //     purposeOfUse: ""
-    //   }],
-    //   educationDetails: [
-    //     {
-    //       professionalQualification: "",
-    //       degree: "",
-    //       faculty: "",
-    //       institution: "",
-    //       passingYear: "",
-    //       cgpa: ""
-    //     }
-    //   ],
-    //   contacts: {
-    //     personalNumber: "",
-    //     emergencyContact: "",
-    //     email: "",
-    //     presentAddress: {
-    //       houseNumber: "",
-    //       village: "",
-    //       postOffice: "",
-    //       upozilla: "",
-    //       district: ""
-    //     },
-    //     permanentAddress: {
-    //       houseNumber: "",
-    //       village: "",
-    //       postOffice: "",
-    //       upozilla: "",
-    //       district: ""
-    //     }
-    //   },
-    //   workExperiences: [
-    //     {
-    //       companyName: "",
-    //       designation: "",
-    //       department: "",
-    //       duration: "",
-    //       supervisorName: "",
-    //       supervisorContact: ""
-    //     }
-    //   ],
-    //   trainingDetails: [
-    //     {
-    //       certificationName: "",
-    //       duration: "",
-    //       learning: "",
-    //       institution: ""
-    //     }
-    //   ],
-    //   skills: [
-    //     {
-    //       functionalCompetency: "",
-    //       language: "",
-    //       computerSkill: "",
-    //       softCompetency: ""
-    //     }
-    //   ],
-
-    //   NID: "",
-    //   Passport: "",
-    //   birthCertificate: "",
-    //   gender: "",
-    //   religion: "",
-    //   nationality: "",
-    //   bloodGroup: ""
-    },
-    defaultEmployee: {
-      personalDetails: {
-        fullName: "",
-        preferredNickName: "",
-        personalEmail:"",
-        // fathersName: "",
-        // fathersProfession: "",
-        // mothersName: "",
-        // mothersProfession: "",
-        // matitalStatus: "",
-        // spouseName: "",
-        // dateOfBirth: "",
-        // numberOfDependents: ""
-      },
-      employeeInformation: {
-        employeeId: "",
         // department: "",
         // designation: "",
         // unit: "",
         // team: "",
         // employmentType: "",
         // project: "",
-        // dateOfJoin: "",
+        dateOfJoin: "",
         // reportingTo: "",
-        // jobLocation: ""
+        // jobLocation: "",
+        // turnover: "",
+        // salaryGrade:"",
+        // separation:"",
+        // employeeStatus:"",
+        // confirmationRule:""
       },
-    //   bankDetails:[ {
-    //     accountName: "",
-    //     accountNumber: "",
-    //     bankName: "",
-    //     branchName: "",
-    //     address: "",
-    //     accountType: "",
-    //     purposeOfUse: ""
-    //   }],
-    //   educationDetails: [
-    //     {
-    //       professionalQualification: "",
-    //       degree: "",
-    //       faculty: "",
-    //       institution: "",
-    //       passingYear: "",
-    //       cgpa: ""
-    //     }
-    //   ],
-    //   contacts: {
-    //     personalNumber: "",
-    //     emergencyContact: "",
-    //     email: "",
-    //     presentAddress: {
-    //       houseNumber: "",
-    //       village: "",
-    //       postOffice: "",
-    //       upozilla: "",
-    //       district: ""
-    //     },
-    //     permanentAddress: {
-    //       houseNumber: "",
-    //       village: "",
-    //       postOffice: "",
-    //       upozilla: "",
-    //       district: ""
-    //     }
-    //   },
-    //   workExperiences: [
-    //     {
-    //       companyName: "",
-    //       designation: "",
-    //       department: "",
-    //       duration: "",
-    //       supervisorName: "",
-    //       supervisorContact: ""
-    //     }
-    //   ],
-    //   trainingDetails: [
-    //     {
-    //       certificationName: "",
-    //       duration: "",
-    //       learning: "",
-    //       institution: ""
-    //     }
-    //   ],
-    //   skills: [
-    //     {
-    //       functionalCompetency: "",
-    //       language: "",
-    //       computerSkill: "",
-    //       softCompetency: ""
-    //     }
-    //   ],
+      bankDetails: [{
+        accountName: "",
+        accountNumber: "",
+        bankName: "",
+        branchName: "",
+        address: "",
+        accountType: "",
+        purposeOfUse: ""
+      }],
+      educationDetails: [
+        {
+          professionalQualification: "",
+          degree: "",
+          faculty: "",
+          institution: "",
+          passingYear: "",
+          cgpa: ""
+        }
+      ],
+      // contacts: {
+      //   // personalNumber: "",
+      //   emergencyContact: "",
+      //   email: "",
+      //   presentAddress: {
+      //     houseNumber: "",
+      //     village: "",
+      //     postOffice: "",
+      //     upozilla: "",
+      //     district: ""
+      //   },
+      //   permanentAddress: {
+      //     houseNumber: "",
+      //     village: "",
+      //     postOffice: "",
+      //     upozilla: "",
+      //     district: ""
+      //   }
+      // },
+      workExperiences: [
+        {
+          companyName: "",
+          designation: "",
+          department: "",
+          duration: "",
+          supervisorName: "",
+          supervisorContact: ""
+        }
+      ],
+      trainingDetails: [
+        {
+          certificationName: "",
+          duration: "",
+          learning: "",
+          institution: ""
+        }
+      ],
+      skills: [
+        {
+          functionalCompetency: "",
+          language: "",
+          computerSkill: "",
+          softCompetency: ""
+        }
+      ],
 
-    //   NID: "",
-    //   Passport: "",
-    //   birthCertificate: "",
-    //   gender: "",
-    //   religion: "",
-    //   nationality: "",
-    //   bloodGroup: ""
+      NID: "",
+      Passport: "",
+      birthCertificate: "",
+      gender: "",
+      religion: "",
+      nationality: "",
+      bloodGroup: ""
+    },
+    defaultEmployee: {
+      personalDetails: {
+        fullName: "",
+        preferredNickName: "",
+        personalEmail:"",
+        personalNumber:"",
+        fathersName: "",
+        fathersProfession: "",
+        mothersName: "",
+        mothersProfession: "",
+        matitalStatus: "",
+        spouseName: "",
+        dateOfBirth: "",
+        numberOfDependents: ""
+      },
+      employeeInformation: {
+        employeeId: "",
+        // department: "",
+        // designation: "",
+        // team: "",
+        // employmentType: "",
+        // project: "",
+        dateOfJoin: "",
+        // reportingTo: "",
+        // jobLocation: "",
+        // turnover: "",
+        // salaryGrade:"",
+        // separation:"",
+        // employeeStatus:"",
+        // confirmationRule:""
+      },
+      bankDetails:[ {
+        accountName: "",
+        accountNumber: "",
+        bankName: "",
+        branchName: "",
+        address: "",
+        accountType: "",
+        purposeOfUse: ""
+      }],
+      educationDetails: [
+        {
+          professionalQualification: "",
+          degree: "",
+          faculty: "",
+          institution: "",
+          passingYear: "",
+          cgpa: ""
+        }
+      ],
+      // contacts: {
+      //   // personalNumber: "",
+      //   emergencyContact: "",
+      //   email: "",
+      //   presentAddress: {
+      //     houseNumber: "",
+      //     village: "",
+      //     postOffice: "",
+      //     upozilla: "",
+      //     district: ""
+      //   },
+      //   permanentAddress: {
+      //     houseNumber: "",
+      //     village: "",
+      //     postOffice: "",
+      //     upozilla: "",
+      //     district: ""
+      //   }
+      // },
+      workExperiences: [
+        {
+          companyName: "",
+          designation: "",
+          department: "",
+          duration: "",
+          supervisorName: "",
+          supervisorContact: ""
+        }
+      ],
+      trainingDetails: [
+        {
+          certificationName: "",
+          duration: "",
+          learning: "",
+          institution: ""
+        }
+      ],
+      skills: [
+        {
+          functionalCompetency: "",
+          language: "",
+          computerSkill: "",
+          softCompetency: ""
+        }
+      ],
+
+      NID: "",
+      Passport: "",
+      birthCertificate: "",
+      gender: "",
+      religion: "",
+      nationality: "",
+      bloodGroup: ""
     },
     maritalItems: ["single", "married", "devorced"],
     depedentNumber: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-    required(propertyType){
-       return v => !!v || `${propertyType} is required` 
-    },
+    // required(propertyType){
+    //   return
+    // },
     rules: {
       stringRule: [v => !!v || "This field is required"],
       emailRules: [v => /.+@.+/.test(v) || "E-mail must be valid"],
@@ -1408,7 +1483,7 @@ export default {
                    removeEmployee:"removeEmployee",
                    updateEmployee:"updateEmployee"}),
     saveEmployeeData() {
-      console.log("employee from masterDB",this.employee);
+      // console.log("employee from masterDB",this.employee);
       if (this.editedIndex > -1) {
         this.updateEmployee(this.employee)
       } else {
@@ -1419,9 +1494,9 @@ export default {
       this.close();
     },
     deleteEmployeeData(id) {
-      console.log("deleted employee:",this.employee)
       this.removeEmployee(id);
-       this.closeDelete()
+      // console.log("deleted employee:",this.employee)
+      this.closeDelete()
     },
     addEducationField(education) {
       return (
@@ -1469,18 +1544,15 @@ export default {
       this.editedIndex = this.allEmployees.indexOf(item);
       this.employee = Object.assign({}, item);
       this.dialog = true;
+      // this.updateEmployee(item)
     },
 
     deleteItem(item) {
       this.editedIndex = this.allEmployees.indexOf(item);
-      this.employee = Object.assign({}, item);
+      this.employee = Object.assign({}, item)
       this.dialogDelete = true;
+      // this.removeEmployee(item.id)
     },
-
-    // deleteItemConfirm() {
-    //   this.desserts.splice(this.editedIndex, 1);
-    //   this.closeDelete();
-    // },
 
     close() {
       this.dialog = false;

@@ -16,26 +16,32 @@ export const actions = {
   },
   async addEmployee({ commit }, employee) {
     // console.log("hello")
-    console.log(employee)
+    // console.log(employee)
     let res = await this.$axios.post("/employee-management/employee",employee)
     console.log("New:")
     console.log(res.data)
     if(res.status == 201){
     commit("ADD_EMPLOYEE", res.data);
+    this.$notifier.showMessage({ content: "Congrats!Successfully added one value!", color: "green" });
+    }
+    else{
+      this.$notifier.showMessage({ content: "Something went wrong ☹", color: "red" });
     }
   },
   async removeEmployee({ commit }, id) {
-    // console.log("hello")
+    console.log("deleted")
     let res = await this.$axios.delete(`/employee-management/employee/${id}`)
-    // console.log("deleted item:")
-    // console.log(res.data)
+    console.log(res.data)
     if(res.status == 200){
     commit("REMOVE_EMPLOYEE", id);
+    this.$notifier.showMessage({ content: "Congrats!Successfully deleted one value!", color: "red" });
+    }else{
+      this.$notifier.showMessage({ content: "Something went wrong ☹", color: "red" });
     }
   },
   async updateEmployee({ commit }, employee) {
-    let res = await this.$axios.put(`/employee-management/employee/${employee.id}`)
-    console.log("updated:")
+    console.log("Updated:")
+    let res = await this.$axios.put(`/employee-management/employee/${employee.id}`,employee)
     console.log(res.data)
     commit("UPDATE_EMPLOYEE", employee);
   }

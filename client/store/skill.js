@@ -1,11 +1,5 @@
 export const state = () => ({
-    skills: [
-    { 
-      id:1,
-      skillName:'Vue'
-    }
-  ]
-  
+    skills: []
 });
 
 export const getters = {
@@ -13,9 +7,13 @@ export const getters = {
 };
 
 export const actions = {
-  // async fetchRule({commit}){
-  //     commit("SET_RULE")
-  // },
+  async loadSkill({commit}){
+
+    let res = await this.$axios.get("/employee-management/skill")
+    if(res.status == 200){
+      commit("SET_SKILL",res.data)
+    }
+  },
   async addSkill({ commit }, skillName) {
     commit("ADD_SKILL", skillName);
   },
@@ -28,7 +26,10 @@ export const actions = {
 };
 
 export const mutations = {
-    ADD_SKILL(state, payload) {
+  SET_SKILL(state,payload){
+    state.skills = payload
+  },
+  ADD_SKILL(state, payload) {
     state.skills.push(payload);
   },
   REMOVE_SKILL(state, payload) {

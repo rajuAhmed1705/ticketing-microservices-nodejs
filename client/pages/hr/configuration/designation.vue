@@ -200,7 +200,9 @@ import { mapActions,mapGetters } from "vuex";
          allDeignations:"designation/designations"
        })
     },
-
+    beforeMounted() {
+    this.$store.dispatch("loadDesignation");
+  },
     methods: {
        ...mapActions({fetchDesignation:"designation/loadDesignation",
                       addDesignation:"designation/addDesignation",
@@ -213,14 +215,12 @@ import { mapActions,mapGetters } from "vuex";
        else{
          this.$refs.form.resetValidation() 
           this.addDesignation(this.designation);
-          this.$notifier.showMessage({ content: "Congrats!Successfully added one value!", color: "success" });
           this.designation = Object.assign({}, this.defaultdesignation);
-            }
+        }
        this.close();
        },
      deleteDesignation(id) {
        this.removeDesignation(id);
-       this.$notifier.showMessage({ content: "Congrats!Successfully deleted one value!", color: "red" });
        this.closeDelete()
      },
      initialize() {
@@ -238,8 +238,6 @@ import { mapActions,mapGetters } from "vuex";
         this.designation = Object.assign({}, item)
         this.dialogDelete = true
       },
-
-      
 
       close () {
         this.$refs.form.resetValidation() 

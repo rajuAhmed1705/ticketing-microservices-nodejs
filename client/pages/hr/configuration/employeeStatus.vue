@@ -180,14 +180,12 @@ import { mapActions,mapGetters } from "vuex";
       } else {
        this.$refs.form.resetValidation() 
        this.addEmpSts(this.employeeStatus);
-       this.$notifier.showMessage({ content: "Congrats!Successfully added one value!", color: "success" });
        this.employeeStatus = Object.assign({}, this.defaultemployeeStatus);
       }
        this.close();
      },
      deleteEmployeeSts(id) {
        this.removeEmpSts(id);
-       this.$notifier.showMessage({ content: "Congrats!Successfully deleted one value!", color: "red" });
        this.closeDelete()
      },
      initialize() {

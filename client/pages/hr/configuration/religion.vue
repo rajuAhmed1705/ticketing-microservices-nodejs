@@ -16,12 +16,14 @@
               <span class="headline">Religion Type</span>
             </v-card-title>
             
-            <v-fom v-model="valid">
+            <v-fom v-model="valid" ref="form">
             <v-card-text>
               <v-container>
                 <v-row>
                   <v-col cols="12" sm="12" md="12">
-                    <v-text-field v-model="religion.name" label="Religion"></v-text-field>
+                    <v-text-field v-model="religion.name" 
+                                  label="Religion" 
+                                  :rules="[required('name')]"></v-text-field>
                   </v-col>
                 </v-row>
               </v-container>
@@ -49,8 +51,8 @@
       </v-toolbar>
     </template>
     <template v-slot:[`item.actions`]="{ item }">
-      <v-icon small class="mr-2" @click="editItem(item)">mdi-pencil</v-icon>
-      <v-icon small @click="deleteItem(item)">mdi-delete</v-icon>
+      <v-icon small color="warning" class="mr-2" @click="editItem(item)">mdi-pencil</v-icon>
+      <v-icon small color="red" @click="deleteItem(item)">mdi-delete</v-icon>
     </template>
     <template v-slot:no-data>
       <v-btn color="primary" @click="initialize">Reset</v-btn>
@@ -65,6 +67,13 @@ export default {
   data: () => ({
     dialog: false,
     dialogDelete: false,
+    valid: false,
+    religion: {
+      name: "",
+    },
+    defaultreligion: {
+      name: "",
+    },
     headers: [
       {
         text: "Religion Name",
@@ -76,12 +85,10 @@ export default {
       { text: "Actions", value: "actions", sortable: false },
     ],
     editedIndex: -1,
-    religion: {
-      name: "",
-    },
-    defaultreligion: {
-      name: "",
-    },
+    
+    required(propertyType){
+       return v => v && v.length>0 || `${propertyType} is required` 
+      },
     // typeOfEmployee: ["Permanent", "Full-Time", "Contructual","Probationary","Apprentice"]
   }),
 
@@ -121,11 +128,8 @@ export default {
       if (this.editedIndex > -1) {
         this.updateReligion(this.religion);
       } else {
+        this.$refs.form.resetValidation()
         this.addReligion(this.religion);
-        this.$notifier.showMessage({
-          content: "Hello, snackbar",
-          color: "info",
-        });
         this.rule = Object.assign({}, this.defaultreligion);
       }
       this.close();
@@ -151,12 +155,13 @@ export default {
       this.dialogDelete = true;
     },
 
-    deleteItemConfirm() {
-      this.allReligions.splice(this.editedIndex, 1);
-      this.closeDelete();
-    },
+    // deleteItemConfirm() {
+    //   this.allReligions.splice(this.editedIndex, 1);
+    //   this.closeDelete();
+    // },
 
     close() {
+      this.$refs.form.resetValidation
       this.dialog = false;
       this.$nextTick(() => {
         this.religion = Object.assign({}, this.defaultreligion);
@@ -172,14 +177,14 @@ export default {
       });
     },
 
-    save() {
-      if (this.editedIndex > -1) {
-        Object.assign(this.desserts[this.editedIndex], this.religion);
-      } else {
-        this.desserts.push(this.religion);
-      }
-      this.close();
-    },
+    // save() {
+    //   if (this.editedIndex > -1) {
+    //     Object.assign(this.desserts[this.editedIndex], this.religion);
+    //   } else {
+    //     this.desserts.push(this.religion);
+    //   }
+    //   this.close();
+    // },
   },
 };
 </script>

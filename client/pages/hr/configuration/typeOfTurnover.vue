@@ -9,14 +9,14 @@
         <v-spacer></v-spacer>
         <v-dialog v-model="dialog" max-width="500px">
           <template v-slot:activator="{ on, attrs }">
-            <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on">New Turnover Type</v-btn>
+            <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on">New</v-btn>
           </template>
           <v-card>
             <v-card-title>
               <span class="headline">TurnOver Type</span>
             </v-card-title>
  
-            <v-form v-model="valid">
+            <v-form v-model="valid" ref="form">
             <v-card-text>
               <v-container>
                 <v-row>
@@ -122,6 +122,7 @@ export default {
         // console.log("hello");
         this.updateTurnOver(this.turnovertype);
       } else {
+        this.$refs.form.resetValidation()
         this.addTurnOver(this.turnovertype);
         this.$notifier.showMessage({
           content: "Congrats!Successfully added one value!",
@@ -161,6 +162,7 @@ export default {
     },
 
     close() {
+      this.$refs.form.resetValidation()
       this.dialog = false;
       this.$nextTick(() => {
         this.turnovertype = Object.assign({}, this.defaultturnovertype);

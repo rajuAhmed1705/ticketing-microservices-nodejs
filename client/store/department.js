@@ -12,6 +12,13 @@ export const actions = {
     if (res.status == 200) {
       commit("SET_DEPARTMENT", res.data)
     }
+    else
+    {
+      this.$notifier.showMessage({
+        content: "Something went wrong!",
+        color: "red",
+      });
+    }
   },
   async addDepartment({ commit }, department) {
     let res = await this.$axios.post(
@@ -21,12 +28,34 @@ export const actions = {
 
     if (res.status == 201) {
       commit("ADD_DEPARTMENT", res.data)
+      this.$notifier.showMessage({
+        content: "Congrats!Successfully added one value!",
+        color: "success",
+      });
+    }
+    else
+    {
+      this.$notifier.showMessage({
+        content: "Something went wrong!",
+        color: "red",
+      });
     }
   },
   async removeDepartment({ commit }, id) {
     let res = await this.$axios.delete(`/employee-management/department/${id}`)
     if (res.status == 200) {
       commit("REMOVE_DEPARTMENT", id)
+      this.$notifier.showMessage({
+        content: "Congrats!Successfully deleted one value!",
+        color: "red",
+      });
+    }
+    else
+    {
+      this.$notifier.showMessage({
+        content: "Something went wrong!",
+        color: "red",
+      });
     }
   },
   async updateDepartment({ commit }, department) {
@@ -34,9 +63,20 @@ export const actions = {
       `/employee-management/department/${department.id}`,
       department
     )
-    // console.log(res)
+    
     if (res.status == 200) {
       commit("UPDATE_DEPARTMENT", department)
+      this.$notifier.showMessage({
+        content: "Congrats!Successfully updated one value!",
+        color: "warning",
+      });
+    }
+    else
+    {
+      this.$notifier.showMessage({
+        content: "Something went wrong!",
+        color: "red",
+      });
     }
   },
 }

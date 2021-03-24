@@ -10,8 +10,14 @@ export const actions = {
   async loadRule({ commit }) {
     let res = await this.$axios.get("/employee-management/confirmation-rule");
     if (res.status == 200) {
-      console.log(res.data);
       commit("SET_RULE",res.data);
+    }
+    else
+    {
+      this.$notifier.showMessage({
+        content: "Something went wrong!",
+        color: "red",
+      });
     }
   },
   async addRule({ commit }, rule) {
@@ -21,20 +27,58 @@ export const actions = {
     );
     if (res.status == 201) {
       commit("ADD_RULE", res.data);
+      this.$notifier.showMessage({
+        content: "Congrats!Successfully added one value!",
+        color: "success",
+      });
+    }
+    else
+    {
+      this.$notifier.showMessage({
+        content: "Something went wrong!",
+        color: "red",
+      });
     }
   },
   async removeRule({ commit }, id) {
     let res = await this.$axios.delete(
       `/employee-management/confirmation-rule/${id}`
     );
+    if(res.status == 200){
     commit("REMOVE_RULE", id);
+    this.$notifier.showMessage({
+      content: "Congrats!Successfully deleted one value!",
+      color: "red",
+    });
+  }
+  else
+  
+    {
+      this.$notifier.showMessage({
+        content: "Something went wrong!",
+        color: "red",
+      });
+    }
   },
   async updateRule({ commit }, rule) {
     let res = await this.$axios.put(
       `/employee-management/confirmation-rule/${rule.id}`,
       rule
     );
+    if(res.status == 200){
     commit("UPDATE_RULE", rule);
+    this.$notifier.showMessage({
+      content: "Congrats!Successfully updated one value!",
+      color: "warning",
+    });
+    }
+    else
+    {
+      this.$notifier.showMessage({
+        content: "Something went wrong!",
+        color: "red",
+      });
+    }
   },
 };
 

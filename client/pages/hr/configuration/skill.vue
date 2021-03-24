@@ -1,7 +1,7 @@
 <template>
   <v-data-table
     :headers="headers"
-    :items="desserts"
+    :items="allSkills"
   
     class="elevation-1"
   >
@@ -37,7 +37,8 @@
             <v-card-title>
               <span class="headline">New Skill</span>
             </v-card-title>
-
+ 
+            
             <v-card-text>
               <v-container>
                 <v-row>
@@ -47,23 +48,15 @@
                     md="12"
                   >
                     <v-text-field
-                      v-model="skill.skillName"
-                      label="Skill Name"
+                      v-model="skill.functionalCompetency"
+                      label="Functonal Competency"
+                      
                     ></v-text-field>
                   </v-col>
-                  <!-- <v-col cols="12" sm="6" md="6">
-                                <v-select
-                                  v-model="
-                                    employeeStatus.empStatus
-                                  "
-                                  label="Status"
-                                  :items="statusOfEmployee"
-                                  
-                                ></v-select>
-                              </v-col> -->
                 </v-row>
               </v-container>
             </v-card-text>
+            
 
             <v-card-actions>
               <v-spacer></v-spacer>
@@ -124,39 +117,27 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions,mapGetters } from "vuex";
 
   export default {
     data: () => ({
       dialog: false,
       dialogDelete: false,
       headers: [
-        // {
-        //   text: 'Name',
-        //   align: 'start',
-        //   sortable: false,
-        //   value: 'name',
-        // },
-        { text: 'Skill', value: 'skillName' },
+        { text: 'Functional Competency', value: 'functionalCompetency' },
         
         { text: 'Actions', value: 'actions', sortable: false },
       ],
-      desserts: [],
+      
       editedIndex: -1,
       skill: {
-        skillName:''
+        functionalCompetency:''
       },
       defaultskill: {
-        skillName:''
+        functionalCompetency:''
       },
       
     }),
-
-    computed: {
-      formTitle () {
-        return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
-      },
-    },
 
     watch: {
       dialog (val) {
@@ -167,40 +148,52 @@ import { mapActions } from "vuex";
       },
     },
 
-    created () {
+    async created () {
       this.initialize()
+      await this.fetchSkill()
     },
 
+    computed: {
+      formTitle () {
+        return this.editedIndex === -1 ? 'New skill' : 'Edit skill'
+      },
+      ...mapGetters({
+        allSkills:"skill/skills"
+      })
+    },
+  beforeMounted() {
+    this.$store.dispatch("loadSkill")
+  },
+
     methods: {
-       ...mapActions({addSkill:"skill/addSkill",removeSkill: "skill/removeSkill"}),
-     saveSkillData() {
-       this.addSkill(this.skill);
-       this.$notifier.showMessage({ content: "Hello, snackbar", color: "info" });
-       this.skill = Object.assign({}, this.defaultskill);
-       this.close();
-     },
-     deleteSkillData(id) {
-       this.removeSkill(id);
-     },
+       ...mapActions({fetchSkill:"skill/loadSkill"}),
+    //  saveSkillData() {
+    //    this.addSkill(this.skill);
+    //    this.$notifier.showMessage({ content: "Hello, snackbar", color: "info" });
+    //    this.skill = Object.assign({}, this.defaultskill);
+    //    this.close();
+    //  },
+    //  deleteSkillData(id) {
+    //    this.removeSkill(id);
+    //  },
      initialize() {
-       this.desserts = this.$store.getters['skill/skills'];
-      //  console.log(this.desserts);
+       this.$store.getters["skill/skills"];
     },
 
       editItem (item) {
-        this.editedIndex = this.desserts.indexOf(item)
+        this.editedIndex = this.allSkills.indexOf(item)
         this.skill = Object.assign({}, item)
         this.dialog = true
       },
 
       deleteItem (item) {
-        this.editedIndex = this.desserts.indexOf(item)
+        this.editedIndex = this.allSkills.indexOf(item)
         this.skill = Object.assign({}, item)
         this.dialogDelete = true
       },
 
       deleteItemConfirm () {
-        this.desserts.splice(this.editedIndex, 1)
+        this.allSkills.splice(this.editedIndex, 1)
         this.closeDelete()
       },
 
@@ -222,7 +215,7 @@ import { mapActions } from "vuex";
 
       save () {
         if (this.editedIndex > -1) {
-          Object.assign(this.desserts[this.editedIndex], this.skill)
+          Object.assign(this.allSkills[this.editedIndex], this.skill)
         } else {
           this.desserts.push(this.skill)
         }

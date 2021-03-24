@@ -174,10 +174,6 @@ export default {
     deleteDepartment(id) {
       // console.log(id);
       this.removeDepartment(id)
-      this.$notifier.showMessage({
-          content: "Congrats!Successfully deleted one value!",
-          color: "red",
-        })
       this.closeDelete()
       //  this.dialogDelete = true
     },
@@ -187,10 +183,6 @@ export default {
       } else {
         this.$refs.form.resetValidation() 
         this.addDepartment(this.department)
-        this.$notifier.showMessage({
-          content: "Congrats!Successfully added one value!",
-          color: "success",
-        })
         this.department = Object.assign({}, this.defaultdepartment)
       }
       this.close()

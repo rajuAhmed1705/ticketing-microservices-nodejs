@@ -10,7 +10,7 @@
           <v-spacer></v-spacer>
           <v-dialog v-model="dialog" max-width="500px">
             <template v-slot:activator="{ on, attrs }">
-              <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on">New Rule</v-btn>
+              <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on">New</v-btn>
             </template>
             <v-card>
               <v-card-title>
@@ -22,7 +22,7 @@
                 <v-container>
                   <v-row>
                     <v-col cols="12" sm="6" md="6">
-                      <v-text-field v-model="rule.ruleName" label="Rule Name" :rules="[required('ruleName')]"></v-text-field>
+                      <v-text-field v-model="rule.ruleName" label="Rule Name" :rules="[required('ruleName')]" @keyup="formatSurname"></v-text-field>
                     </v-col>
                     <!--  -->
                   </v-row>
@@ -112,6 +112,12 @@ export default {
     this.$store.dispatch("loadRule");
   },
   methods: {
+    formatSurname() {
+    if (this.ruleName) {
+      this.ruleName = this.ruleName.toString()
+      this.ruleName = this.ruleName.charAt(0).toUpperCase() + this.ruleName.slice(1)
+    }
+  },
     ...mapActions({
       fetchRule: "rule/loadRule",
       addRule: "rule/addRule",
@@ -124,20 +130,12 @@ export default {
       } else {
         this.$refs.form.resetValidation()
         this.addRule(this.rule);
-        this.$notifier.showMessage({
-          content: "Congrats!Successfully added one value!",
-          color: "success",
-        });
         this.rule = Object.assign({}, this.defaultrule);
       }
       this.close();
     },
     deleteRuleData(id) {
       this.removeRule(id);
-      this.$notifier.showMessage({
-          content: "Congrats!Successfully added one value!",
-          color: "success",
-        });
       this.closeDelete();
     },
 
@@ -164,6 +162,7 @@ export default {
     },
 
     close() {
+      this.$refs.form.resetValidation() 
       this.dialog = false;
       this.$nextTick(() => {
         this.rule = Object.assign({}, this.defaultrule);

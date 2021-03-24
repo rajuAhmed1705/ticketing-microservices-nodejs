@@ -1410,7 +1410,30 @@ export default {
       // this.$notifier.showMessage({ content: "Congrats!Successfully added one value!", color: "success" });
       this.employee = Object.assign({}, this.defaultEmployee);
       this.close();
+
+  },
+
+  computed: {
+    formTitle() {
+      return this.editedIndex === -1 ? "New Employee" : "Edit Employee Info";
     },
+    ...mapGetters({
+      allEmployees:"employees"
+    })
+  },
+  beforeMounted() {
+    this.$store.dispatch("loadEmployee");
+  },
+
+  methods: {
+    ...mapActions({fetchEmployee:"loadEmployee"}),
+    // saveEmployeeData() {
+    //   this.addEmployee(this.employee);
+    //   this.$notifier.showMessage({ content: "Hello, snackbar", color: "info" });
+    //   this.employee = Object.assign({}, this.defaultEmployee);
+    //   this.close();
+    // },
+
     // deleteEmployeeData(id) {
     //   this.removeEmployee(id);
     // },
@@ -1489,15 +1512,16 @@ export default {
       });
     },
 
-    save() {
-      if (this.editedIndex > -1) {
-        Object.assign(this.desserts[this.editedIndex], this.editedItem);
-      } else {
-        this.desserts.push(this.editedItem);
-      }
-      this.close();
-    }
+    // save() {
+    //   if (this.editedIndex > -1) {
+    //     Object.assign(this.desserts[this.editedIndex], this.editedItem);
+    //   } else {
+    //     this.desserts.push(this.editedItem);
+    //   }
+    //   this.close();
+    // }
   }
-};
+  }
+}
 </script>
 <style></style>

@@ -64,27 +64,3 @@ export const mutations = {
   },
 };
 
-// export const actions = {
-//   async loadTurnover({ commit }) {
-  //   let res = await this.$axios.get("/employee-management/turnover");
-    
-  //   if (res.status == 200) {
-  //     commit("SET_TURNOVER", res.data);
-  //   }
-  // },
-
-//   async addTurnOver({ commit }, turnovertype) {
-//     let res = await this.$axios.post(
-//       "/employee-management/turnover",
-//       turnovertype
-//     );
-//     if (res.status == 201) {
-//       commit("ADD_TURNOVER", res.data);
-//     }
-//   },
-//   async removeTurnOver({ commit }, id) {
-//     let res = await this.$axios.delete(`/employee-management/turnover/${id}`);
-//     if (res.status == 200) {
-//       commit("REMOVE_TURNOVER", id);
-//     }
-//   },

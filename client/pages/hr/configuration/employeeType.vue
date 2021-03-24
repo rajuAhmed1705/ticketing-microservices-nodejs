@@ -196,8 +196,6 @@ import { mapActions,mapGetters } from "vuex";
      saveEmpTypeData() {
         if (this.editedIndex > -1) {
         this.updateEmpType(this.employeetype);
-        
-        
       } else {
        this.$refs.form.resetValidation() 
        this.addEmpType(this.employeetype);

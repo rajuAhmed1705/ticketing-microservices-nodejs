@@ -10,8 +10,16 @@ export const actions = {
   async loadProject({ commit }) {
     // console.log("hello");
     let res = await this.$axios.get("/employee-management/project");
-
+    if(res.status == 200){
     commit("SET_PROJECT", res.data);
+    }
+    else
+    {
+      this.$notifier.showMessage({
+        content: "Something went wrong!",
+        color: "red",
+      });
+    }
   },
 
   async addProject({ commit }, project) {
@@ -20,6 +28,17 @@ export const actions = {
     // console.log(res.data);
     if (res.status == 201) {
       commit("ADD_PROJECT", res.data);
+      this.$notifier.showMessage({
+        content: "Congrats!Successfully added one value!",
+        color: "success",
+      });
+    }
+    else
+    {
+      this.$notifier.showMessage({
+        content: "Something went wrong!",
+        color: "red",
+      });
     }
   },
   async removeProject({ commit }, id) {
@@ -27,6 +46,17 @@ export const actions = {
     // console.log(res);
     if (res.status == 200) {
       commit("REMOVE_PROJECT", id);
+      this.$notifier.showMessage({
+        content: "Congrats!Successfully deleted one value!",
+        color: "red",
+      });
+    }
+    else
+    {
+      this.$notifier.showMessage({
+        content: "Something went wrong!",
+        color: "red",
+      });
     }
   },
   async updateProject({ commit }, project) {
@@ -34,9 +64,20 @@ export const actions = {
       `/employee-management/project/${project.id}`,
       project
     );
-    // console.log(res);
+    
     if (res.status == 200) {
       commit("UPDATE_PROJECT", project);
+      this.$notifier.showMessage({
+        content: "Congrats!Successfully updated one value!",
+        color: "warning",
+      });
+    }
+    else
+    {
+      this.$notifier.showMessage({
+        content: "Something went wrong!",
+        color: "red",
+      });
     }
   },
 };

@@ -1,7 +1,7 @@
 <template>
   <div>
     <template>
-      <v-row class=" d-flex justify-space-between">
+      <v-row class=" d-flex justify-space-around" >
         <!-- left -->
         <v-col cols="20" md="3" sm="5" class="mb-3">
           <v-card-text class="px-0">
@@ -22,7 +22,7 @@
               <v-divider></v-divider>
               <div class="d-flex align-center">
                 <v-icon small class="mr-2">mdi-phone</v-icon>
-                Personla Number: 0177777777
+                Personal Number: 0177777777
               </div>
               <div class="d-flex align-center">
                 <v-icon small class="mr-2">mdi-email</v-icon>
@@ -72,48 +72,42 @@
       <!-- info tables -->
       <template>
         <v-card class="mx-auto mt-4" tile>
-          <h3 class="text-center">Personal Information</h3>
+          <v-card-subtitle class=" font-weight-bold mb-0 pb-0 pl-0 mt-4 h-3 text-center text--black"><h4>Personal Information</h4></v-card-subtitle>
           <v-row class="d-flex justify-space-between">
             <v-col cols="6" md="6" sm="12">
               <v-list-item>
                 <v-list-item-content>
-                  <v-list-item-title>Full Name: Raju Ahmed</v-list-item-title>
+                  <v-list-item-title-subtitle><h5>Full Name: Raju Ahmed</h5></v-list-item-title-subtitle>
                 </v-list-item-content>
               </v-list-item>
 
               <v-list-item>
                 <v-list-item-content>
-                  <v-list-item-title
-                    >Preferred Nickname: Raju</v-list-item-title
-                  >
+                  <v-list-item-title-subtitle><h5>Preferred Nickname: Raju</h5></v-list-item-title-subtitle>
                 </v-list-item-content>
               </v-list-item>
 
               <v-list-item>
                 <v-list-item-content>
-                  <v-list-item-title
-                    >Date Of Birthday: 1/1/1996</v-list-item-title
-                  >
+                  <v-list-item-title><h5>Date Of Birthday: 1/1/1996</h5></v-list-item-title>
                 </v-list-item-content>
               </v-list-item>
 
               <v-list-item>
                 <v-list-item-content>
-                  <v-list-item-title>Father's Name: Abc</v-list-item-title>
+                  <v-list-item-title><h5>Father's Name: Abc</h5></v-list-item-title>
                 </v-list-item-content>
               </v-list-item>
 
               <v-list-item>
                 <v-list-item-content>
-                  <v-list-item-title>Mother's Name: Abc</v-list-item-title>
+                  <v-list-item-title><h5>Mother's Name: Abc</h5></v-list-item-title>
                 </v-list-item-content>
               </v-list-item>
 
               <v-list-item>
                 <v-list-item-content>
-                  <v-list-item-title
-                    >Marital Status: Unmarried</v-list-item-title
-                  >
+                  <v-list-item-title><h5>Marital Status: Unmarried</h5></v-list-item-title>
                 </v-list-item-content>
               </v-list-item>
 
@@ -167,7 +161,7 @@
       <!-- employee info -->
       <template>
         <v-card class="mx-auto mt-10" tile>
-          <h3 class="text-center">Employee Information</h3>
+          <v-card-subtitle class=" font-weight-bold mb-0 pb-0 pl-0 mt-4 h-3 text-center">Employee Information</v-card-subtitle>
 
           <v-row class="d-flex justify-space-around">
             <v-col cols="6" md="6" sm="12">
