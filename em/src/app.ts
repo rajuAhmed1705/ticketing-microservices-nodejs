@@ -33,16 +33,16 @@ const app = express();
 app.use(json());
 app.use(cors());
 app.use(
-    urlencoded({
-        extended: false,
-    })
+  urlencoded({
+    extended: false,
+  })
 );
 app.set("trust proxy", true);
 app.use(
-    cookieSession({
-        signed: false,
-        secure: process.env.NODE_ENV !== "test",
-    })
+  cookieSession({
+    signed: false,
+    secure: process.env.NODE_ENV !== "test",
+  })
 );
 
 app.use(employeeRouter);
@@ -69,7 +69,7 @@ app.use(bangladeshAddressInfoRouter);
 app.use(companyRouter);
 
 app.all("*", async (req, res) => {
-    throw new NotFoundError();
+  throw new NotFoundError();
 });
 
 app.use(errorHandler);
