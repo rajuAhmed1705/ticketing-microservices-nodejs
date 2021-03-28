@@ -16,3 +16,19 @@ it("creates new request", async () => {
   console.log(category);
   console.log(leaveProfine);
 });
+
+it("calculates duration", async () => {
+  let start = new Date();
+  start.setHours(14, 0, 0);
+
+  let end = new Date();
+  end.setDate(start.getDate() + 3);
+  end.setHours(13, 0, 0);
+
+  const response = await request(app)
+    .post("/api/leave/duration")
+    .send({ startTime: start, endTime: end })
+    .expect(200);
+
+  expect(response.body.duration).toEqual(3);
+});

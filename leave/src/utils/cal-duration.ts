@@ -1,9 +1,25 @@
 import moment from "moment";
+import { officeHour } from "./office-hour";
+
+const halfDayHour = 5;
+
+const calculateDuration = (h: number): number => {
+  if (h <= halfDayHour && h > 0) {
+    return 0.5;
+  }
+  if (h > halfDayHour) {
+    return 1;
+  }
+  return 0;
+};
 
 export const calDuration = (
   startTime: Date,
   endTime: Date
-): { duration: number | null; hours: number | null } => {
+): {
+  duration: number;
+  hours: number;
+} => {
   const from = moment(startTime);
   const to = moment(endTime);
   if (moment.isMoment(to)) {
@@ -11,20 +27,31 @@ export const calDuration = (
     const h = to.diff(from, "hour");
     let duration: number = 0;
 
-    if (sameDay && h <= 5) {
-      duration = 0.5;
-    }
-    if (sameDay && h > 5) {
-      duration = 1;
+    if (sameDay && moment.isMoment(from) && moment.isMoment(to)) {
+      const h = officeHour(from, to);
+      duration = calculateDuration(h.startHour);
     }
     if (!sameDay) {
-      const checkHalf = () => (h % 24 <= 5 ? 0.5 : 1);
+      const startingDay = calculateDuration(officeHour(from, to).startHour);
+      const endingDay = calculateDuration(officeHour(from, to).endHour);
 
-      duration = Math.floor(h / 24) + checkHalf();
+      let middleDays = 0;
+      const fromBeginning = from.startOf("day");
+      const toEnding = to.endOf("day");
+
+      middleDays = toEnding.diff(fromBeginning, "day", true) - 2;
+
+      duration = startingDay + Math.ceil(middleDays) + endingDay;
     }
 
-    return { duration, hours: h };
+    return {
+      duration,
+      hours: h,
+    };
   } else {
-    return { duration: null, hours: null };
+    return {
+      duration: 0,
+      hours: 0,
+    };
   }
 };

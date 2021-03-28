@@ -15,6 +15,7 @@ interface EmployeeAttrs {
   employeeInformation: {
     employeeId: string;
     companyId: string;
+    dateOfJoin: Date;
     department: DepartmentDoc;
     designation: DesignationDoc;
     employmentType: employmentTypeDoc;
@@ -31,6 +32,7 @@ export interface EmployeeDoc extends mongoose.Document {
   employeeInformation: {
     employeeId: string;
     companyId: string;
+    dateOfJoin: Date;
     department: DepartmentDoc;
     designation: DesignationDoc;
     employmentType: employmentTypeDoc;
@@ -71,7 +73,10 @@ const employeeSchema = new mongoose.Schema(
         default: null,
         autopopulate: true,
       },
-
+      dateOfJoin: {
+        type: Date,
+        required: true,
+      },
       designation: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Designation",

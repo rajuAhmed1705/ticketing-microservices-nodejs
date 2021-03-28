@@ -12,6 +12,7 @@ interface CategoryAttrs {
   eligibleEmploymentType: employmentTypeDoc;
   carryForward: boolean;
   minService: number;
+  yearly: boolean;
   preapproval: boolean;
   maxAccumulation: number;
   payable: boolean;
@@ -31,6 +32,7 @@ export interface CategoryDoc extends mongoose.Document {
   eligibleEmploymentType: employmentTypeDoc;
   carryForward: boolean;
   minService: number;
+  yearly: boolean;
   preapproval: boolean;
   maxAccumulation: number;
   payable: boolean;
@@ -89,6 +91,10 @@ const categorySchema = new mongoose.Schema(
     minService: {
       type: Number,
       default: null,
+    },
+    yearly: {
+      type: Boolean,
+      default: false,
     },
     preapproval: {
       type: Boolean,

@@ -5,13 +5,13 @@ import mongoose from "mongoose";
 interface LeaveProfileAttrs {
   employee: EmployeeDoc;
   category: CategoryDoc;
-  remainingLeave: number;
+  remainingLeave: number | null;
 }
 
 export interface LeaveProfileDoc extends mongoose.Document {
   employee: EmployeeDoc;
   category: CategoryDoc;
-  remainingLeave: number;
+  remainingLeave: number | null;
 }
 
 interface LeaveProfileModel extends mongoose.Model<LeaveProfileDoc> {

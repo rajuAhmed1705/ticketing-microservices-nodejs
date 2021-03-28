@@ -16,6 +16,7 @@ export const categorySetup = async () => {
       eligibleEmploymentType: [employmentType?.id],
       carryForward: false,
       minService: null,
+      yearly: true,
       preapproval: true,
       maxAccumulation: null,
       payable: true,
