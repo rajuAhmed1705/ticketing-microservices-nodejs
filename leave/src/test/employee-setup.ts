@@ -80,5 +80,5 @@ export const employeeSetup = async () => {
 
   const employeeinfo = await Employee.findById(employee.id);
 
-  return employeeinfo;
+  return { employeeinfo, employeeForReportingTo };
 };
