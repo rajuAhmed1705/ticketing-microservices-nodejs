@@ -4,6 +4,7 @@ import { app } from "../../app";
 const requestType = {
   requestName: "request",
   remarks: "request for new leave",
+  status: 0,
 };
 
 //create
@@ -42,6 +43,7 @@ it("returns a 200 on successful update", async () => {
   const updatedRequestType = {
     requestName: "hello",
     remarks: "lololo",
+    status: 0,
   };
 
   const updatedResponse = await request(app)
@@ -81,7 +83,7 @@ it("returns a 200 on successful get all documents", async () => {
     .expect(201);
   await request(app)
     .post("/api/leave/request-type")
-    .send({ requestName: "hello", remarks: "lololo" })
+    .send({ requestName: "hello", remarks: "lololo", status: 1 })
     .expect(201);
 
   const res = await request(app)
@@ -90,4 +92,17 @@ it("returns a 200 on successful get all documents", async () => {
     .expect(200);
 
   expect(res.body.length).toEqual(2);
+});
+
+//status
+it("returns 400 if status already exists", async () => {
+  await request(app)
+    .post("/api/leave/request-type")
+    .send({ ...requestType })
+    .expect(201);
+
+  await request(app)
+    .post("/api/leave/request-type")
+    .send({ requestName: "hello", remarks: "lololo", status: 0 })
+    .expect(400);
 });

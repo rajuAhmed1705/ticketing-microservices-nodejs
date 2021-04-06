@@ -11,6 +11,7 @@ const router = express.Router();
 
 const validation = [
   body("requestName").exists().withMessage("requestName field is required"),
+  body("status").exists().withMessage("status is required"),
 ];
 
 router.get("/api/leave/request-type", async (req: Request, res: Response) => {
@@ -33,9 +34,11 @@ router.post(
   validation,
   validateRequest,
   async (req: Request, res: Response) => {
-    const { requestName, remarks } = req.body;
+    const { requestName, remarks, status } = req.body;
 
-    const existingRequestType = await RequestType.findOne({ requestName });
+    const existingRequestType = await RequestType.findOne({
+      $or: [{ requestName }, { status }],
+    });
     if (existingRequestType) {
       throw new BadRequestError("request type already exists");
     }
@@ -43,6 +46,7 @@ router.post(
     const requestType = RequestType.build({
       requestName,
       remarks,
+      status,
     });
 
     await requestType.save();
@@ -61,10 +65,11 @@ router.put(
       throw new NotFoundError("request type doesn't exist");
     }
 
-    const { requestName, remarks } = req.body;
+    const { requestName, status } = req.body;
 
     const existingRequestType = await RequestType.findOne({
       requestName,
+      status,
       _id: {
         $ne: req.params.id,
       },
@@ -74,8 +79,7 @@ router.put(
     }
 
     requestType.set({
-      requestName,
-      remarks,
+      ...req.body,
     });
 
     await requestType.save();

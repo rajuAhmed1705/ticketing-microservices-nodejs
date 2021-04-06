@@ -5,7 +5,7 @@ import { EmployeeStatusDoc } from "./employee-status";
 import { employmentTypeDoc } from "./employment-type";
 import { ReligionDoc } from "./religion";
 import autopopulate from "mongoose-autopopulate";
-import { createLeaveProfile } from "../middleware/DB/leave-profile-create";
+import { createLeaveProfile } from "../middleware/DB/leave-profile";
 
 interface EmployeeAttrs {
   personalDetails: {

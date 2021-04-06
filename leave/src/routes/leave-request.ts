@@ -6,10 +6,13 @@ import {
 } from "@shurjomukhi/common";
 import express, { Request, Response } from "express";
 import { body } from "express-validator";
+import { createLeaveTimeline } from "../middleware/timeline/create-leave-timeline";
+import { deleteLeaveTimeline } from "../middleware/timeline/delete-leave-timeline";
 import { Category } from "../models/category";
 import { Employee } from "../models/employee";
 import { LeaveProfile } from "../models/leave-profile";
 import { LeaveRequest } from "../models/leave-request";
+import { LeaveTimeline } from "../models/leave-timeline";
 import { RequestType } from "../models/request-type";
 import { calDuration } from "../utils/cal-duration";
 
@@ -69,7 +72,7 @@ router.post(
     const {
       employee,
       requestType,
-      category,
+      category: categoryId,
       purpose,
       startTime,
       endTime,
@@ -99,7 +102,7 @@ router.post(
       {
         name: "category",
         model: Category,
-        objectId: category,
+        objectId: categoryId,
       },
       {
         name: "requestTo",
@@ -111,17 +114,20 @@ router.post(
     //calculate days
     const { duration } = calDuration(startTime, endTime);
 
-    const cat = await Category.findById(category);
+    const category = await Category.findById(categoryId);
 
-    if (cat && cat.maxAvail && duration > cat.maxAvail) {
+    if (category && category.maxAvail && duration > category.maxAvail) {
       throw new BadRequestError("duration exceeded");
     }
 
-    if (cat && cat.maxAvail && duration < cat.minAvail) {
+    if (category && category.maxAvail && duration < category.minAvail) {
       throw new BadRequestError("duration is less than half day");
     }
 
-    const leaveProfile = await LeaveProfile.findOne({ employee, category });
+    const leaveProfile = await LeaveProfile.findOne({
+      employee,
+      category: categoryId,
+    });
     if (!leaveProfile) {
       throw new NotFoundError(
         "you don't have leave profile for this category please contact HR"
@@ -144,7 +150,7 @@ router.post(
       startTime,
       endTime,
       duration,
-      category,
+      category: categoryId,
     });
 
     await leaveRequest.save();
@@ -200,7 +206,25 @@ router.post(
     try {
       leaveRequest.set({ status });
       await leaveRequest.save();
+      /**
+       * create leave timeline
+       */
+      if (
+        leaveRequest.requestType &&
+        (leaveRequest.requestType.status === 0 ||
+          leaveRequest.requestType.status === 2) &&
+        leaveRequest.status === 1
+      ) {
+        await createLeaveTimeline(leaveRequest);
+      }
 
+      if (
+        leaveRequest.requestType &&
+        leaveRequest.requestType.status === 1 &&
+        leaveRequest.status === 1
+      ) {
+        await deleteLeaveTimeline(leaveRequest);
+      }
       res.status(200).send(leaveRequest);
     } catch (error) {
       console.log(error);

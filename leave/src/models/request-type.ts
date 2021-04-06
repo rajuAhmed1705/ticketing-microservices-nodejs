@@ -1,13 +1,22 @@
 import mongoose from "mongoose";
 
+/**
+ * @status
+ * approve request --> 0
+ * cancel request --> 1
+ * extend request --> 2
+ */
+
 interface RequestTypeAttrs {
   requestName: string;
   remarks: string;
+  status: number;
 }
 
 export interface RequestTypeDoc extends mongoose.Document {
   requestName: string;
   remarks: string;
+  status: number;
 }
 
 interface RequestTypeModel extends mongoose.Model<RequestTypeDoc> {
@@ -26,6 +35,11 @@ const requestTypeSchema = new mongoose.Schema(
       type: String,
       trim: true,
       default: null,
+    },
+    status: {
+      type: Number,
+      required: true,
+      min: 0,
     },
   },
   {

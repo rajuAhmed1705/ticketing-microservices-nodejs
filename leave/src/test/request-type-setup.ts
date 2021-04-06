@@ -5,8 +5,9 @@ export const requestType = async () => {
   const { body } = await request(app)
     .post("/api/leave/request-type")
     .send({
-      requestName: "request",
+      requestName: "approval request",
       remarks: "request for new leave",
+      status: 0,
     })
     .expect(201);
 

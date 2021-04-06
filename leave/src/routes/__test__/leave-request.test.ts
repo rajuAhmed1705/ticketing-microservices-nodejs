@@ -39,7 +39,7 @@ it("fetch all the requests", async () => {
     end,
   } = await leaveSetup();
 
-  await request(app)
+  const { body } = await request(app)
     .post("/api/leave/leave-request")
     .send({
       employee: employeeinfo!.id,
@@ -319,4 +319,35 @@ it("deletes a request", async () => {
     .get(`/api/leave/leave-request/${requestId}`)
     .send()
     .expect(404);
+});
+
+it("creates timeline if request is accepted", async () => {
+  const {
+    category,
+    employeeinfo,
+    employeeForReportingTo,
+    type,
+    start,
+    end,
+  } = await leaveSetup();
+
+  const leaveRequest = await request(app)
+    .post("/api/leave/leave-request")
+    .send({
+      employee: employeeinfo!.id,
+      requestType: type!.id,
+      requestTo: employeeForReportingTo.id,
+      startTime: start,
+      endTime: end,
+      category: category.id,
+    })
+    .expect(201);
+
+  let response = await request(app)
+    .post("/api/leave/leave-request-approval")
+    .send({
+      request: leaveRequest.body.id,
+      status: 1,
+    })
+    .expect(200);
 });

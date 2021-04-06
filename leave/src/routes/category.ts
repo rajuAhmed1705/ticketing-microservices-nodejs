@@ -25,6 +25,7 @@ router.get("/api/leave/category", async (req: Request, res: Response) => {
     res.status(200).send(categories);
   } catch (error) {
     console.log(error);
+    res.status(500).send(error);
   }
 });
 
