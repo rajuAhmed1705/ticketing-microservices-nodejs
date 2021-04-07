@@ -2,10 +2,12 @@ import { CategoryDoc } from "./category";
 import { EmployeeDoc } from "./employee";
 import mongoose from "mongoose";
 import autopopulate from "mongoose-autopopulate";
+import { LeaveRequestDoc } from "./leave-request";
 
 interface LeaveTimelineAttrs {
   employee: EmployeeDoc;
   category: CategoryDoc;
+  request?: LeaveRequestDoc;
   fromDate: Date;
   toDate: Date;
   duration: number;
@@ -16,6 +18,7 @@ interface LeaveTimelineAttrs {
 export interface LeaveTimelinDoc extends mongoose.Document {
   employee: EmployeeDoc;
   category: CategoryDoc;
+  request?: LeaveRequestDoc;
   fromDate: Date;
   toDate: Date;
   duration: number;
@@ -33,12 +36,18 @@ const leaveTimelineSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "Employee",
       required: true,
+      autopopulate: true,
     },
     category: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Category",
       required: true,
       autopopulate: true,
+    },
+    request: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "LeaveRequest",
+      default: null,
     },
     fromDate: {
       type: Date,

@@ -1,14 +1,15 @@
 import request from "supertest";
 import { app } from "../../app";
 import { LeaveProfile } from "../../models/leave-profile";
+import { LeaveTimeline } from "../../models/leave-timeline";
 import { categorySetup } from "../../test/category-setup";
 import { employeeSetup } from "../../test/employee-setup";
 import { requestType } from "../../test/request-type-setup";
 
-const leaveSetup = async () => {
+const leaveSetup = async (requestTypeStatus: number = 0) => {
   const category = await categorySetup();
   const { employeeinfo, employeeForReportingTo } = await employeeSetup();
-  const type = await requestType();
+  const type = await requestType(requestTypeStatus);
   const leaveProfile = await LeaveProfile.find();
 
   let start = new Date();
@@ -331,7 +332,7 @@ it("creates timeline if request is accepted", async () => {
     end,
   } = await leaveSetup();
 
-  const leaveRequest = await request(app)
+  const { body: leaveRequest } = await request(app)
     .post("/api/leave/leave-request")
     .send({
       employee: employeeinfo!.id,
@@ -343,11 +344,95 @@ it("creates timeline if request is accepted", async () => {
     })
     .expect(201);
 
-  let response = await request(app)
+  await request(app)
     .post("/api/leave/leave-request-approval")
     .send({
-      request: leaveRequest.body.id,
+      request: leaveRequest.id,
       status: 1,
     })
     .expect(200);
+
+  const timeline = await LeaveTimeline.findOne({
+    employee: leaveRequest.employee.id,
+    category: leaveRequest.category.id,
+    fromDate: {
+      $gte: leaveRequest.startTime,
+      $lte: leaveRequest.endTime,
+    },
+  });
+
+  expect(timeline).not.toBeNull();
+  expect(timeline?.employee.id).toEqual(leaveRequest.employee.id);
+});
+
+it("deletes a timeline if cancel request is accepted", async () => {
+  const {
+    category,
+    employeeinfo,
+    employeeForReportingTo,
+    type,
+    start,
+    end,
+  } = await leaveSetup();
+
+  const requestTypeCancel = await requestType(1);
+
+  const { body: leaveRequest } = await request(app)
+    .post("/api/leave/leave-request")
+    .send({
+      employee: employeeinfo!.id,
+      requestType: type!.id,
+      requestTo: employeeForReportingTo.id,
+      startTime: start,
+      endTime: end,
+      category: category.id,
+    })
+    .expect(201);
+
+  await request(app)
+    .post("/api/leave/leave-request-approval")
+    .send({
+      request: leaveRequest.id,
+      status: 1,
+    })
+    .expect(200);
+
+  const timeline = await LeaveTimeline.findOne({
+    employee: leaveRequest.employee.id,
+    category: leaveRequest.category.id,
+    fromDate: {
+      $gte: leaveRequest.startTime,
+      $lte: leaveRequest.endTime,
+    },
+  });
+
+  expect(timeline).not.toBeNull();
+  expect(timeline?.employee.id).toEqual(leaveRequest.employee.id);
+
+  const { body: leaveCancelRequest } = await request(app)
+    .post("/api/leave/leave-cancel-request")
+    .send({
+      request: leaveRequest!.id,
+      requestType: requestTypeCancel!.id,
+    })
+    .expect(200);
+
+  let { body: cancelApproved } = await request(app)
+    .post("/api/leave/leave-request-approval")
+    .send({
+      request: leaveCancelRequest.id,
+      status: 1,
+    })
+    .expect(200);
+
+  const nonExistingTimeline = await LeaveTimeline.findOne({
+    employee: leaveRequest.employee.id,
+    category: leaveRequest.category.id,
+    fromDate: {
+      $gte: leaveRequest.startTime,
+      $lte: leaveRequest.endTime,
+    },
+  });
+
+  expect(nonExistingTimeline).toBeNull;
 });

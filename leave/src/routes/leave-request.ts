@@ -40,6 +40,9 @@ router.get(
   }
 );
 
+/**
+ * for individual employee
+ */
 router.get(
   "/api/leave/my-leave-request",
   async (req: Request, res: Response) => {
@@ -53,6 +56,9 @@ router.get(
   }
 );
 
+/**
+ * duration calculation
+ */
 router.post("/api/leave/duration", async (req: Request, res: Response) => {
   const { startTime, endTime } = req.body;
   try {
@@ -158,7 +164,38 @@ router.post(
     res.status(201).send(leaveRequest);
   }
 );
+/**
+ * request to cancel approved leave
+ */
+router.post(
+  "/api/leave/leave-cancel-request",
+  async (req: Request, res: Response) => {
+    const { request, requestType: requestTypeId } = req.body;
+    const leaveRequest = await LeaveRequest.findById(request);
+    if (!leaveRequest) {
+      throw new NotFoundError("leave request not found");
+    }
 
+    const requestType = await RequestType.findById(requestTypeId);
+
+    if (!requestType) {
+      throw new NotFoundError("request type not found");
+    }
+
+    leaveRequest.set({
+      status: 0,
+      RequestType: requestType.id,
+    });
+
+    await leaveRequest.save();
+
+    res.status(200).send(leaveRequest);
+  }
+);
+
+/**
+ * cancels the leave request by the requester
+ */
 router.post(
   "/api/leave/leave-request-cancel",
   [body("request").isMongoId()],

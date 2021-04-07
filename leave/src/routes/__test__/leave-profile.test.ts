@@ -99,7 +99,7 @@ it("updates a profile by Id", async () => {
 });
 
 it("deletes a profile", async () => {
-  const { category, employeeinfo } = await leaveSetup();
+  await leaveSetup();
 
   const {
     body: [{ id }],

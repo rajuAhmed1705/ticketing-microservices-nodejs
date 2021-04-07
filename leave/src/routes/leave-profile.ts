@@ -101,8 +101,6 @@ router.put(
 
     await profile.save();
 
-    console.log(profile);
-
     res.status(200).send(profile);
   }
 );

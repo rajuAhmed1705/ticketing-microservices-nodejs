@@ -26,6 +26,7 @@ export const createLeaveTimeline = async (leaveRequest: LeaveRequestDoc) => {
     const leaveTimeline = LeaveTimeline.build({
       employee: leaveRequest.employee.id,
       category: leaveRequest.category.id,
+      request: leaveRequest.id,
       fromDate: leaveRequest.startTime,
       toDate: leaveRequest.endTime,
       duration: leaveRequest.duration,
