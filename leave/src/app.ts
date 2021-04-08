@@ -8,6 +8,7 @@ import { categoryRouter } from "./routes/category";
 import { requestTypeRouter } from "./routes/request-type";
 import { leaveRequestRouter } from "./routes/leave-request";
 import { leaveProfileRouter } from "./routes/leave-profile";
+import scheduler from "./jobs/scheduler";
 
 const app = express();
 app.use(json());
@@ -24,6 +25,9 @@ app.use(
     secure: process.env.NODE_ENV !== "test",
   })
 );
+
+//jobs
+scheduler;
 
 app.use(categoryRouter);
 app.use(requestTypeRouter);

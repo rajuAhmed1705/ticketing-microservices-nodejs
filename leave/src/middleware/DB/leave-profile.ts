@@ -1,7 +1,7 @@
 import { Category } from "../../models/category";
 import { LeaveProfile } from "../../models/leave-profile";
 import mongoose from "mongoose";
-import { calAllottedleave } from "../../utils/cal-allotted-leave";
+import { calAllottedleave } from "../../services/cal-allotted-leave";
 import { Employee } from "../../models/employee";
 
 export const createLeaveProfile = async (doc: mongoose.Document) => {

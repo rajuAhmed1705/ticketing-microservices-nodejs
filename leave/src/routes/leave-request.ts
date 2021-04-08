@@ -12,9 +12,8 @@ import { Category } from "../models/category";
 import { Employee } from "../models/employee";
 import { LeaveProfile } from "../models/leave-profile";
 import { LeaveRequest } from "../models/leave-request";
-import { LeaveTimeline } from "../models/leave-timeline";
 import { RequestType } from "../models/request-type";
-import { calDuration } from "../utils/cal-duration";
+import { calDuration } from "../services/cal-duration";
 
 const router = express.Router();
 
