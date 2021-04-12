@@ -1,9 +1,9 @@
 import { LeaveRequestDoc } from "../../models/leave-request";
-import { LeaveTimelinDoc, LeaveTimeline } from "../../models/leave-timeline";
+import { LeaveTimelineDoc, LeaveTimeline } from "../../models/leave-timeline";
 
 export const deleteLeaveTimeline = async (
   leaveRequest: LeaveRequestDoc
-): Promise<LeaveTimelinDoc | null> => {
+): Promise<LeaveTimelineDoc | null> => {
   const leaveTimeline = await LeaveTimeline.findOne({
     employee: leaveRequest.employee.id,
     category: leaveRequest.category.id,

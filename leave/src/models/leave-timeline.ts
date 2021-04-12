@@ -15,7 +15,7 @@ interface LeaveTimelineAttrs {
   remarks?: string;
 }
 
-export interface LeaveTimelinDoc extends mongoose.Document {
+export interface LeaveTimelineDoc extends mongoose.Document {
   employee: EmployeeDoc;
   category: CategoryDoc;
   request?: LeaveRequestDoc;
@@ -26,8 +26,8 @@ export interface LeaveTimelinDoc extends mongoose.Document {
   remarks: string;
 }
 
-interface LeaveTimelineModel extends mongoose.Model<LeaveTimelinDoc> {
-  build(attrs: LeaveTimelineAttrs): LeaveTimelinDoc;
+interface LeaveTimelineModel extends mongoose.Model<LeaveTimelineDoc> {
+  build(attrs: LeaveTimelineAttrs): LeaveTimelineDoc;
 }
 
 const leaveTimelineSchema = new mongoose.Schema(
@@ -86,7 +86,7 @@ leaveTimelineSchema.statics.build = (attrs: LeaveTimelineAttrs) => {
   return new LeaveTimeline(attrs);
 };
 
-const LeaveTimeline = mongoose.model<LeaveTimelinDoc, LeaveTimelineModel>(
+const LeaveTimeline = mongoose.model<LeaveTimelineDoc, LeaveTimelineModel>(
   "LeaveTimeline",
   leaveTimelineSchema
 );

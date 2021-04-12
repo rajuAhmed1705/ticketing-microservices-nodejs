@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import { app } from "./app";
 import { MongoMemoryServer } from "mongodb-memory-server";
+import scheduler from "./jobs/scheduler";
 
 process.env.JWT_KEY = "raju";
 
@@ -27,6 +28,9 @@ const start = async () => {
   } catch (error) {
     console.error(error);
   }
+
+  //jobs
+  scheduler;
 
   app.listen(3000, () => {
     console.log(`listening on port 3000!!`);

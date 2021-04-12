@@ -1,5 +1,5 @@
-import schedude from "node-schedule";
-import { LeaveTimeline } from "../models/leave-timeline";
+import schedule from "node-schedule";
+import { leaveAdjustment } from "../services/leave-adjustment";
 
 class Scheduler {
   constructor() {
@@ -7,8 +7,9 @@ class Scheduler {
   }
 
   leaveBalanceJob = async () => {
-    schedude.scheduleJob("30 11 * * *", async () => {
-      const todaysLeave = await LeaveTimeline.find();
+    console.log("do some leave adjustment");
+    schedule.scheduleJob("2 * * * * *", async () => {
+      await leaveAdjustment();
     });
   };
 }
