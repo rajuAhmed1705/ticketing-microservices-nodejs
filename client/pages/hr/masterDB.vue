@@ -557,13 +557,9 @@
                                   >
                                   </v-card-subtitle>
                                 </v-col>
-<<<<<<< HEAD
                                 <v-col cols="6" sm="6" md="3">
                                   <v-checkbox></v-checkbox>
                                 </v-col>
-=======
-                                
->>>>>>> client1.0.1
                                 <v-col
                                   cols="12"
                                   sm="6"
@@ -1100,7 +1096,6 @@
   </div>
 </template>
 <script>
-<<<<<<< HEAD
 import { mapActions } from "vuex"
 export default {
   data() {
@@ -1108,10 +1103,6 @@ export default {
       checkbox: true,
     }
   },
-=======
-import { mapActions,mapGetters } from "vuex";
-export default {
->>>>>>> client1.0.1
   data: () => ({
     employeeBirthDay: false,
     dateOfJoining: false,
@@ -1367,19 +1358,11 @@ export default {
       },
       {
         text: "Type",
-<<<<<<< HEAD
         value: "employeeInformation.employmentType",
       },
       {
         text: "Project",
         value: "employeeInformation.project",
-=======
-        value: "employeeInformation.employmentType.name"
-      },
-      {
-        text: "Project",
-        value: "employeeInformation.project[0].name"
->>>>>>> client1.0.1
       },
       {
         text: "DOJ",
@@ -1387,23 +1370,14 @@ export default {
       },
       {
         text: "Reporting",
-<<<<<<< HEAD
         value: "employeeInformation.reportingTo",
       },
       {
         text: "Job Location",
         value: "employeeInformation.jobLocation",
-=======
-        value: "employeeInformation.reportingTo.personalDetails.fullName"
-      },
-      {
-        text: "Job Location",
-        value: "employeeInformation.jobLocation.name"
->>>>>>> client1.0.1
       },
       { text: "Actions", value: "actions", sortable: false },
     ],
-<<<<<<< HEAD
     desserts: [],
     editedIndex: -1,
   }),
@@ -1414,11 +1388,6 @@ export default {
     },
   },
 
-=======
-    editedIndex: -1
-  }),
-
->>>>>>> client1.0.1
   watch: {
     dialog(val) {
       val || this.close()
@@ -1428,33 +1397,14 @@ export default {
     },
   },
 
-<<<<<<< HEAD
   created() {
     this.initialize()
-=======
-  async created() {
-    this.initialize();
-    await this.fetchEmployee()
-  },
-
-  computed: {
-    formTitle() {
-      return this.editedIndex === -1 ? "New Employee" : "Edit Employee Info";
-    },
-    ...mapGetters({
-      allEmployees:"employees"
-    })
-  },
-  beforeMounted() {
-    this.$store.dispatch("loadEmployee");
->>>>>>> client1.0.1
   },
 
   methods: {
     ...mapActions({fetchEmployee:"loadEmployee",
                    addEmployee:"addEmployee"}),
     saveEmployeeData() {
-<<<<<<< HEAD
       this.addEmployee(this.employee)
       this.$notifier.showMessage({ content: "Hello, snackbar", color: "info" })
       this.employee = Object.assign({}, this.defaultEmployee)
@@ -1463,40 +1413,6 @@ export default {
     deleteEmployeeData(id) {
       this.removeEmployee(id)
     },
-=======
-      console.log("employee from masterDB",this.employee);
-      this.addEmployee(this.employee);
-      // this.$notifier.showMessage({ content: "Congrats!Successfully added one value!", color: "success" });
-      this.employee = Object.assign({}, this.defaultEmployee);
-      this.close();
-
-  },
-
-  computed: {
-    formTitle() {
-      return this.editedIndex === -1 ? "New Employee" : "Edit Employee Info";
-    },
-    ...mapGetters({
-      allEmployees:"employees"
-    })
-  },
-  beforeMounted() {
-    this.$store.dispatch("loadEmployee");
-  },
-
-  methods: {
-    ...mapActions({fetchEmployee:"loadEmployee"}),
-    // saveEmployeeData() {
-    //   this.addEmployee(this.employee);
-    //   this.$notifier.showMessage({ content: "Hello, snackbar", color: "info" });
-    //   this.employee = Object.assign({}, this.defaultEmployee);
-    //   this.close();
-    // },
-
-    // deleteEmployeeData(id) {
-    //   this.removeEmployee(id);
-    // },
->>>>>>> client1.0.1
     addEducationField(education) {
       return (
         this.employee.educationDetails.push({ education }) &&
@@ -1535,7 +1451,6 @@ export default {
     },
 
     initialize() {
-<<<<<<< HEAD
       this.desserts = this.$store.getters.employees
     },
 
@@ -1549,22 +1464,6 @@ export default {
       this.editedIndex = this.desserts.indexOf(item)
       this.editedItem = Object.assign({}, item)
       this.dialogDelete = true
-=======
-      // console.log("Emplaoyee")
-       this.$store.getters["employees"]
-    },
-
-    editItem(item) {
-      this.editedIndex = this.allEmployees.indexOf(item);
-      this.editedItem = Object.assign({}, item);
-      this.dialog = true;
-    },
-
-    deleteItem(item) {
-      this.editedIndex = this.allEmployees.indexOf(item);
-      this.editedItem = Object.assign({}, item);
-      this.dialogDelete = true;
->>>>>>> client1.0.1
     },
 
     deleteItemConfirm() {
@@ -1588,7 +1487,6 @@ export default {
       })
     },
 
-<<<<<<< HEAD
     save() {
       if (this.editedIndex > -1) {
         Object.assign(this.desserts[this.editedIndex], this.editedItem)
@@ -1598,18 +1496,6 @@ export default {
       this.close()
     },
   },
-=======
-    // save() {
-    //   if (this.editedIndex > -1) {
-    //     Object.assign(this.desserts[this.editedIndex], this.editedItem);
-    //   } else {
-    //     this.desserts.push(this.editedItem);
-    //   }
-    //   this.close();
-    // }
-  }
-  }
->>>>>>> client1.0.1
 }
 </script>
 <style></style>

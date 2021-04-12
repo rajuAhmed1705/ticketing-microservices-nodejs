@@ -207,7 +207,6 @@ const employeeSchema = new mongoose.Schema(
         autopopulate: true,
       },
 
-<<<<<<< HEAD
       designation: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Designation",
@@ -231,85 +230,6 @@ const employeeSchema = new mongoose.Schema(
           type: mongoose.Schema.Types.ObjectId,
           ref: "Project",
           autopopulate: true,
-=======
-            designation: {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: "Designation",
-                default: null,
-                autopopulate: true,
-            },
-            team: {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: "Team",
-                default: null,
-                autopopulate: true,
-            },
-            employmentType: {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: "EmploymentType",
-                default: null,
-                autopopulate: true,
-            },
-            project: [
-                {
-                    type: mongoose.Schema.Types.ObjectId,
-                    ref: "Project",
-                    autopopulate: true,
-                },
-            ],
-            dateOfJoin: {
-                type: Date,
-                default: null
-            },
-            reportingTo: {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: "Employee",
-                default: null,
-                autopopulate: {
-                    select: [
-                        "personalDetails.fullName",
-                        "employeeInformation.employeeId",
-                    ],
-                    maxDepth: 1,
-                },
-            },
-            jobLocation: {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: "JobLocation",
-                default: null,
-                autopopulate: true,
-            },
-            turnover: {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: "Turnover",
-                default: null,
-                autopopulate: true,
-            },
-            salaryGrade: {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: "SalaryGrade",
-                default: null,
-                autopopulate: true,
-            },
-            separation: {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: "Separation",
-                default: null,
-                autopopulate: true,
-            },
-            employeeStatus: {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: "EmployeeStatus",
-                default: null,
-                autopopulate: true,
-            },
-            confirmationRule: {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: "ConfirmationRule",
-                default: null,
-                autopopulate: true,
-            },
->>>>>>> client1.0.1
         },
       ],
       dateOfJoin: {
