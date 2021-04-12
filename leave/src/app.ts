@@ -4,6 +4,10 @@ import { json, urlencoded } from "body-parser";
 import cors from "cors";
 import cookieSession from "cookie-session";
 import { errorHandler, NotFoundError } from "@shurjomukhi/common";
+import { categoryRouter } from "./routes/category";
+import { requestTypeRouter } from "./routes/request-type";
+import { leaveRequestRouter } from "./routes/leave-request";
+import { leaveProfileRouter } from "./routes/leave-profile";
 
 const app = express();
 app.use(json());
@@ -20,6 +24,11 @@ app.use(
     secure: process.env.NODE_ENV !== "test",
   })
 );
+
+app.use(categoryRouter);
+app.use(requestTypeRouter);
+app.use(leaveRequestRouter);
+app.use(leaveProfileRouter);
 
 app.all("*", async (req, res) => {
   throw new NotFoundError();

@@ -5,6 +5,7 @@ import { EmployeeStatusDoc } from "./employee-status";
 import { employmentTypeDoc } from "./employment-type";
 import { ReligionDoc } from "./religion";
 import autopopulate from "mongoose-autopopulate";
+import { createLeaveProfile } from "../middleware/DB/leave-profile";
 
 interface EmployeeAttrs {
   personalDetails: {
@@ -14,10 +15,11 @@ interface EmployeeAttrs {
   employeeInformation: {
     employeeId: string;
     companyId: string;
+    dateOfJoin: Date;
     department: DepartmentDoc;
     designation: DesignationDoc;
     employmentType: employmentTypeDoc;
-    reportingTo: EmployeeDoc;
+    reportingTo?: EmployeeDoc;
     employeeStatus: EmployeeStatusDoc;
   };
 }
@@ -30,6 +32,7 @@ export interface EmployeeDoc extends mongoose.Document {
   employeeInformation: {
     employeeId: string;
     companyId: string;
+    dateOfJoin: Date;
     department: DepartmentDoc;
     designation: DesignationDoc;
     employmentType: employmentTypeDoc;
@@ -70,7 +73,10 @@ const employeeSchema = new mongoose.Schema(
         default: null,
         autopopulate: true,
       },
-
+      dateOfJoin: {
+        type: Date,
+        required: true,
+      },
       designation: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Designation",
@@ -114,6 +120,10 @@ const employeeSchema = new mongoose.Schema(
 );
 
 employeeSchema.plugin(autopopulate);
+
+employeeSchema.post("save", async function (doc) {
+  await createLeaveProfile(doc);
+});
 
 employeeSchema.statics.build = (attrs: EmployeeAttrs) => {
   return new Employee(attrs);
