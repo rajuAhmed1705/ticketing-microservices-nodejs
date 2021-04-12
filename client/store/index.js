@@ -1,3 +1,4 @@
+export const strict = false
 export const state = () => ({
   employees: []
 });
@@ -7,6 +8,10 @@ export const getters = {
 };
 
 export const actions = {
+  // async loadDepartment(){
+  //   let res = await this.$axios.get("/employee-management/department")
+  //   console.log(res.data)
+  // },
   async loadEmployee({commit}){
     let res = await this.$axios.get("/employee-management/employees")
     // console.log(res.data)
@@ -15,10 +20,8 @@ export const actions = {
     }
   },
   async addEmployee({ commit }, employee) {
-    // console.log("hello")
-    // console.log(employee)
-    let res = await this.$axios.post("/employee-management/employee",employee)
     console.log("New:")
+    let res = await this.$axios.post("/employee-management/employee",employee)
     console.log(res.data)
     if(res.status == 201){
     commit("ADD_EMPLOYEE", res.data);
@@ -39,7 +42,7 @@ export const actions = {
       this.$notifier.showMessage({ content: "Something went wrong ☹", color: "red" });
     }
   },
-  async updateEmployee({ commit }, employee) {
+   async updateEmployee({ commit }, employee) {
     console.log("Updated:")
     let res = await this.$axios.put(`/employee-management/employee/${employee.id}`,employee)
     console.log(res.data)
