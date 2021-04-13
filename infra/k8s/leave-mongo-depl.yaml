@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+    name: leave-mongo-depl
+spec:
+    selector:
+        matchLabels:
+            app: leave-mongo
+    serviceName: leave-mongo-srv
+    replicas: 1
+    template:
+        metadata:
+            labels:
+                app: leave-mongo
+        spec:
+            containers:
+                - name: leave-mongo
+                  image: mongo
+---
+#prettier-ignore
+apiVersion: v1
+kind: Service
+metadata:
+  name: leave-mongo-srv
+spec:
+  selector:
+    app: leave-mongo
+  ports:
+  - name: db
+    protocol: TCP
+    port: 27017
+    targetPort: 27017

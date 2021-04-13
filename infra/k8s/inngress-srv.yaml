@@ -19,6 +19,10 @@ spec:
             backend:
               serviceName: em-srv
               servicePort: 3000
+          - path: /api/leave/?(.*)
+            backend:
+              serviceName: leave-srv
+              servicePort: 3000
           - path: /?(.*)
             backend:
               serviceName: client-srv
