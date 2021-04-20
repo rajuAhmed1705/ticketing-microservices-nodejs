@@ -5,7 +5,11 @@ import {
 } from "@shurjomukhi/common";
 import express, { Request, Response } from "express";
 import { body } from "express-validator";
+import { ReligionCreatedPublisher } from "../events/publishers/religion/religion-created-publisher";
+import { ReligionDeletedPublisher } from "../events/publishers/religion/religion-deleted-publisher";
+import { ReligionUpdatedPublisher } from "../events/publishers/religion/religion-updated-publisher";
 import { Religion } from "../models/religion";
+import { natsWrapper } from "../nats-wrapper";
 
 const router = express.Router();
 
@@ -51,6 +55,12 @@ router.post(
 
     await data.save();
 
+    new ReligionCreatedPublisher(natsWrapper.client).publish({
+      id: data.id,
+      name: data.name,
+      version: data.version,
+    });
+
     res.status(201).send(data);
   }
 );
@@ -83,6 +93,12 @@ router.put(
     });
     await data.save();
 
+    await new ReligionUpdatedPublisher(natsWrapper.client).publish({
+      id: data.id,
+      name: data.name,
+      version: data.version,
+    });
+
     res.status(200).send(data);
   }
 );
@@ -90,7 +106,18 @@ router.put(
 router.delete(
   "/api/employee-management/religion/:id",
   async (req: Request, res: Response) => {
-    await Religion.findByIdAndDelete(req.params.id);
+    const religion = await Religion.findById(req.params.id);
+
+    if (!religion) {
+      throw new NotFoundError("religion not found");
+    }
+
+    await Religion.findByIdAndDelete(religion.id);
+
+    new ReligionDeletedPublisher(natsWrapper.client).publish({
+      id: religion.id,
+    });
+
     res.status(200).send({});
   }
 );

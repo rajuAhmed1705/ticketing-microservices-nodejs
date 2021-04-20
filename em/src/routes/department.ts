@@ -5,7 +5,11 @@ import {
 } from "@shurjomukhi/common";
 import express, { Request, Response } from "express";
 import { body } from "express-validator";
+import { DepartmentCreatedPublisher } from "../events/publishers/department/department-created-publisher";
+import { DepartmentDeletedPublisher } from "../events/publishers/department/department-deleted-publisher";
+import { DepartmentUpdatedPublisher } from "../events/publishers/department/department-updated-publisher";
 import { Department } from "../models/department";
+import { natsWrapper } from "../nats-wrapper";
 
 const router = express.Router();
 
@@ -60,6 +64,14 @@ router.post(
 
     await department.save();
 
+    new DepartmentCreatedPublisher(natsWrapper.client).publish({
+      id: department.id,
+      title: department.title,
+      code: department.code,
+      remark: department.remark,
+      version: department.version,
+    });
+
     res.status(201).send(department);
   }
 );
@@ -90,6 +102,14 @@ router.put(
     });
     await department.save();
 
+    await new DepartmentUpdatedPublisher(natsWrapper.client).publish({
+      id: department.id,
+      title: department.title,
+      code: department.code,
+      remark: department.remark,
+      version: department.version,
+    });
+
     res.status(200).send(department);
   }
 );
@@ -98,6 +118,10 @@ router.delete(
   "/api/employee-management/department/:id",
   async (req: Request, res: Response) => {
     await Department.findByIdAndDelete(req.params.id);
+
+    await new DepartmentDeletedPublisher(natsWrapper.client).publish({
+      id: req.params.id,
+    });
     res.status(200).send({});
   }
 );

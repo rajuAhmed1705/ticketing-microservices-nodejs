@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { updateIfCurrentPlugin } from "mongoose-update-if-current";
 
 interface DepartmentAttrs {
   title: string;
@@ -9,6 +10,7 @@ export interface DepartmentDoc extends mongoose.Document {
   title: string;
   code: number;
   remark: string;
+  version: number;
 }
 
 interface DepartmentModel extends mongoose.Model<DepartmentDoc> {
@@ -40,6 +42,9 @@ const departmentSchema = new mongoose.Schema(
     },
   }
 );
+
+departmentSchema.set("versionKey", "version");
+departmentSchema.plugin(updateIfCurrentPlugin);
 
 departmentSchema.statics.build = (attrs: DepartmentAttrs) => {
   return new Department(attrs);

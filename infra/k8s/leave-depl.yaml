@@ -17,6 +17,14 @@ spec:
         - name: leave
           image: raju/leave:0.0.1
           env:
+            - name: NATS_CLIENT_ID
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: NATS_URL
+              value: "http://nats-srv:4222"
+            - name: NATS_CLUSTER_ID
+              value: shurjoerp
             - name: MONGO_URL
               value: "mongodb://leave-mongo-srv:27017/leave"
             - name: JWT_KEY
