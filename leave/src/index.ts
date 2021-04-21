@@ -12,6 +12,12 @@ import { ReligionDeletedListener } from "./events/listeners/religion/religion-de
 import { DepartmentCreatedListener } from "./events/listeners/department/department-created-listener";
 import { DepartmentUpdatedListener } from "./events/listeners/department/department-updated-listener";
 import { DepartmentDeletedListener } from "./events/listeners/department/department-deleted-listener";
+import { EmploymentTypeCreatedListener } from "./events/listeners/employment-type/employment-type-created-listener";
+import { EmploymentTypeUpdatedListener } from "./events/listeners/employment-type/employment-type-updated-listener";
+import { EmploymentTypeDeletedListener } from "./events/listeners/employment-type/employment-type-deleted-listener";
+import { EmployeeStatusCreatedListener } from "./events/listeners/employee-status/employee-status-created-publsiher";
+import { EmployeeStatusDeletedListener } from "./events/listeners/employee-status/employee-status-deleted-publsiher";
+import { EmployeeStatusUpdatedListener } from "./events/listeners/employee-status/employee-status-updated-publsiher";
 
 process.env.JWT_KEY = "raju";
 
@@ -64,6 +70,14 @@ const start = async () => {
     new DepartmentCreatedListener(natsWrapper.client).listen();
     new DepartmentUpdatedListener(natsWrapper.client).listen();
     new DepartmentDeletedListener(natsWrapper.client).listen();
+
+    new EmploymentTypeCreatedListener(natsWrapper.client).listen();
+    new EmploymentTypeUpdatedListener(natsWrapper.client).listen();
+    new EmploymentTypeDeletedListener(natsWrapper.client).listen();
+
+    new EmployeeStatusCreatedListener(natsWrapper.client).listen();
+    new EmployeeStatusUpdatedListener(natsWrapper.client).listen();
+    new EmployeeStatusDeletedListener(natsWrapper.client).listen();
 
     await mongoose.connect(process.env.MONGO_URL, {
       useNewUrlParser: true,

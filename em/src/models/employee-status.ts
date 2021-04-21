@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { updateIfCurrentPlugin } from "mongoose-update-if-current";
 
 interface EmployeeStatusAttrs {
   status: string;
@@ -6,6 +7,7 @@ interface EmployeeStatusAttrs {
 
 export interface EmployeeStatusDoc extends mongoose.Document {
   status: string;
+  version: number;
 }
 
 interface EmployeeStatusModel extends mongoose.Model<EmployeeStatusDoc> {
@@ -29,6 +31,10 @@ const employeeStatusSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
+
+employeeStatusSchema.set("versionKey", "version");
+
+employeeStatusSchema.plugin(updateIfCurrentPlugin);
 
 employeeStatusSchema.statics.build = (attrs: EmployeeStatusAttrs) => {
   return new EmployeeStatus(attrs);
