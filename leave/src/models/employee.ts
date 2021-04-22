@@ -6,21 +6,24 @@ import { employmentTypeDoc } from "./employment-type";
 import { ReligionDoc } from "./religion";
 import autopopulate from "mongoose-autopopulate";
 import { createLeaveProfile } from "../middleware/DB/leave-profile";
+import { updateIfCurrentPlugin } from "mongoose-update-if-current";
+import EventAttrs from "../events/event-attrs";
 
 interface EmployeeAttrs {
+  id: string;
   personalDetails: {
     fullName: string;
-    religion: ReligionDoc;
+    religion?: string;
   };
   employeeInformation: {
     employeeId: string;
-    companyId: string;
+    // companyId: string;
     dateOfJoin: Date;
-    department: DepartmentDoc;
-    designation: DesignationDoc;
-    employmentType: employmentTypeDoc;
-    reportingTo?: EmployeeDoc;
-    employeeStatus: EmployeeStatusDoc;
+    department?: string;
+    designation?: string;
+    employmentType?: string;
+    reportingTo?: string;
+    employeeStatus?: string;
   };
 }
 
@@ -31,7 +34,7 @@ export interface EmployeeDoc extends mongoose.Document {
   };
   employeeInformation: {
     employeeId: string;
-    companyId: string;
+    // companyId: string;
     dateOfJoin: Date;
     department: DepartmentDoc;
     designation: DesignationDoc;
@@ -39,10 +42,12 @@ export interface EmployeeDoc extends mongoose.Document {
     reportingTo: EmployeeDoc;
     employeeStatus: EmployeeStatusDoc;
   };
+  version: number;
 }
 
 interface EmployeeModel extends mongoose.Model<EmployeeDoc> {
   build(attrs: EmployeeAttrs): EmployeeDoc;
+  findByEvent(event: EventAttrs): Promise<EmployeeDoc | null>;
 }
 
 const employeeSchema = new mongoose.Schema(
@@ -119,14 +124,38 @@ const employeeSchema = new mongoose.Schema(
   }
 );
 
+employeeSchema.set("versionKey", "version");
+
 employeeSchema.plugin(autopopulate);
+employeeSchema.plugin(updateIfCurrentPlugin);
 
 employeeSchema.post("save", async function (doc) {
   await createLeaveProfile(doc);
 });
 
 employeeSchema.statics.build = (attrs: EmployeeAttrs) => {
-  return new Employee(attrs);
+  return new Employee({
+    _id: attrs.id,
+    personalDetails: {
+      fullName: attrs.personalDetails.fullName,
+      religion: attrs.personalDetails.religion,
+    },
+    employeeInformation: {
+      employeeId: attrs.employeeInformation.employeeId,
+      dateOfJoin: attrs.employeeInformation.dateOfJoin,
+      department: attrs.employeeInformation.department,
+      designation: attrs.employeeInformation.designation,
+      employmentType: attrs.employeeInformation.employmentType,
+      reportingTo: attrs.employeeInformation.reportingTo,
+      employeeStatus: attrs.employeeInformation.employeeStatus,
+    },
+  });
+};
+employeeSchema.statics.findByEvent = (event: EventAttrs) => {
+  return Employee.findOne({
+    _id: event.id,
+    version: event.version - 1,
+  });
 };
 
 const Employee = mongoose.model<EmployeeDoc, EmployeeModel>(

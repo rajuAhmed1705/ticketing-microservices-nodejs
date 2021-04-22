@@ -19,6 +19,10 @@ import { SalaryGrade } from "../models/salary-grade";
 import { Separation } from "../models/separation";
 import { EmployeeStatus } from "../models/employee-status";
 import { Religion } from "../models/religion";
+import { EmployeeCreatedPublisher } from "../events/publishers/employee/employee-created-publisher";
+import { natsWrapper } from "../nats-wrapper";
+import { EmployeeUpdatedPublisher } from "../events/publishers/employee/employee-updated-publisher";
+import { EmployeeDeletedPublisher } from "../events/publishers/employee/employee-deleted-publisher";
 
 const router = express.Router();
 
@@ -32,6 +36,7 @@ const validationCheck = [
     .isEmail()
     .withMessage("email must be type email"),
   body("employeeInformation.employeeId").exists(),
+  body("employeeInformation.dateOfJoin").exists(),
 ];
 
 router.get(
@@ -223,6 +228,48 @@ router.post(
 
     await employee.save();
 
+    new EmployeeCreatedPublisher(natsWrapper.client).publish({
+      id: employee.id,
+      version: employee.version,
+      personalDetails: {
+        fullName: employee.personalDetails.fullName,
+        preferredNickName: employee.personalDetails.preferredNickName,
+        fathersName: employee.personalDetails.fathersName,
+        fathersProfession: employee.personalDetails.fathersProfession,
+        mothersName: employee.personalDetails.mothersName,
+        mothersProfession: employee.personalDetails.mothersProfession,
+        maritalStatus: employee.personalDetails.maritalStatus,
+        spouseName: employee.personalDetails.spouseName,
+        dateOfBirth: employee.personalDetails.dateOfBirth,
+        numberOfDependents: employee.personalDetails.numberOfDependents,
+        nationalID: employee.personalDetails.nationalID,
+        passport: employee.personalDetails.passport,
+        birthCertificate: employee.personalDetails.birthCertificate,
+        gender: employee.personalDetails.gender,
+        religion: employee.personalDetails.religion?.id,
+        nationality: employee.personalDetails.nationality,
+        emergencyContact: employee.personalDetails.emergencyContact,
+        bloodGroup: employee.personalDetails.bloodGroup,
+        personalNumber: employee.personalDetails.personalNumber,
+        personalEmail: employee.personalDetails.personalEmail,
+      },
+      employeeInformation: {
+        employeeId: employee.employeeInformation.employeeId,
+        department: employee.employeeInformation.department?.id,
+        designation: employee.employeeInformation.designation?.id,
+        team: employee.employeeInformation.team?.id,
+        employmentType: employee.employeeInformation.employmentType?.id,
+        dateOfJoin: employee.employeeInformation.dateOfJoin,
+        reportingTo: employee.employeeInformation.reportingTo?.id,
+        jobLocation: employee.employeeInformation.jobLocation?.id,
+        turnover: employee.employeeInformation.turnover?.id,
+        salaryGrade: employee.employeeInformation.salaryGrade?.id,
+        separation: employee.employeeInformation.separation?.id,
+        employeeStatus: employee.employeeInformation.employeeStatus?.id,
+        confirmationRule: employee.employeeInformation.confirmationRule?.id,
+      },
+    });
+
     res.status(201).send(employee);
   }
 );
@@ -329,6 +376,48 @@ router.put(
 
     await employee.save();
 
+    await new EmployeeUpdatedPublisher(natsWrapper.client).publish({
+      id: employee.id,
+      version: employee.version,
+      personalDetails: {
+        fullName: employee.personalDetails.fullName,
+        preferredNickName: employee.personalDetails.preferredNickName,
+        fathersName: employee.personalDetails.fathersName,
+        fathersProfession: employee.personalDetails.fathersProfession,
+        mothersName: employee.personalDetails.mothersName,
+        mothersProfession: employee.personalDetails.mothersProfession,
+        maritalStatus: employee.personalDetails.maritalStatus,
+        spouseName: employee.personalDetails.spouseName,
+        dateOfBirth: employee.personalDetails.dateOfBirth,
+        numberOfDependents: employee.personalDetails.numberOfDependents,
+        nationalID: employee.personalDetails.nationalID,
+        passport: employee.personalDetails.passport,
+        birthCertificate: employee.personalDetails.birthCertificate,
+        gender: employee.personalDetails.gender,
+        religion: employee.personalDetails.religion?.id,
+        nationality: employee.personalDetails.nationality,
+        emergencyContact: employee.personalDetails.emergencyContact,
+        bloodGroup: employee.personalDetails.bloodGroup,
+        personalNumber: employee.personalDetails.personalNumber,
+        personalEmail: employee.personalDetails.personalEmail,
+      },
+      employeeInformation: {
+        employeeId: employee.employeeInformation.employeeId,
+        department: employee.employeeInformation.department?.id,
+        designation: employee.employeeInformation.designation?.id,
+        team: employee.employeeInformation.team?.id,
+        employmentType: employee.employeeInformation.employmentType?.id,
+        dateOfJoin: employee.employeeInformation.dateOfJoin,
+        reportingTo: employee.employeeInformation.reportingTo?.id,
+        jobLocation: employee.employeeInformation.jobLocation?.id,
+        turnover: employee.employeeInformation.turnover?.id,
+        salaryGrade: employee.employeeInformation.salaryGrade?.id,
+        separation: employee.employeeInformation.separation?.id,
+        employeeStatus: employee.employeeInformation.employeeStatus?.id,
+        confirmationRule: employee.employeeInformation.confirmationRule?.id,
+      },
+    });
+
     res.status(200).send(employee);
   }
 );
@@ -341,6 +430,10 @@ router.delete(
       throw new NotFoundError("employee not found");
     }
     await Employee.findByIdAndDelete(req.params.id);
+
+    new EmployeeDeletedPublisher(natsWrapper.client).publish({
+      id: req.params.id,
+    });
     res.status(200).send({});
   }
 );

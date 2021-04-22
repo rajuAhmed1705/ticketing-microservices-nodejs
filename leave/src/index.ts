@@ -18,6 +18,9 @@ import { EmploymentTypeDeletedListener } from "./events/listeners/employment-typ
 import { EmployeeStatusCreatedListener } from "./events/listeners/employee-status/employee-status-created-publsiher";
 import { EmployeeStatusDeletedListener } from "./events/listeners/employee-status/employee-status-deleted-publsiher";
 import { EmployeeStatusUpdatedListener } from "./events/listeners/employee-status/employee-status-updated-publsiher";
+import { EmployeeCreatedListener } from "./events/listeners/employee/employee-created-listener";
+import { EmployeeUpdatedListener } from "./events/listeners/employee/employee-updated-listener";
+import { EmployeeDeletedListener } from "./events/listeners/employee/employee-deleted-listener";
 
 process.env.JWT_KEY = "raju";
 
@@ -78,6 +81,10 @@ const start = async () => {
     new EmployeeStatusCreatedListener(natsWrapper.client).listen();
     new EmployeeStatusUpdatedListener(natsWrapper.client).listen();
     new EmployeeStatusDeletedListener(natsWrapper.client).listen();
+
+    new EmployeeCreatedListener(natsWrapper.client).listen();
+    new EmployeeUpdatedListener(natsWrapper.client).listen();
+    new EmployeeDeletedListener(natsWrapper.client).listen();
 
     await mongoose.connect(process.env.MONGO_URL, {
       useNewUrlParser: true,
