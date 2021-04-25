@@ -130,7 +130,7 @@ employeeSchema.plugin(autopopulate);
 employeeSchema.plugin(updateIfCurrentPlugin);
 
 employeeSchema.post("save", async function (doc) {
-  await createLeaveProfile(doc);
+  await createLeaveProfile(this);
 });
 
 employeeSchema.statics.build = (attrs: EmployeeAttrs) => {

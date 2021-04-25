@@ -4,16 +4,19 @@ import { Employee } from "../models/employee";
 import { EmployeeStatus } from "../models/employee-status";
 import { Religion } from "../models/religion";
 import { employmentTypeSetup } from "./employment-type-setup";
+import { Types } from "mongoose";
 
 export const employeeSetup = async () => {
   //new religion
   const religion = Religion.build({
+    id: Types.ObjectId().toHexString(),
     name: "islam",
   });
   await religion.save();
 
   //new department
   const department = Department.build({
+    id: Types.ObjectId().toHexString(),
     title: "IT",
     code: 2,
     remark: "information and technology",
@@ -22,6 +25,7 @@ export const employeeSetup = async () => {
 
   //new designation
   const designation = Designation.build({
+    id: Types.ObjectId().toHexString(),
     title: "software engineer",
     level: 4,
     remark: "do software development",
@@ -37,19 +41,20 @@ export const employeeSetup = async () => {
 
   //new employee status
   const employeeStatus = EmployeeStatus.build({
+    id: Types.ObjectId().toHexString(),
     status: "active",
   });
   await employeeStatus.save();
 
   //new employee for reportingTo
   const employeeForReportingTo = Employee.build({
+    id: Types.ObjectId().toHexString(),
     personalDetails: {
       fullName: "raju ahmed",
       religion: religion.id,
     },
     employeeInformation: {
       employeeId: "11",
-      companyId: "shurjoMukhi Ltd",
       department: department.id,
       designation: designation.id,
       dateOfJoin: new Date(),
@@ -61,13 +66,13 @@ export const employeeSetup = async () => {
 
   //new employee
   const employee = Employee.build({
+    id: Types.ObjectId().toHexString(),
     personalDetails: {
       fullName: "Mr.X",
       religion: religion.id,
     },
     employeeInformation: {
       employeeId: "12",
-      companyId: "shurjoMukhi Ltd",
       department: department.id,
       designation: designation.id,
       dateOfJoin: new Date(),
