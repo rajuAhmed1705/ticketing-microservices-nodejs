@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+    name: authorization-mongo-depl
+spec:
+    selector:
+        matchLabels:
+            app: authorization-mongo
+    serviceName: authorization-mongo-srv
+    replicas: 1
+    template:
+        metadata:
+            labels:
+                app: authorization-mongo
+        spec:
+            containers:
+                - name: authorization-mongo
+                  image: mongo
+---
+#prettier-ignore
+apiVersion: v1
+kind: Service
+metadata:
+  name: authorization-mongo-srv
+spec:
+  selector:
+    app: authorization-mongo
+  ports:
+  - name: db
+    protocol: TCP
+    port: 27017
+    targetPort: 27017
