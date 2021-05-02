@@ -1,0 +1,39 @@
+# prettier-ignore
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: authorization-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: authorization
+  template:
+    metadata:
+      labels:
+        app: authorization
+    spec:
+      containers:
+        - name: authorization
+          image: raju/authorization:0.0.1
+          env:
+            - name: MONGO_URL
+              value: "mongodb://authorization-mongo-srv:27017/authorization"
+            - name: JWT_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: JWT_KEY
+---
+apiVersion: v1
+kind: Service
+metadata:
+    name: authorization-srv
+spec:
+    selector:
+        app: authorization
+    ports:
+        - name: authorization
+          protocol: TCP
+          port: 3000
+          targetPort: 3000

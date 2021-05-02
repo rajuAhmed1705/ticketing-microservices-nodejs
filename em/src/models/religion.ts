@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { updateIfCurrentPlugin } from "mongoose-update-if-current";
 
 interface ReligionAttrs {
   name: string;
@@ -6,6 +7,7 @@ interface ReligionAttrs {
 
 export interface ReligionDoc extends mongoose.Document {
   name: string;
+  version: number;
 }
 
 interface ReligionModel extends mongoose.Model<ReligionDoc> {
@@ -29,6 +31,10 @@ const religionSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
+
+religionSchema.set("versionKey", "version");
+
+religionSchema.plugin(updateIfCurrentPlugin);
 
 religionSchema.statics.build = (attrs: ReligionAttrs) => {
   return new Religion(attrs);

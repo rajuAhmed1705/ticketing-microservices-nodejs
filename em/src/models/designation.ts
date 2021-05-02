@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { updateIfCurrentPlugin } from "mongoose-update-if-current";
 
 interface DesignationAttrs {
   title: string;
@@ -10,6 +11,7 @@ export interface DesignationDoc extends mongoose.Document {
   title: string;
   level: number;
   remark: string;
+  version: number;
 }
 
 interface DesignationModel extends mongoose.Model<DesignationDoc> {
@@ -42,6 +44,9 @@ const designationSchema = new mongoose.Schema(
     },
   }
 );
+
+designationSchema.set("versionKey", "version");
+designationSchema.plugin(updateIfCurrentPlugin);
 
 designationSchema.statics.build = (attrs: DesignationAttrs) => {
   return new Designation(attrs);

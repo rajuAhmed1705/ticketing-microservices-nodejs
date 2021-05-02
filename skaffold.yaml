@@ -33,3 +33,19 @@ build:
         manual:
           - src: '**/*.js'
             dest: .
+    - image: raju/leave
+      context: leave
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: '**/*.js'
+            dest: .
+    - image: raju/authorization
+      context: authorization
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: '**/*.js'
+            dest: .

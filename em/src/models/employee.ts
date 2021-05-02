@@ -12,6 +12,7 @@ import { SeparationDoc } from "./separation";
 import { EmployeeStatusDoc } from "./employee-status";
 import { ConfirmationRuleDoc } from "./confirmation-rule";
 import autopopulate from "mongoose-autopopulate";
+import { updateIfCurrentPlugin } from "mongoose-update-if-current";
 
 interface EmployeeAttrs {
   personalDetails: {
@@ -57,15 +58,25 @@ interface EmployeeAttrs {
 export interface EmployeeDoc extends mongoose.Document {
   personalDetails: {
     fullName: string;
-    preferredNickName: string;
-    fathersName: string;
-    fathersProfession: string;
-    mothersName: string;
-    mothersProfession: string;
-    matitalStatus: string;
-    spouseName: string;
-    dateOfBirth: Date;
-    numberOfDependents: number;
+    preferredNickName?: string;
+    fathersName?: string;
+    fathersProfession?: string;
+    mothersName?: string;
+    mothersProfession?: string;
+    maritalStatus?: string;
+    spouseName?: string;
+    dateOfBirth?: Date;
+    numberOfDependents?: number;
+    nationalID?: string;
+    passport?: string;
+    birthCertificate?: string;
+    gender?: string;
+    religion?: ReligionDoc;
+    nationality?: string;
+    emergencyContact?: string;
+    bloodGroup?: string;
+    personalNumber?: string;
+    personalEmail?: string;
   };
   employeeInformation: {
     employeeId: string;
@@ -83,6 +94,7 @@ export interface EmployeeDoc extends mongoose.Document {
     employeeStatus?: EmployeeStatusDoc;
     confirmationRule?: ConfirmationRuleDoc;
   };
+  version: number;
 }
 
 interface EmployeeModel extends mongoose.Model<EmployeeDoc> {
@@ -332,6 +344,9 @@ employeeSchema.virtual("addresses", {
   foreignField: "employee",
 });
 
+employeeSchema.set("versionKey", "version");
+
+employeeSchema.plugin(updateIfCurrentPlugin);
 employeeSchema.plugin(autopopulate);
 
 employeeSchema.statics.build = (attrs: EmployeeAttrs) => {

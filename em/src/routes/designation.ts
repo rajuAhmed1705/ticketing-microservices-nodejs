@@ -5,7 +5,11 @@ import {
 } from "@shurjomukhi/common";
 import express, { Request, Response } from "express";
 import { body } from "express-validator";
+import { DesignationCreatedPublisher } from "../events/publishers/designation/designation-created-publisher";
+import { DesignationDeletedPublisher } from "../events/publishers/designation/designation-deleted-publisher";
+import { DesignationUpdatedPublisher } from "../events/publishers/designation/designation-updated-publisher";
 import { Designation } from "../models/designation";
+import { natsWrapper } from "../nats-wrapper";
 
 const router = express.Router();
 
@@ -56,6 +60,14 @@ router.post(
 
     await designation.save();
 
+    new DesignationCreatedPublisher(natsWrapper.client).publish({
+      id: designation.id,
+      title: designation.title,
+      level: designation.level,
+      remark: designation.remark,
+      version: designation.version,
+    });
+
     res.status(201).send(designation);
   }
 );
@@ -88,6 +100,14 @@ router.put(
     });
     await designation.save();
 
+    await new DesignationUpdatedPublisher(natsWrapper.client).publish({
+      id: designation.id,
+      title: designation.title,
+      level: designation.level,
+      remark: designation.remark,
+      version: designation.version,
+    });
+
     res.status(200).send(designation);
   }
 );
@@ -95,7 +115,16 @@ router.put(
 router.delete(
   "/api/employee-management/designation/:id",
   async (req: Request, res: Response) => {
+    if (!(await Designation.findById(req.params.id))) {
+      throw new NotFoundError("designation not found");
+    }
+
     await Designation.findByIdAndDelete(req.params.id);
+
+    await new DesignationDeletedPublisher(natsWrapper.client).publish({
+      id: req.params.id,
+    });
+
     res.status(200).send({});
   }
 );

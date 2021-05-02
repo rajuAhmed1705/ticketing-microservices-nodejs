@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import { app } from "./app";
-import { MongoMemoryServer } from "mongodb-memory-server";
+// import { MongoMemoryServer } from "mongodb-memory-server";
 
 process.env.JWT_KEY = "raju";
 
@@ -10,13 +10,17 @@ const start = async () => {
     }
     console.log(process.env.JWT_KEY);
 
-    let mongo: any;
+    if (!process.env.MONGO_URI) {
+        throw new Error("mongo uri not found");
+    }
+
+    // let mongo: any;
 
     try {
-        mongo = new MongoMemoryServer();
-        const mongoUri = await mongo.getUri();
+        // mongo = new MongoMemoryServer();
+        // const mongoUri = await mongo.getUri();
 
-        await mongoose.connect(mongoUri, {
+        await mongoose.connect(process.env.MONGO_URI, {
             useNewUrlParser: true,
             useUnifiedTopology: true,
             useCreateIndex: true,

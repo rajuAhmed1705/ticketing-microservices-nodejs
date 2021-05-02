@@ -1,0 +1,47 @@
+# prettier-ignore
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: leave-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: leave
+  template:
+    metadata:
+      labels:
+        app: leave
+    spec:
+      containers:
+        - name: leave
+          image: raju/leave:0.0.1
+          env:
+            - name: NATS_CLIENT_ID
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: NATS_URL
+              value: "http://nats-srv:4222"
+            - name: NATS_CLUSTER_ID
+              value: shurjoerp
+            - name: MONGO_URL
+              value: "mongodb://leave-mongo-srv:27017/leave"
+            - name: JWT_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: JWT_KEY
+---
+apiVersion: v1
+kind: Service
+metadata:
+    name: leave-srv
+spec:
+    selector:
+        app: leave
+    ports:
+        - name: leave
+          protocol: TCP
+          port: 3000
+          targetPort: 3000

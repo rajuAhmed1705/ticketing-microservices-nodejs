@@ -5,7 +5,11 @@ import {
 } from "@shurjomukhi/common";
 import express, { Request, Response } from "express";
 import { body } from "express-validator";
+import { EmployeeStatusCreatedPublisher } from "../events/publishers/employee-status/employee-status-created-publisher";
+import { EmployeeStatusDeletedPublisher } from "../events/publishers/employee-status/employee-status-deleted-publisher";
+import { EmployeeStatusUpdatedPublisher } from "../events/publishers/employee-status/employee-status-updated-publisher";
 import { EmployeeStatus } from "../models/employee-status";
+import { natsWrapper } from "../nats-wrapper";
 
 const router = express.Router();
 
@@ -53,6 +57,12 @@ router.post(
 
     await data.save();
 
+    new EmployeeStatusCreatedPublisher(natsWrapper.client).publish({
+      id: data.id,
+      status: data.status,
+      version: data.version,
+    });
+
     res.status(201).send(data);
   }
 );
@@ -86,6 +96,12 @@ router.put(
     });
     await data.save();
 
+    await new EmployeeStatusUpdatedPublisher(natsWrapper.client).publish({
+      id: data.id,
+      status: data.status,
+      version: data.version,
+    });
+
     res.status(200).send(data);
   }
 );
@@ -94,6 +110,11 @@ router.delete(
   "/api/employee-management/employee-status/:id",
   async (req: Request, res: Response) => {
     await EmployeeStatus.findByIdAndDelete(req.params.id);
+
+    new EmployeeStatusDeletedPublisher(natsWrapper.client).publish({
+      id: req.params.id,
+    });
+
     res.status(200).send({});
   }
 );

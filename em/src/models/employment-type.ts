@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { updateIfCurrentPlugin } from "mongoose-update-if-current";
 
 interface employmentTypeAttrs {
   name: string;
@@ -7,7 +8,8 @@ interface employmentTypeAttrs {
 
 export interface employmentTypeDoc extends mongoose.Document {
   name: string;
-  remark?: string;
+  remark: string;
+  version: number;
 }
 
 interface employmentTypeModel extends mongoose.Model<employmentTypeDoc> {
@@ -36,6 +38,10 @@ const employmentTypeSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
+
+employmentTypeSchema.set("versionKey", "version");
+
+employmentTypeSchema.plugin(updateIfCurrentPlugin);
 
 employmentTypeSchema.statics.build = (attrs: employmentTypeAttrs) => {
   return new EmploymentType(attrs);
