@@ -1,8 +1,8 @@
 <template>
   <v-app dark>
     <Snackbar />
-    <SideBar />
-    <NavBar :title="title" />
+    <Sidebar />
+    <Navbar :title="title" />
     <!-- router view -->
     <v-main>
       <v-container>
@@ -15,27 +15,19 @@
 </template>
 
 <script>
-import Snackbar from "~/components/Snackbar.vue";
-import SideBar from "~/components/ui/Sidebar";
-import Footer from "~/components/ui/Footer";
-import NavBar from "~/components/ui/Navbar";
 export default {
-  components: {
-    SideBar,
-    Footer,
-    NavBar,
-    Snackbar
-  },
-  data() {
-    return {
-      clipped: false,
-      drawer: false,
-      fixed: false,
-      miniVariant: false,
-      right: true,
-      rightDrawer: false,
-      title: "shurjoERP"
-    };
+  data: ()=>{
+    return{
+      title: 'shurjoERP'
+    }
   }
-};
+}
 </script>
+<style>
+.v-main{
+  background: #faf4ff;
+}
+.nuxt{
+background:#faf4ff;
+}
+</style>

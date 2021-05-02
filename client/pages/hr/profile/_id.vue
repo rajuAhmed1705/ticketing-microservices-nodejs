@@ -1,179 +1,57 @@
 <template>
   <div>
     <template>
-      <v-row class="d-flex justify-space-around">
-        <!-- left -->
-        <v-col cols="20" md="3" sm="5" class="mb-3">
-          <v-card-text class="px-0">
-            <div class="mt-3">
-              <div class="font-weight-medium">
-                <h4>Adress</h4>
-              </div>
-              <v-divider></v-divider>
-              <div class="d-flex align-center">
-                <v-icon small class="mr-2">mdi-home</v-icon>Dhaka
-              </div>
-            </div>
-            <div class="mt-3">
-              <div class="font-weight-medium">
-                <h4>Contacts</h4>
-              </div>
-              <v-divider></v-divider>
-              <div class="d-flex align-center">
-                <v-icon small class="mr-2">mdi-phone</v-icon>Personal Number: 0177777777
-              </div>
-              <div class="d-flex align-center">
-                <v-icon small class="mr-2">mdi-email</v-icon>Email: rajucse1705@gmail.com
-              </div>
-              <div class="d-flex align-center">
-                <v-icon small class="mr-2">mdi-car-emergency</v-icon>Emergency Contact: 0177777777
-              </div>
-            </div>
-          </v-card-text>
-        </v-col>
-        <!-- right -->
-        <v-col cols="4" md="3" sm="5" class="mb-3">
-          <v-card class="mx-auto" max-width="434" tile>
-            <v-img height="100%" src="https://cdn.vuetifyjs.com/images/cards/server-room.jpg">
-              <v-row align="end" class="fill-height">
-                <v-col align-self="start" class="pa-0" cols="12">
-                  <v-avatar class="profile" color="grey" size="164" tile>
-                    <v-img
-                      src="https://avatars.githubusercontent.com/u/43791325?s=460&u=1676d13c2b41915647bbdf66170daf6b27a081f7&v=4"
-                    ></v-img>
-                  </v-avatar>
-                </v-col>
-                <v-col class="py-0">
-                  <v-list-item color="rgba(0, 0, 0, .4)" dark>
-                    <v-list-item-content>
-                      <v-list-item-title class="title">Raju Ahmed</v-list-item-title>
-                      <v-list-item-subtitle>Jr. Software Engineer</v-list-item-subtitle>
-                    </v-list-item-content>
-                  </v-list-item>
-                </v-col>
-              </v-row>
-            </v-img>
-          </v-card>
-        </v-col>
-      </v-row>
+      <v-card color="teal darken-2" dark flat>
+        <v-responsive class="p-4">
+          <v-avatar size="150" class="ma-3">
+            <img
+              src="https://avatars.githubusercontent.com/u/43791325?s=460&u=1676d13c2b41915647bbdf66170daf6b27a081f7&v=4"
+              alt="alt"
+            />
+          </v-avatar>
+        </v-responsive>
+        <div>
+          <v-card-title class="headline"> Raju Ahmed </v-card-title>
+          <v-card-subtitle> Jr. Software Engineer </v-card-subtitle>
+        </div>
+      </v-card>
+      <v-card>
+         <v-responsive class="pt-4">
+           <v-card-title primary-title>
+             Details Here
+           </v-card-title>
+         </v-responsive>
+      </v-card>
+       
       <v-divider></v-divider>
 
       <!-- info tables -->
       <template>
-        <v-card class="mx-auto mt-4" >
-          <v-card-subtitle class="font-weight-bold mb-0 pb-0 pl-0 mt-4 h-3 text-center ">
+        <v-card class="mx-auto mt-4">
+          <v-card-subtitle
+            class="font-weight-bold mb-0 pb-0 pl-0 mt-4 h-3 text-center"
+          >
             <h4>Personal Information</h4>
           </v-card-subtitle>
-          <v-row class="d-flex justify-space-between">
-            <v-col cols="6" md="6" sm="12">
-              <v-list-item>
-                <v-list-item-content>
-                  <v-list-item-title-subtitle>
-                    <h5>Full Name: </h5>
-                  </v-list-item-title-subtitle>
-                </v-list-item-content>
-              </v-list-item>
-
-              <v-list-item>
-                <v-list-item-content>
-                  <v-list-item-title-subtitle>
-                    <h5>Preferred Nickname: </h5>
-                  </v-list-item-title-subtitle>
-                </v-list-item-content>
-              </v-list-item>
-
-              <v-list-item>
-                <v-list-item-content>
-                  <v-list-item-title>
-                    <h5>Date Of Birthday: </h5>
-                  </v-list-item-title>
-                </v-list-item-content>
-              </v-list-item>
-
-              <v-list-item>
-                <v-list-item-content>
-                  <v-list-item-title>
-                    <h5>Father's Name: </h5>
-                  </v-list-item-title>
-                </v-list-item-content>
-              </v-list-item>
-
-              <v-list-item>
-                <v-list-item-content>
-                  <v-list-item-title>
-                    <h5>Mother's Name: </h5>
-                  </v-list-item-title>
-                </v-list-item-content>
-              </v-list-item>
-
-              <v-list-item>
-                <v-list-item-content>
-                  <v-list-item-title>
-                    <h5>Marital Status: </h5>
-                  </v-list-item-title>
-                </v-list-item-content>
-              </v-list-item>
-
-              <v-list-item>
-                <v-list-item-content>
-                  <v-list-item-title>
-                    <h5>Spouse Name: </h5>
-                  </v-list-item-title>
-                </v-list-item-content>
-              </v-list-item>
-            </v-col>
-            <v-col cols="6" md="6" sm="12">
-              <v-list-item>
-                <v-list-item-content>
-                  <v-list-item-title>
-                    <h5>Number of Dependents:</h5>
-                  </v-list-item-title>
-                </v-list-item-content>
-              </v-list-item>
-              <v-list-item>
-                <v-list-item-content>
-                  <v-list-item-title>
-                    <h5>NID:</h5>
-                  </v-list-item-title>
-                </v-list-item-content>
-              </v-list-item>
-              <v-list-item>
-                <v-list-item-content>
-                  <v-list-item-title>
-                    <h5>Pasport No.:</h5>
-                  </v-list-item-title>
-                </v-list-item-content>
-              </v-list-item>
-              <v-list-item>
-                <v-list-item-content>
-                  <v-list-item-title>
-                    <h5>Gender:</h5>
-                  </v-list-item-title>
-                </v-list-item-content>
-              </v-list-item>
-              <v-list-item>
-                <v-list-item-content>
-                  <v-list-item-title>
-                    <h5>Religion:</h5>
-                  </v-list-item-title>
-                </v-list-item-content>
-              </v-list-item>
-              <v-list-item>
-                <v-list-item-content>
-                  <v-list-item-title>
-                    <h5>Nationality:</h5>
-                  </v-list-item-title>
-                </v-list-item-content>
-              </v-list-item>
-              <v-list-item>
-                <v-list-item-content>
-                  <v-list-item-title>
-                    <h5>Blood Group:</h5>
-                  </v-list-item-title>
-                </v-list-item-content>
-              </v-list-item>
-            </v-col>
-          </v-row>
+          <v-card-text>
+            <v-row class="d-flex justify-space-between">
+              <v-col
+                cols="6"
+                md="6"
+                sm="12"
+                v-for="(item, index) in title"
+                :key="index"
+              >
+                <v-list-item>
+                  <v-list-item-content>
+                    <v-list-item-title>
+                      <h5>{{ item }}:</h5>
+                    </v-list-item-title>
+                  </v-list-item-content>
+                </v-list-item>
+              </v-col>
+            </v-row>
+          </v-card-text>
         </v-card>
       </template>
 
@@ -182,25 +60,28 @@
         <v-card class="mx-auto mt-10" tile>
           <v-card-subtitle
             class="font-weight-bold mb-0 pb-0 pl-0 mt-4 h-3 text-center"
-          ><h4>Employee Information</h4></v-card-subtitle>
+            ><h4>Employee Information</h4></v-card-subtitle
+          >
 
           <v-row class="d-flex justify-space-around">
             <v-col cols="6" md="6" sm="12">
               <v-list-item>
                 <v-list-item-content>
-                  <v-list-item-title><h5>EMP ID: </h5></v-list-item-title>
+                  <v-list-item-title><h5>EMP ID:</h5></v-list-item-title>
                 </v-list-item-content>
               </v-list-item>
 
               <v-list-item>
                 <v-list-item-content>
-                  <v-list-item-title><h5>Department: </h5></v-list-item-title>
+                  <v-list-item-title><h5>Department:</h5></v-list-item-title>
                 </v-list-item-content>
               </v-list-item>
 
               <v-list-item>
                 <v-list-item-content>
-                  <v-list-item-title><h5>Designation: Developer</h5></v-list-item-title>
+                  <v-list-item-title
+                    ><h5>Designation: Developer</h5></v-list-item-title
+                  >
                 </v-list-item-content>
               </v-list-item>
 
@@ -237,7 +118,9 @@
               </v-list-item>
               <v-list-item>
                 <v-list-item-content>
-                  <v-list-item-title><h5>Employment Type:</h5></v-list-item-title>
+                  <v-list-item-title
+                    ><h5>Employment Type:</h5></v-list-item-title
+                  >
                 </v-list-item-content>
               </v-list-item>
               <v-list-item>
@@ -265,7 +148,10 @@
       </template>
 
       <template>
-        <v-card-subtitle v-text="`Education`" class="font-weight-bold mb-0 pb-0 pl-0 text-center"></v-card-subtitle>
+        <v-card-subtitle
+          v-text="`Education`"
+          class="font-weight-bold mb-0 pb-0 pl-0 text-center"
+        ></v-card-subtitle>
         <v-divider class="mt-0 mb-4"></v-divider>
         <v-data-table
           :headers="educationHeaders"
@@ -337,6 +223,22 @@
 export default {
   data() {
     return {
+      title: [
+        "Full Name",
+        "Preferred Nickname",
+        "Date Of Birth",
+        "Father's Name",
+        "Mother's Name",
+        "Marital Status",
+        "Spouse Name",
+        "Number of Dependents",
+        "NID",
+        "Pasport No.",
+        "Gender",
+        "Religion",
+        "Nationality",
+        "Blood Group",
+      ],
       workHeaders: [
         {
           text: "Company Name",

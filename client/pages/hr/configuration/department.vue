@@ -31,8 +31,7 @@
                       <v-text-field
                         v-model="department.title"
                         label="Department Name"
-                        :rules="[required('title')]"
-                        
+                        :rules="[required('title')]"   
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="6">
@@ -125,7 +124,6 @@ export default {
       { text: "Department Name", value: "title" },
       { text: "Code", value: "code" },
       { text: "Remark", value: "remark" },
-
       { text: "Actions", value: "actions", sortable: false },
     ],
     

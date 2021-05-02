@@ -6,15 +6,19 @@
       :clipped="clipped"
       fixed
       app
+      dark
+      color="teal darken-2"
     >
-      <v-list dense expand nav>
+    
+      <v-list dense expand nav rounded>
         <!-- ENTIRE list is wrapped in a template -->
         <template v-for="(item, i) in routes">
           <!-- use v-if to determine if 2nd level nesting is needed -->
           <!-- if it's a menu item with no children -->
+         
           <v-list-item
             v-if="!item.children"
-            color="indigo"
+            color="white"
             :key="`subheader-${i}`"
             :to="item.path"
           >
@@ -23,12 +27,13 @@
             </v-list-item-icon>
             <v-list-item-title>{{ item.name }}</v-list-item-title>
           </v-list-item>
+       
           <!-- else if it has children -->
           <v-list-group
             v-else
             :group="item.path"
             :key="item.name"
-            color="indigo"
+            color="white"
           >
             <!-- this template is for the title of top-level items with children -->
             <template #activator>
@@ -60,7 +65,7 @@
               <v-list-group
                 v-else
                 :key="subItem.name"
-                color="indigo"
+                color="white"
                 :group="subItem.path"
                 sub-group
               >
@@ -75,7 +80,7 @@
                 <template v-for="(subSubItem, k) in subItem.children">
                   <v-list-item
                     :key="`subheader-${k}`"
-                    color="indigo"
+                    color="white"
                     :value="true"
                     :to="subSubItem.path"
                   >
@@ -90,6 +95,7 @@
           </v-list-group>
         </template>
       </v-list>
+     
     </v-navigation-drawer>
   </div>
 </template>
@@ -144,13 +150,6 @@ export default {
                     icon: "file-document",
                   },
                 },
-                // {
-                //   name: "Gender",
-                //   path: "/hr/gender",
-                //   meta: {
-                //     icon: "account-supervisor"
-                //   }
-                // },
                 {
                   name: "Confirmation Rule",
                   path: "/hr/configuration/rule",
@@ -232,17 +231,76 @@ export default {
             },
           ],
         },
+        {
+          name: "Leave Management",
+          meta: {
+            icon: "account-settings",
+          },
+          children: [
+            {
+                  name: "Dashboard",
+                  path: "/leave/leaveDashboard",
+                  meta: {
+                    icon: "view-dashboard-variant",
+                  },
+                },
+                {
+                  name: "Leave Application",
+                  path: "/leave/leaveApplication",
+                  meta: {
+                    icon: "application",
+                  },
+                },
+                {
+                  name: "Leave Profile",
+                  path: "/leave/leaveProfile",
+                  meta: {
+                    icon: "account-clock",
+                  },
+                },
+                {
+                  name: "Leave Report",
+                  path: "/leave/leaveReport",
+                  meta: {
+                    icon: "file-chart",
+                  },
+                },
+            {
+              name: "Configuration",
+              meta: {
+                icon: "tune",
+              },
+              children: [
+                {
+                  name: "Leave Category",
+                  path: "/leave/configuration/leaveCategory",
+                  meta: {
+                    icon: "shape",
+                  },
+                },
+                {
+                  name: "Holidays",
+                  path: "/leave/configuration/holidays",
+                  meta: {
+                    icon: "beach",
+                  },
+                },
+                
+              ],
+            },
+          ],
+        },
       ],
     }
   },
   mounted() {
-    this.$bus.$on("toggleDrawer", drawer => {
+    this.$bus.$on("toggleDrawer", (drawer) => {
       this.drawer = drawer
     })
-    this.$bus.$on("toggleMiniVariant", miniVariant => {
+    this.$bus.$on("toggleMiniVariant", (miniVariant) => {
       this.miniVariant = miniVariant
     })
-    this.$bus.$on("toggleClipped", clipped => {
+    this.$bus.$on("toggleClipped", (clipped) => {
       this.clipped = clipped
     })
   },

@@ -5,7 +5,7 @@
         <template v-slot:top>
           <v-toolbar flat>
             <v-toolbar-title class="d-flex align-center">
-              <v-icon color="teal darken-2">mdi-database</v-icon> Master
+              <v-icon color="teal darken-2">mdi-database</v-icon> Employee
               Database</v-toolbar-title
             >
             <v-divider class="mx-4" inset vertical></v-divider>
@@ -1316,7 +1316,7 @@ export default {
       nationality: "",
       bloodGroup: "",
     },
-    maritalItems: ["single", "married", "devorced"],
+    maritalItems: ["single", "married", "divorced"],
     depedentNumber: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
     required(propertyType){
        return v => !!v || `${propertyType} is required` 
